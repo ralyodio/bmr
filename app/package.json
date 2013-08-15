@@ -1,4 +1,9 @@
 {
-    "name": "bmr",
-    "main": "index.html"
+  "name": "bmr",
+  "description": "Bmr - the Bitmessage reader",
+  "version": "0.0.1",
+  "main": "index.html",
+  "dependencies": {
+    "handlebars": "~1.0.12"
+  }
 }
