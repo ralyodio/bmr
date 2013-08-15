@@ -1,4 +1,4 @@
-bmr
+Bmr - The Bitmessage reader
 ===
 
-Bitmessage client
+Bmr (pronounced "beamer") is a Bitmessage client written node.js using the node-webkit desktop application framework.
