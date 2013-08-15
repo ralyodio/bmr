@@ -3,7 +3,9 @@
   "description": "Bmr - the Bitmessage reader",
   "version": "0.0.1",
   "main": "index.html",
+  "author": "Anthony Ettinger (chovy)",
   "dependencies": {
-    "handlebars": "~1.0.12"
-  }
+    "bitmessage-node": "chovy/bitmessage-node"
+  },
+  "node-remote": "<local>"
 }

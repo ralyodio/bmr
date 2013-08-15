@@ -1,0 +1,27 @@
+body {
+    font-family: sans-serif;
+    max-width: 80%;
+    margin: 10% auto;
+}
+
+#login {
+}
+
+#inbox {
+    display: none;
+}
+
+#msg {
+    display: none;
+    border: 1px solid #ccc;
+}
+
+#msg.err {
+    border-color: #c00;
+    color: #f00;
+}
+
+#msg.ok {
+    border-color: #0c0;
+    color: #000;
+}
