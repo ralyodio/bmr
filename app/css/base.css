@@ -1,7 +1,15 @@
+.clearfix { *zoom: 1; }
+.clearfix:before, .clearfix:after {
+    display: table;
+    content: "";
+}
+.clearfix:after { clear: both; }
+
 body {
     font-family: sans-serif;
-    max-width: 80%;
-    margin: 10% auto;
+    font-size: 12px;
+    max-width: 90%;
+    margin: 20px auto;
 }
 
 #login {
@@ -14,14 +22,59 @@ body {
 #msg {
     display: none;
     border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
 #msg.err {
     border-color: #c00;
-    color: #f00;
+    color: #900;
+    background-color: #edd;
 }
 
 #msg.ok {
     border-color: #0c0;
-    color: #000;
+    color: #090;
+    background-color: #ded;
 }
+
+table {
+    widows: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    border: 1px solid #666;
+    font-weight: bold;
+    color: #fff;
+    background-color: #666;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+th.no-sort { cursor: default; }
+/*
+th:first-child { border-top-left-radius: 5px; }
+th:last-child { border-top-right-radius: 5px; }
+tr:last-child td:first-child { border-bottom-left-radius: 5px; }
+tr:last-child td:last-child { border-bottom-right-radius: 5px; }
+*/
+th.asc:after { content: ' ▲'; }
+th.desc:after { content: ' ▼'; }
+
+tbody tr:nth-child(even) {
+    background-color: #f5f6f6;
+}
+
+form { margin: 10px auto; }
+label { display: inline-block; }
+fieldset { border: 1px solid #ddd; margin-bottom: 10px; border-radius: 5px; }
+fieldset input { width: 50%; }
+form#login input[type=submit] { float: right; }
+form#login { max-width: 50%; margin: 0 auto; }
+form#login label { min-width: 25%; }

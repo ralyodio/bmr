@@ -2,25 +2,42 @@
 <html>
 <head>
     <title>Bmr - the Bitmessage reader</title>
-    <link rel="stylesheet" href="css/base.css">
-    <script src="js/jquery-2.0.3.min.js"></script>
-    <script src="js/app.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/base.css">
+    <script src="/js/jquery-2.0.3.min.js"></script>
+    <script src="/js/underscore-min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/app.js"></script>
 </head>
 <body>
 <div id="msg"></div>
-<form id="login">
+<form id="login" class="clearfix">
     <fieldset>
-        <legend>Login</legend>
-        <p><lablel>Username</lablel> <input type="text" name="user" value="bradley"></p>
-        <p><lablel>Password</lablel> <input type="password" name="pass" value="manning"></p>
-        <p><lablel>Host</lablel> <input type="text" name="host" value="localhost"></p>
-        <p><lablel>Port</lablel> <input type="port" name="port" value="8442"></p>
+        <p><label>Username</label> <input type="text" name="user" value="bradley"></p>
+        <p><label>Password</label> <input type="password" name="pass" value="manning"></p>
+        <p><label>Host</label> <input type="text" name="host" value="localhost"></p>
+        <p><label>Port</label> <input type="port" name="port" value="8442"></p>
     </fieldset>
-
     <input type="submit" value="Login">
 </form>
 <section id="inbox">
     <h1>Inbox</h1>
+    <form id="inbox-action">
+        <select>
+            <option>Move to trash</option>
+        </select>
+        <input type="submit" value="Apply">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th class="no-sort"><label><input type="checkbox" name="mark-all"></label></th>
+                <th>Subject</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 </section>
 </body>
 </html>
