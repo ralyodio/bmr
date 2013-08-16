@@ -22,18 +22,27 @@ ui = {
         var $cb = $table.find('thead [name=mark-all]')
             , $toCheck = $table.find('tbody td:first-child [type=checkbox]');
 
+        app.log('markAll');
         $cb.on('click', function(e){
             var $cb = $(e.target)
                 , isChecked = $cb.is(':checked');
 
-            app.log($cb);
+            app.log(e);
             if ( e.metaKey ) {
                 //invert checked boxes
-                $.each($toCheck, function(i, cb){
-                    cb.checked = !cb.checked;
+                $.each($toCheck, function(i, _cb){
+                    var $_cb = $(_cb)
+                        , $_tr = $_cb.parents('tr')
+                        , _oppChecked = !$_cb.is(':checked');
+
+                    $_cb.prop('checked', _oppChecked);
+                    $_tr[( _oppChecked ? 'addClass' : 'removeClass' )]('highlight');
+
+                    //cb.checked = !cb.checked;
                 })
             } else {
                 $toCheck.prop('checked', isChecked);
+                $toCheck.parents('tr')[( isChecked ? 'addClass' : 'removeClass' )]('highlight');
             }
         });
     },
@@ -44,7 +53,8 @@ ui = {
 
         $cbs.on('click', function(e){
             var start = null
-                , end = null;
+                , end = null
+                , $checked;
 
             if ( !lastChecked ) {
                 lastChecked = this;
@@ -55,10 +65,24 @@ ui = {
                 start = $cbs.index(this);
                 end = $cbs.index(lastChecked);
 
-                $cbs.slice(Math.min(start, end), Math.max(start, end)+1).prop('checked', lastChecked.checked);
+                $checked = $cbs.slice(Math.min(start, end), Math.max(start, end)+1);
+                $checked.prop('checked', lastChecked.checked);
+                $checked.parents('tr')[( lastChecked.checked ? 'addClass' : 'removeClass' )]('highlight');
             }
 
             lastChecked = this;
+        });
+    },
+
+    checkItem: function($table){
+        var $cbs = $table.find('tbody td:first-child [type=checkbox]');
+
+        $cbs.on('click', function(e){
+           var $cb = $(e.target)
+               , $row = $cb.parents('tr')
+               , isChecked = $cb.is(':checked');
+
+            $row[( isChecked ? 'addClass' : 'removeClass' )]('highlight');
         });
     },
 
@@ -87,20 +111,20 @@ ui = {
                 aVal = $a.attr('data-sort').toLowerCase();
                 bVal = $b.attr('data-sort').toLowerCase();
 
+                if ( dir === 'desc' ) {
+                    return aVal < bVal ? 1 : ( aVal > bVal ? -1 : 0);
+                }
+
                 return aVal < bVal ? -1 : ( aVal > bVal ? 1 : 0);
+                //return bVal - aVal;
             });
 
             $th.removeClass('asc desc');
             $th.siblings().removeClass('asc desc');
             $th.addClass(dir);
-
-            if ( dir === 'desc' ) {
-                $rows.reverse();
-            }
-
             $tbody.html($rows);
-            ui.markAll($table);
             ui.shiftCheck($table);
+            ui.checkItem($table);
         });
     }
 };
@@ -134,6 +158,7 @@ app.showInbox = function(msgs){
     ui.markAll($table);
     ui.shiftCheck($table);
     ui.sortTable($table);
+    ui.checkItem($table);
 
     $inbox.fadeIn();
 };

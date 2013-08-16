@@ -12,8 +12,7 @@ body {
     margin: 20px auto;
 }
 
-#login {
-}
+#logo { font-weight: bold; font-size: 26px; margin-bottom: 20px; text-align: center; }
 
 #inbox {
     display: none;
@@ -70,6 +69,8 @@ th.desc:after { content: ' ▼'; }
 tbody tr:nth-child(even) {
     background-color: #f5f6f6;
 }
+
+tbody tr.highlight { background: #eef; }
 
 form { margin: 10px auto; }
 label { display: inline-block; }
