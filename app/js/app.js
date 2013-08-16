@@ -144,11 +144,12 @@ app.showInbox = function(msgs){
         , $tbody = $table.find("tbody");
 
     msgs.forEach(function(item, i){
-        var time = item.receivedTime;
+        var time = item.receivedTime
+            id = item.msgid;
 
         $tbody.append(
-            '<tr>' +
-                '<td><input type="checkbox" name="mark" value="1"></td>' +
+            '<tr data-id="'+id+'">' +
+                '<td><input type="checkbox" name="mark" value="'+id+'"></td>' +
                 '<td data-sort="'+item.subject+'">'+item.subject+'</td>' +
                 '<td data-sort="'+moment(time).unix()+'"><span title="'+time+'">'+moment(time).fromNow()+'</span></td>' +
             '</tr>'
@@ -163,11 +164,18 @@ app.showInbox = function(msgs){
     $inbox.fadeIn();
 };
 
+app.moveToTrash = function($table, id){
+    var $row = $table.find('tbody tr[data-id='+id+']');
+
+    $row.fadeOut(800);
+};
+
 (function($){
     $(function(){
         app.log('bmr ready...');
 
         $("#login").on('submit', login);
+        $("#inbox-action").on('submit', actionItem);
     });
 
     function login(e){
@@ -195,6 +203,21 @@ app.showInbox = function(msgs){
         });
     }
 
+    function actionItem(e){
+        e.preventDefault();
+
+        var $form = $(e.target)
+            , action = $form.find('option:selected').val()
+            , $table = $form.parents('section').find('table')
+            , $checked = $table.find('tbody td:first-child [type=checkbox]:checked');
+
+        if ( action === 'trash' ) {
+            $.each($checked, function(i, cb){
+                moveToTrash($table, cb.value);
+            });
+        }
+    }
+
     function getInbox(){
         try {
             app.conn.messages.inbox.list(function(msgs) {
@@ -210,6 +233,19 @@ app.showInbox = function(msgs){
         try {
             app.conn.messages.sent.list(function(msgs) {
                 app.log(msgs);
+            });
+        } catch (err){
+            app.log(err);
+        }
+    }
+
+    function moveToTrash($table, id){
+        app.log('moveToTrash: ', id);
+
+        try {
+            app.conn.messages.moveToTrash(id, function(msg) {
+                ui.ok(msg);
+                app.moveToTrash($table, id);
             });
         } catch (err){
             app.log(err);
