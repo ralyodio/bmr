@@ -9,7 +9,7 @@ Active development, no public release yet. Feel free to download, build and take
 
 ### Development
 
-You must already have PyMessage server running locally with api enabled. Find your keys.date file and add the following lines to the `[bitmessagesettings]` section:
+You must already have PyMessage server running locally with api enabled. Find your `keys.dat` file and add the following lines to the `[bitmessagesettings]` section:
 
     [bitmessagesettings]
     #...other config options
@@ -19,7 +19,7 @@ You must already have PyMessage server running locally with api enabled. Find yo
     apiusername = edward
     apipassword = 5n0wd3n
 
-You first need to install node-webkit on your system.
+You first need to [download and install node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
 
 To install, you need to clone the git repo:
 
