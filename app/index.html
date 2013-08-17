@@ -12,29 +12,40 @@
 <body>
 <div id="logo">Bmr - the Bitmessage reader</div>
 <div id="msg"></div>
+
+<header class="clearfix hide">
+    <nav>
+        <a href="#" class="inbox">Inbox <span class="total">-</span></a>
+        <a href="#" class="sent">Sent</a>
+    </nav>
+    <div><a href="http://bmr.io">Bmr.io [?]</a></div>
+</header>
+
 <form id="login" class="clearfix">
     <fieldset>
         <p><label>Username</label> <input type="text" name="user" value="bradley"></p>
         <p><label>Password</label> <input type="password" name="pass" value="manning"></p>
-        <p><label>Host</label> <input type="text" name="host" value="localhost"></p>
-        <p><label>Port</label> <input type="port" name="port" value="8442"></p>
+        <p><label>Host</label> <input type="text" name="host" value="chovy.dyndns.org"></p>
+        <p><label>Port</label> <input type="port" name="port" value="9442"></p>
     </fieldset>
     <input type="submit" value="Login">
 </form>
+
 <section id="inbox">
-    <h1>Inbox</h1>
-    <form id="inbox-action">
-        <select>
-            <option>Move to trash</option>
-        </select>
-        <input type="submit" value="Apply">
-    </form>
     <table>
+        <caption>
+            <form id="inbox-action">
+                <select>
+                    <option value="trash">Move to trash</option>
+                </select>
+                <input type="submit" value="Apply">
+            </form>
+        </caption>
         <thead>
             <tr>
                 <th class="no-sort"><label><input type="checkbox" name="mark-all"></label></th>
                 <th>Subject</th>
-                <th>Date</th>
+                <th class="date">Date</th>
             </tr>
         </thead>
         <tbody></tbody>
