@@ -16,17 +16,20 @@
 <header class="clearfix hide">
     <nav>
         <a href="#" class="inbox">Inbox <span class="total">-</span></a>
+        <a href="#" class="compose">Compose</a>
         <a href="#" class="sent">Sent</a>
+        <a href="#" class="identities">Identities</a>
+        <a href="#" class="subscriptions">Subscriptions</a>
     </nav>
-    <div><a href="http://bmr.io">Bmr.io [?]</a></div>
+    <div><a href="http://bmr.io">[?]</a></div>
 </header>
 
 <form id="login" class="clearfix">
     <fieldset>
-        <p><label>Username</label> <input type="text" name="user" value=""></p>
-        <p><label>Password</label> <input type="password" name="pass" value=""></p>
-        <p><label>Host</label> <input type="text" name="host" value="localhost"></p>
-        <p><label>Port</label> <input type="port" name="port" value="8442"></p>
+        <p><label>Username</label> <input type="text" name="user" value="michael"></p>
+        <p><label>Password</label> <input type="password" name="pass" value="hastings"></p>
+        <p><label>Host</label> <input type="text" name="host" value="192.168.1.64"></p>
+        <p><label>Port</label> <input type="port" name="port" value="9442"></p>
     </fieldset>
     <input type="submit" value="Login">
 </form>
@@ -44,6 +47,8 @@
         <thead>
             <tr>
                 <th class="no-sort"><label><input type="checkbox" name="mark-all"></label></th>
+                <th>From</th>
+                <th>To</th>
                 <th>Subject</th>
                 <th class="date">Date</th>
             </tr>

@@ -14,7 +14,11 @@ ui = {
 
     hideMsg: function(){
         setTimeout(function(){
-            $("#msg").hide().removeClass('ok err').html('');
+            $("#msg").fadeTo(800, .1, function(){
+              $(this).slideUp(function(){
+                  $(this).removeClass('ok err').html('');
+              });
+            });
         }, 5000);
     },
 
@@ -146,12 +150,18 @@ app.showInbox = function(msgs){
 
     msgs.forEach(function(item, i){
         var time = item.receivedTime
-            id = item.msgid;
+            , from = item.fromAddress
+            , to = item.toAddress
+            , id = item.msgid;
+
+        app.log(item);
 
         $tbody.append(
             '<tr data-id="'+id+'">' +
                 '<td><input type="checkbox" name="mark" value="'+id+'"></td>' +
-                '<td data-sort="'+item.subject+'">'+item.subject+'</td>' +
+                '<td data-sort="'+from+'"><span class="nowrap" data-from="'+from+'">'+from+'</span></td>' +
+                '<td data-sort="'+to+'"><span class="nowrap" data-to="'+to+'">'+to+'</span></td>' +
+                '<td data-sort="'+item.subject+'"><span>'+item.subject+'</span></td>' +
                 '<td class="nowrap" data-sort="'+moment(time).unix()+'"><span title="'+time+'">'+moment(time).fromNow()+'</span></td>' +
             '</tr>'
         );
