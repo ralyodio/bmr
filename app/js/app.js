@@ -141,6 +141,7 @@ app.log = function(){
 app.showInbox = function(msgs){
     var $inbox = $("#inbox")
         , $table = $inbox.find('table')
+        , $total = $('a.inbox .total')
         , $tbody = $table.find("tbody");
 
     msgs.forEach(function(item, i){
@@ -151,7 +152,7 @@ app.showInbox = function(msgs){
             '<tr data-id="'+id+'">' +
                 '<td><input type="checkbox" name="mark" value="'+id+'"></td>' +
                 '<td data-sort="'+item.subject+'">'+item.subject+'</td>' +
-                '<td data-sort="'+moment(time).unix()+'"><span title="'+time+'">'+moment(time).fromNow()+'</span></td>' +
+                '<td class="nowrap" data-sort="'+moment(time).unix()+'"><span title="'+time+'">'+moment(time).fromNow()+'</span></td>' +
             '</tr>'
         );
     });
@@ -161,6 +162,7 @@ app.showInbox = function(msgs){
     ui.sortTable($table);
     ui.checkItem($table);
 
+    $total.text(msgs.length);
     $inbox.fadeIn();
 };
 
@@ -199,6 +201,8 @@ app.moveToTrash = function($table, id){
 
         $("#login").fadeOut(function(){
             getInbox();
+            $("body > header").show();
+            $("a.inbox").addClass('active');
             $("#inbox").fadeIn();
         });
     }
