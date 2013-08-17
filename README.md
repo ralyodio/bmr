@@ -9,7 +9,13 @@ Active development, no public release yet. Feel free to download, build and take
 
 ### Development
 
-You must already have PyMessage server running locally with api enabled.
+You must already have PyMessage server running locally with api enabled. Find your keys.date file and add the following lines to the [settings] section:
+
+    apienabled = true
+    apiport = 8442
+    apiinterface = 0.0.0.0
+    apiusername = edward
+    apipassword = 5n0wd3n
 
 You first need to install node-webkit on your system.
 
