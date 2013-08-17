@@ -3,6 +3,8 @@ var ui = window.ui || {};
 
 //ui methods
 ui = {
+    globals: {},
+
     error: function(m){
         $("#msg").addClass('err').html(m).fadeIn();
     },
@@ -16,7 +18,7 @@ ui = {
         setTimeout(function(){
             $("#msg").fadeTo(800, .1, function(){
               $(this).slideUp(function(){
-                  $(this).removeClass('ok err').html('');
+                  $(this).removeClass('ok err').html('').css({ opacity: 1});
               });
             });
         }, 5000);
@@ -51,31 +53,43 @@ ui = {
         });
     },
 
-    shiftCheck: function($table){
-        var lastChecked = null
-            , $cbs = $table.find('tbody td:first-child [type=checkbox]');
+    shiftCheck: {
+        lastChecked: null,
 
-        $cbs.on('click', function(e){
-            var start = null
-                , end = null
-                , $checked;
+        init: function($table) {
+            var $cbs = $table.find('tbody td:first-child [type=checkbox]');
 
-            if ( !lastChecked ) {
-                lastChecked = this;
-                return;
-            }
+            this.reset();
 
-            if ( e.shiftKey ) {
-                start = $cbs.index(this);
-                end = $cbs.index(lastChecked);
+            $cbs.on('click', function(e){
+                var start = null
+                    , end = null
+                    , _this = e.currentTarget
+                    , $_cbs = $table.find('tbody td:first-child [type=checkbox]') //get the re-ordered list
+                    , $checked;
 
-                $checked = $cbs.slice(Math.min(start, end), Math.max(start, end)+1);
-                $checked.prop('checked', lastChecked.checked);
-                $checked.parents('tr')[( lastChecked.checked ? 'addClass' : 'removeClass' )]('highlight');
-            }
+                if ( !this.lastChecked ) {
+                    this.lastChecked = _this;
+                    return;
+                }
 
-            lastChecked = this;
-        });
+                if ( e.shiftKey ) {
+                    start = $_cbs.index(_this);
+                    end = $_cbs.index(this.lastChecked);
+
+                    //grab the boxes to auto-check
+                    $checked = $_cbs.slice(Math.min(start, end), Math.max(start, end)+1);
+                    $checked.prop('checked', this.lastChecked.checked);
+                    $checked.parents('tr')[( this.lastChecked.checked ? 'addClass' : 'removeClass' )]('highlight');
+                }
+
+                this.lastChecked = _this;
+            }.bind(this));
+        },
+
+        reset: function(){
+            this.lastChecked = null;
+        }
     },
 
     checkItem: function($table){
@@ -126,9 +140,8 @@ ui = {
             $th.removeClass('asc desc');
             $th.siblings().removeClass('asc desc');
             $th.addClass(dir);
-            $tbody.html($rows);
-            ui.shiftCheck($table);
-            ui.checkItem($table);
+            $tbody.append($rows); //existing rows get re-ordered w/o loosing events
+            ui.shiftCheck.reset();
         });
     }
 };
@@ -148,6 +161,7 @@ app.showInbox = function(msgs){
         , $total = $('a.inbox .total')
         , $tbody = $table.find("tbody");
 
+    //msgs = msgs.slice(0, 10);
     msgs.forEach(function(item, i){
         var time = item.receivedTime
             , from = item.fromAddress
@@ -167,8 +181,9 @@ app.showInbox = function(msgs){
         );
     });
 
+    //initialize events for the table
     ui.markAll($table);
-    ui.shiftCheck($table);
+    ui.shiftCheck.init($table);
     ui.sortTable($table);
     ui.checkItem($table);
 
@@ -209,11 +224,14 @@ app.moveToTrash = function($table, id){
 
         ui.ok('Successfully connected to API');
 
-        $("#login").fadeOut(function(){
-            getInbox();
-            $("body > header").show();
-            $("a.inbox").addClass('active');
-            $("#inbox").fadeIn();
+        $("#login").hide({
+            duration: 0,
+            complete: function(){
+                getInbox();
+                //these could be moved to getInbox + spinner
+                $("body > header").show();
+                $("a.inbox").addClass('active');
+            }
         });
     }
 
