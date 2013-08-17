@@ -9,7 +9,17 @@ Active development, no public release yet. Feel free to download, build and take
 
 ### Development
 
-You must already have PyMessage server running locally with api enabled. Find your `keys.dat` file and add the following lines to the `[bitmessagesettings]` section:
+
+#### Bitmessage PyMessage (server)
+
+You must already have the Bitmessage [PyMessage](https://github.com/Bitmessage/PyBitmessage) server API running locally with api enabled (see the instructions for [installation](https://bitmessage.org/wiki/Compiling_instructions)).
+
+Find your `keys.dat` file:
+
+    ~/.config/PyMessage/keys.dat on Linux
+    ~/Library/Application Support/PyBitmessage/keys.dat on Mac
+
+Add the following lines to the bottom of the `[bitmessagesettings]` section:
 
     [bitmessagesettings]
     #...other config options
@@ -19,9 +29,13 @@ You must already have PyMessage server running locally with api enabled. Find yo
     apiusername = edward
     apipassword = 5n0wd3n
 
-You first need to [download and install node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
+If you want to run in Daemon mode without the PyMessage client, add `daemon = true` to `[bitmessagesettings]`.
 
-To install, you need to clone the git repo:
+#### Bmr (client)
+
+To run Bmr, you first need to [download and install node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
+
+To install Bmr, you need to clone the git repository:
 
     git clone https://github.com/chovy/bmr.git
     cd ./bmr
@@ -38,5 +52,4 @@ Or do both at once:
 
     ./build && ./start
 
-I've only tested with MacOS 10.8.4 so far, but these steps should work for Linux too.
-
+I've only tested with MacOS 10.8.4 so far, but these steps should work for Linux too. If anyone can get this to work on Windows, let me the know the steps and I'll add them here.
