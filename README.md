@@ -1,4 +1,4 @@
-![Bmr](/app/img/logo-sm.png) Bmr - the Bitmessage reader
+![Bmr](/app/img/logo.png) Bmr - the Bitmessage reader
 ===
 
 Bmr, pronounced "beamer", is a Bitmessage client written in [node.js](http://nodejs.org) using the [node-webkit](https://github.com/rogerwang/node-webkit/) desktop application framework. It is a self-contained Bitmessage client for reading messages that you can run on your desktop and connect to your Bitmessage server.
@@ -54,5 +54,5 @@ Or run both at once:
 
     ./build && ./start
 
-I've only tested with MacOS 10.8.4 so far, but these steps should work for Linux too.
-If anyone can get this to work on Windows, let me the know the steps and I'll add them here. Once the app stablizes and basic functionality is working I will build packages to download and install.
+Bmr has been tested with MacOS 10.8.4 so far, but these steps should work for Linux too.
+If anyone can get this to work on Windows, let me know the steps and I'll add them here. Once the app stablizes and basic functionality is working I will build packages to download and install.
