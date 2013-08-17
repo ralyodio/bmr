@@ -28,7 +28,19 @@ a.refresh:before { content: '↻ '; }
 a.sent:before { content: '⇧ '; }
 a.inbox:before { content: ' ⇧'; display: inline-block; position: relative; -webkit-transform: rotate(180deg); left: -2px; }
 
-#logo { font-weight: bold; font-size: 26px; margin-bottom: 20px; text-align: center; }
+#logo {
+    font-weight: bold;
+    font-size: 26px;
+    margin: 0 auto 20px;
+    text-align: left;
+    background: url(/img/logo.png) no-repeat 0 0;
+    padding-left: 140px;
+    height: 95px;
+    line-height: 95px;
+    width: 315px;
+}
+
+#logo small { font-weight: normal; }
 
 #inbox {
     display: none;
