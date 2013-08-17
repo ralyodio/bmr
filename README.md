@@ -3,12 +3,11 @@ Bmr - the Bitmessage reader
 
 Bmr (pronounced "beamer") is a Bitmessage client written in [node.js](http://nodejs.org) using the [node-webkit](https://github.com/rogerwang/node-webkit/) desktop application framework.
 
-### Status
+### Development Status
 
-Active development, no public release yet. Feel free to download, build and take a look.
+Bmr is in active development, however there is no public package release yet. Feel free to download, build and take a look as it progresses.
 
-### Development
-
+### Installation
 
 #### Bitmessage PyMessage (server)
 
