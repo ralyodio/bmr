@@ -1,4 +1,4 @@
-![Bmr](/app/img/logo.png) Bmr - the Bitmessage reader
+![Bmr](/app/img/logo-sm.png) Bmr - the Bitmessage reader
 ===
 
 Bmr, pronounced "beamer", is a Bitmessage client written in [node.js](http://nodejs.org) using the [node-webkit](https://github.com/rogerwang/node-webkit/) desktop application framework. It is a self-contained Bitmessage client for reading messages that you can run on your desktop and connect to your Bitmessage server.
