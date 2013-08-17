@@ -16,8 +16,11 @@ You must already have the Bitmessage [PyMessage](https://github.com/Bitmessage/P
 
 Find your `keys.dat` file:
 
-    ~/.config/PyMessage/keys.dat on Linux
-    ~/Library/Application Support/PyBitmessage/keys.dat on Mac
+    # Linux
+    ~/.config/PyMessage/keys.dat
+
+    # Mac
+    ~/Library/Application Support/PyBitmessage/keys.dat
 
 Add the following lines to the bottom of the `[bitmessagesettings]` section:
 
@@ -29,7 +32,7 @@ Add the following lines to the bottom of the `[bitmessagesettings]` section:
     apiusername = edward
     apipassword = 5n0wd3n
 
-If you want to run in Daemon mode without the PyMessage client, add `daemon = true` to `[bitmessagesettings]`.
+If you want to run PyMessage in Daemon mode without the PyMessage client starting, add `daemon = true` to `[bitmessagesettings]`.
 
 #### Bmr (client)
 
@@ -48,8 +51,9 @@ Then run the ./start script (linux/mac):
 
     ./start
 
-Or do both at once:
+Or run both at once:
 
     ./build && ./start
 
-I've only tested with MacOS 10.8.4 so far, but these steps should work for Linux too. If anyone can get this to work on Windows, let me the know the steps and I'll add them here.
+I've only tested with MacOS 10.8.4 so far, but these steps should work for Linux too.
+If anyone can get this to work on Windows, let me the know the steps and I'll add them here.
