@@ -5,7 +5,7 @@ Bmr, pronounced "beamer", is a Bitmessage client written in [node.js](http://nod
 
 ### Development Status
 
-Bmr is in active development, however there is no public package release yet. Feel free to download, build and take a look as it progresses.
+Bmr is in active development, however there is no official package release yet. Feel free to download, build and take a look as it progresses.
 
 ### Installation
 
