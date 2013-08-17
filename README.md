@@ -55,4 +55,4 @@ Or run both at once:
     ./build && ./start
 
 Bmr has been tested with MacOS 10.8.4 so far, but these steps should work for Linux too.
-If anyone can get this to work on Windows, let me know the steps and I'll add them here. Once the app stablizes and basic functionality is working I will build packages to download and install.
+If anyone can get this to work on Windows, let me know the steps and I'll add them here. Once the app stabilizes and basic functionality is working I will build packages to download and install for each platform (linux, mac, windows).
