@@ -32,9 +32,9 @@ Add the following lines to the bottom of the `[bitmessagesettings]` section:
     apiusername = edward
     apipassword = 5n0wd3n
 
-If you want to run PyMessage in Daemon mode without the PyMessage client starting, add `daemon = true` to `[bitmessagesettings]`.
+If you want to run PyMessage in Daemon mode without the client starting, add `daemon = true` to `[bitmessagesettings]`.
 
-#### Bmr (client)
+#### Bmr (client -- this app)
 
 To run Bmr, you first need to [download and install node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
 
@@ -56,4 +56,4 @@ Or run both at once:
     ./build && ./start
 
 I've only tested with MacOS 10.8.4 so far, but these steps should work for Linux too.
-If anyone can get this to work on Windows, let me the know the steps and I'll add them here.
+If anyone can get this to work on Windows, let me the know the steps and I'll add them here. Once the app stablizes and basic functionality is working I will build packages to download and install.
