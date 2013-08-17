@@ -9,13 +9,26 @@ Active development, no public release yet. Feel free to download, build and take
 
 ### Development
 
-To install, you need to clone the git repo.
-
-Run the ./build script
-Then run the ./start script.
+You must already have PyMessage server running locally with api enabled.
 
 You first need to install node-webkit on your system.
 
-I've only tested with MacOS 10.8.4 so far.
+To install, you need to clone the git repo:
 
-You must already have PyMessage server running locally with api enabled.
+    git clone https://github.com/chovy/bmr.git
+    cd ./bmr
+
+Run the ./build script to build the node-webkit `bmr.nw` app:
+
+    ./build
+
+Then run the ./start script (linux/mac):
+
+    ./start
+
+Or do both at once:
+
+    ./build && ./start
+
+I've only tested with MacOS 10.8.4 so far, but these steps should work for Linux too.
+
