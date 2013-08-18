@@ -119,7 +119,7 @@ _.extend(app.inbox, {
 
         //close the open message if it has one
         if ( $openMsg.length ) {
-            $openMsg.fadeOut(800, function(){
+            $openMsg.fadeOut(600, function(){
                 $(this).remove();
             });
         }

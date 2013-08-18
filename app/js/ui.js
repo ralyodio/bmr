@@ -85,12 +85,12 @@ _.extend(ui, {
 
     hideMsg: function () {
         ui.timers.msg = setTimeout(function () {
-            $("#msg").fadeTo(800, .1, function () {
+            $("#msg").fadeTo(600, .1, function () {
                 $(this).slideUp(function () {
                     $(this).removeClass('ok err').html('').css({ opacity: 1});
                 });
             });
-        }, 5000);
+        }, 2500);
     },
 
     markAll: function ($table) {
