@@ -5,7 +5,6 @@
 }
 .clearfix:after { clear: both; }
 
-
 body {
     font-family: sans-serif;
     font-size: 12px;
@@ -104,6 +103,7 @@ th {
     padding: 5px 10px;
     cursor: pointer;
 }
+
 th.no-sort { cursor: default; }
 /*
 th:first-child { border-top-left-radius: 5px; }
@@ -116,11 +116,19 @@ th.desc:after { content: ' ▼'; }
 
 tbody { min-height: 100px; position: relative; }
 tbody:empty:before { content: 'Loading...'; color: #444; position: absolute; top: 50%; left: 50%; margin-left: -50px; font-size: 120%; }
-tbody tr:nth-child(even) {
+tbody tr:nth-child(even):not(.msg) {
     background-color: #f5f6f6;
 }
 
-tbody tr.highlight { background: #eef; }
+tbody tr.highlight { background: #eef !important; }
+
+td .subject { cursor: pointer; margin: 5px 0; }
+td .subject:hover { text-decoration: underline; }
+tr.msg .subject { text-decoration: underline; padding: 5px; }
+tr.msg .date, tr.msg .to, tr.msg .from { margin: 5px 0; padding: 0 5px; }
+tr.msg .to { color: #999; }
+tr.msg .message { font-family: monospace; white-space: pre-wrap; padding: 10px; }
+tr.msg [contenteditable]:focus { font-weight: normal; text-decoration: none; }
 
 form { margin: 10px auto; }
 label { display: inline-block; }
