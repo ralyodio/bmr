@@ -1,22 +1,33 @@
 var api = window.api || {};
 
 //api calls to backend
- _.extend(api, {
+_.extend(api, {
     conn: null,
 
-    getMessage: function(id, cb){
+    init: function (data, cb) {
+        if (this.conn) {
+            cb();
+            return;
+        }
+
+        this.auth(data, cb);
+    },
+
+    getMessage: function (id, cb) {
         app.log('getMessage ' + id);
         try {
             app.conn.messages.inbox.single(id, cb);
-        } catch ( err ) {
+        } catch (err) {
             app.log(err);
         }
     },
 
-    login: function(data, cb){
+    auth: function (data, cb) {
         app.log(data);
+
         try {
             app.conn = require('bitmessage-node')(data.host, data.port, data.user, data.pass);
+            app.log(app.conn);
             cb();
         } catch (err) {
             ui.err('Could not connect');
@@ -25,10 +36,10 @@ var api = window.api || {};
         }
     },
 
-    getInbox: function(){
+    getInbox: function () {
         try {
-            app.conn.messages.inbox.list(function(msgs) {
-                app.showInbox(msgs);
+            app.conn.messages.inbox.list(function (msgs) {
+                app.inbox.showInbox(msgs);
             });
         } catch (err) {
             app.log(err);
@@ -36,26 +47,32 @@ var api = window.api || {};
         }
     },
 
-    sentMessages: function(){
+    sentMessages: function () {
         try {
-            app.conn.messages.sent.list(function(msgs) {
+            app.conn.messages.sent.list(function (msgs) {
                 app.log(msgs);
             });
-        } catch (err){
+        } catch (err) {
             app.log(err);
         }
     },
 
-    moveToTrash: function($table, id){
+    moveToTrash: function ($table, id) {
         app.log('moveToTrash: ', id);
 
         try {
-            app.conn.messages.moveToTrash(id, function(msg) {
+            app.conn.messages.moveToTrash(id, function (msg) {
                 ui.ok(msg);
-                app.moveToTrash($table, id);
+                app.inbox.moveToTrash($table, id);
             });
-        } catch (err){
+        } catch (err) {
             app.log(err);
         }
+    },
+
+    destroy: function(){
+        this.conn = null;
+        ui.err('Disconnected from server');
+        app.log('Disconnected');
     }
 });

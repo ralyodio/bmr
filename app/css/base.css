@@ -18,12 +18,13 @@ h1 { margin-bottom: 0; }
 
 .nowrap { white-space: nowrap; }
 
-a { text-decoration: none;  }
+a { text-decoration: none; margin-right: 5px; }
 
 nav a { padding: 3px 7px; }
-nav a.active { background: #eef; border: 1px solid #ccf; border-radius: 3px; }
+nav.tabs a.active { background: #eef; border: 1px solid #ccf; border-radius: 3px; }
+header nav:nth-child(2) a { padding: 0; }
 
-nav a[class]:before { margin-right: 5px; }
+a[class]:before { margin-right: 5px; }
 a.refresh:before { content: '↻'; }
 a.inbox:before { content: '⇧'; display: inline-block; position: relative; -webkit-transform: rotate(180deg); margin-left: 5px; }
 a.compose:before { content: '✉'; font-size: 24px; position: relative; top: 4px; }
@@ -78,8 +79,8 @@ caption {
     padding: 5px 0;
 }
 
-header nav { float: left; }
-header > div { float: right; position: relative; top: 10px; }
+header nav:nth-child(1) { float: left; }
+header nav:nth-child(2) { float: right; position: relative; top: 10px; }
 
 .total:before { content: '('; }
 .total:after { content: ')'; }
@@ -134,8 +135,11 @@ form { margin: 10px auto; }
 label { display: inline-block; }
 fieldset { border: 1px solid #ddd; margin-bottom: 10px; border-radius: 5px; }
 fieldset input { width: 50%; }
-form#login input[type=submit] { float: right; }
-form#login { max-width: 50%; margin: 0 auto; }
+
+body.login { max-width: 75%; }
+body.login #msg { max-width: 62%; margin-left: auto; margin-right: auto; }
+form#login { max-width: 70%; margin: 0 auto; }
 form#login label { min-width: 25%; }
+form#login input[type=submit] { float: right; }
 
 

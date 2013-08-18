@@ -10,24 +10,28 @@
     <script src="/js/api.js"></script>
     <script src="/js/ui.js"></script>
     <script src="/js/app.js"></script>
-    <script src="/js/init.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/inbox.js"></script>
 </head>
 <body>
 <div id="logo">Bmr <small>- the Bitmessage reader</small></div>
 <div id="msg"></div>
 
 <header class="clearfix hide">
-    <nav>
-        <a href="#" class="inbox">Inbox <span class="total">-</span></a>
+    <nav class="tabs">
+        <a href="#inbox" class="inbox">Inbox <span class="total">-</span></a>
         <a href="#" class="compose">Compose</a>
         <a href="#" class="sent">Sent</a>
         <a href="#" class="identities">Identities</a>
         <a href="#" class="subscriptions">Subscriptions</a>
     </nav>
-    <div><a href="http://bmr.io">[?]</a></div>
+    <nav>
+        <a href="#logout">Logout</a>
+        <a href="http://bmr.io">[?]</a>
+    </nav>
 </header>
 
-<form id="login" class="clearfix">
+<form id="login" class="clearfix" method="post">
     <fieldset>
         <p><label>Username</label> <input type="text" name="user" value="michael"></p>
         <p><label>Password</label> <input type="password" name="pass" value="hastings"></p>
