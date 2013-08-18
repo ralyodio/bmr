@@ -16,7 +16,7 @@ _.extend(api, {
     getMessage: function (id, cb) {
         app.log('getMessage ' + id);
         try {
-            app.conn.messages.inbox.single(id, cb);
+            this.conn.messages.inbox.single(id, cb);
         } catch (err) {
             app.log(err);
         }
@@ -26,8 +26,8 @@ _.extend(api, {
         app.log(data);
 
         try {
-            app.conn = require('bitmessage-node')(data.host, data.port, data.user, data.pass);
-            app.log(app.conn);
+            this.conn = require('bitmessage-node')(data.host, data.port, data.user, data.pass);
+            app.log('conn', this.conn);
             cb();
         } catch (err) {
             ui.err('Could not connect');
@@ -38,7 +38,7 @@ _.extend(api, {
 
     getInbox: function () {
         try {
-            app.conn.messages.inbox.list(function (msgs) {
+            this.conn.messages.inbox.list(function (msgs) {
                 app.inbox.showInbox(msgs);
             });
         } catch (err) {
@@ -49,7 +49,7 @@ _.extend(api, {
 
     sentMessages: function () {
         try {
-            app.conn.messages.sent.list(function (msgs) {
+            this.conn.messages.sent.list(function (msgs) {
                 app.log(msgs);
             });
         } catch (err) {
@@ -61,7 +61,7 @@ _.extend(api, {
         app.log('moveToTrash: ', id);
 
         try {
-            app.conn.messages.moveToTrash(id, function (msg) {
+            this.conn.messages.moveToTrash(id, function (msg) {
                 ui.ok(msg);
                 app.inbox.moveToTrash($table, id);
             });

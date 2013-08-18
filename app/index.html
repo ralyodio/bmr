@@ -12,6 +12,7 @@
     <script src="/js/app.js"></script>
     <script src="/js/login.js"></script>
     <script src="/js/inbox.js"></script>
+    <script src="/js/logout.js"></script>
 </head>
 <body>
 <div id="logo">Bmr <small>- the Bitmessage reader</small></div>
@@ -63,5 +64,16 @@
         <tbody></tbody>
     </table>
 </section>
+<script>
+//application initialization
+(function($){
+    $(function(){
+        //ui.$body = $("body");
+        //ui.$header = $("header");
+        ui.init();
+        //ui.navigateTo(null, 'login');
+    });
+})(jQuery);
+</script>
 </body>
 </html>

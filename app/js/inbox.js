@@ -2,7 +2,13 @@ app.inbox = window.app.inbox = {};
 
 _.extend(app.inbox, {
     init: function () {
-        app.log('Inbox init');
+        if ( !api.conn ) {
+            app.log('No connection.');
+            ui.navigateTo(null, 'logout');
+            return;
+        }
+
+        app.log('app.inbox.init');
 
         ui.init();
         api.getInbox(); //needs spinner

@@ -2,12 +2,15 @@ app.login = window.app.login || {};
 
 _.extend(app.login, {
     init: function(){
-        app.log('Login');
+        var $login = $("#login");
+
+        app.log('app.login.init');
 
         ui.init();
 
-        $("#login").show();
-        $("#login").on('submit.login', this.login);
+        $login.show();
+        $login.on('submit.login', this.login);
+        $("body > header").hide();
     },
 
     login: function(e){
@@ -21,7 +24,7 @@ _.extend(app.login, {
         data.host = $form.find('input[name=host]').val();
         data.port = $form.find('input[name=port]').val();
 
-        api.auth(data, function(){
+        api.init(data, function(){
             ui.init();
             ui.ok('Successfully connected to API');
             //move to app.hideLogin
@@ -40,12 +43,3 @@ _.extend(app.login, {
         $("#login").hide();
     }
 });
-
-//application initialization
-(function($){
-    $(function(){
-        ui.$body = $("body");
-        ui.$header = $("header");
-        ui.navigateTo(null, 'login');
-    });
-})(jQuery);

@@ -16,15 +16,17 @@ _.extend(ui, {
     dom: {},
 
     init: function () {
+        app.log('ui.init');
+
         this.$body = $("body");
         this.$header = $("body > header");
 
         $(window).on('popstate.ui', function(e){
-            if ( !this.globals.currPage || this.globals.currPage === 'login' ) return;
+//            if ( !this.globals.currPage || this.globals.currPage === 'login' ) return;
 
             var newPage = window.location.href.split('#')[1];
 
-            app.log('popstate', this.globals.currPage, newPage);
+            app.log('popstate ', this.globals.currPage, newPage);
 
             this.navigateTo(this.globals.currPage, newPage);
         }.bind(this));
@@ -36,14 +38,12 @@ _.extend(ui, {
                 , newPage = $(e.currentTarget).attr('href').split('#')[1];
 
             //logout
+            /*
             if ( newPage === 'logout' ) {
-                api.destroy();
-                ui.ok("You have been logged out");
-
-                this.navigateTo(currPage, 'login');
-
+                app.logout(currPage);
                 return;
             }
+            */
 
             this.navigateTo(currPage, newPage);
         }.bind(this));
@@ -53,6 +53,13 @@ _.extend(ui, {
         var $body = this.$body;
 
         app.log('navigateTo from ' + currPage + ' to ' + newPage);
+
+        /*
+        if ( newPage === 'logout' ) {
+            app.logout(currPage);
+            return;
+        }
+        */
 
         history.pushState(null, null, '#'+newPage);
         ui.globals.currPage = newPage;
