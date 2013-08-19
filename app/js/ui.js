@@ -74,23 +74,30 @@ _.extend(ui, {
     },
 
     err: function (m) {
-        clearTimeout(this.timers.msg);
-        $("#msg").stop().addClass('err').html(m).fadeIn();
-        this.hideMsg();
+        this.showMsg(m, 'err');
     },
 
     ok: function (m) {
+        this.showMsg(m, 'ok');
+    },
+
+    showMsg: function(m, type){
+        var $msg = $("#msg");
+
         clearTimeout(this.timers.msg);
-        $("#msg").stop().addClass('ok').html(m).fadeIn();
+
+        if ( $msg.is(':animated') ) {
+            $msg.stop().css('opacity', 1);
+        }
+
+        $msg.addClass(type).html(m).fadeTo(250, 1);
         this.hideMsg();
     },
 
     hideMsg: function () {
         this.timers.msg = setTimeout(function () {
-            $("#msg").fadeTo(600, .1, function () {
-                $(this).slideUp(function () {
-                    $(this).removeClass('ok err').html('').css({ opacity: 1});
-                });
+            $("#msg").fadeTo(600, 0, function () {
+                $(this).removeClass('ok err').html('');
             });
         }, 2500);
     },
