@@ -34,10 +34,10 @@
 
 <form id="login" class="clearfix" method="post">
     <fieldset>
-        <p><label>Username</label> <input type="text" name="user" value="michael"></p>
-        <p><label>Password</label> <input type="password" name="pass" value="hastings"></p>
-        <p><label>Host</label> <input type="text" name="host" value="192.168.1.64"></p>
-        <p><label>Port</label> <input type="port" name="port" value="9442"></p>
+        <p><label for="user">Username</label> <input type="text" name="user" id="user" value="michael"></p>
+        <p><label for="password">Password</label> <input type="password" id="password" name="pass" value="hastings"></p>
+        <p><label for="host">Host</label> <input type="text" id="host" name="host" value="192.168.1.64"></p>
+        <p><label for="port">Port</label> <input type="text" id="port" name="port" value="9442"></p>
     </fieldset>
     <input type="submit" value="Login">
 </form>
@@ -54,7 +54,7 @@
         </caption>
         <thead>
             <tr>
-                <th class="no-sort"><label><input type="checkbox" name="mark-all"></label></th>
+                <th class="no-sort"><input type="checkbox" name="mark-all"></th>
                 <th>From</th>
                 <th>To</th>
                 <th>Subject</th>

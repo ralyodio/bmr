@@ -3,7 +3,7 @@ var ui = window.ui || {};
 //ui-specific methods
 _.extend(ui, {
     globals: {
-        currPage: null,
+        currPage: null
     },
 
     timers: {
@@ -62,7 +62,7 @@ _.extend(ui, {
         */
 
         history.pushState(null, null, '#'+newPage);
-        ui.globals.currPage = newPage;
+        this.globals.currPage = newPage;
 
         if ( currPage ) {
             $body.removeClass(currPage);
@@ -75,16 +75,16 @@ _.extend(ui, {
 
     err: function (m) {
         $("#msg").addClass('err').html(m).fadeIn();
-        ui.hideMsg();
+        this.hideMsg();
     },
 
     ok: function (m) {
         $("#msg").addClass('ok').html(m).fadeIn();
-        ui.hideMsg();
+        this.hideMsg();
     },
 
     hideMsg: function () {
-        ui.timers.msg = setTimeout(function () {
+        this.timers.msg = setTimeout(function () {
             $("#msg").fadeTo(600, .1, function () {
                 $(this).slideUp(function () {
                     $(this).removeClass('ok err').html('').css({ opacity: 1});
@@ -99,10 +99,9 @@ _.extend(ui, {
 
         app.log('markAll');
         $cb.on('click.ui', function (e) {
-            var $cb = $(e.target)
+            var $cb = $(e.currentTarget)
                 , isChecked = $cb.is(':checked');
 
-            app.log(e);
             if (e.metaKey) {
                 //invert checked boxes
                 $.each($toCheck, function (i, _cb) {
@@ -114,18 +113,21 @@ _.extend(ui, {
                     $_tr[( _oppChecked ? 'addClass' : 'removeClass' )]('highlight');
 
                     //cb.checked = !cb.checked;
-                })
+                }.bind(this))
             } else {
+                app.log('here', $cb, isChecked);
                 $toCheck.prop('checked', isChecked);
                 $toCheck.parents('tr')[( isChecked ? 'addClass' : 'removeClass' )]('highlight');
             }
-        });
+        }.bind(this));
     },
 
     shiftCheck: {
         lastChecked: null,
 
         init: function ($table) {
+            app.log('shiftCheck.init');
+
             var $cbs = $table.find('tbody td:first-child [type=checkbox]');
 
             this.reset();
@@ -170,7 +172,7 @@ _.extend(ui, {
                 , isChecked = $cb.is(':checked');
 
             $row[( isChecked ? 'addClass' : 'removeClass' )]('highlight');
-        });
+        }.bind(this));
     },
 
     sortTable: function ($table) {
@@ -209,8 +211,8 @@ _.extend(ui, {
             $th.siblings().removeClass('asc desc');
             $th.addClass(dir);
             $tbody.append($rows); //existing rows get re-ordered w/o loosing events
-            ui.shiftCheck.reset();
-        });
+            this.shiftCheck.reset();
+        }.bind(this));
     },
 
     destroy: function(){

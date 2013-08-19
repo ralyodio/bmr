@@ -32,7 +32,6 @@ _.extend(api, {
         } catch (err) {
             ui.err('Could not connect');
             app.log(err);
-            return;
         }
     },
 
@@ -43,7 +42,6 @@ _.extend(api, {
             });
         } catch (err) {
             app.log(err);
-            return;
         }
     },
 
@@ -57,13 +55,12 @@ _.extend(api, {
         }
     },
 
-    moveToTrash: function ($table, id) {
+    moveToTrash: function (id, cb) {
         app.log('moveToTrash: ', id);
 
         try {
-            this.conn.messages.moveToTrash(id, function (msg) {
-                ui.ok(msg);
-                app.inbox.moveToTrash($table, id);
+            this.conn.messages.inbox.moveToTrash(id, function(msg){
+                cb(id, msg);
             });
         } catch (err) {
             app.log(err);

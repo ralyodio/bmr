@@ -1,3 +1,6 @@
+/*
+TODO install sass
+*/
 .clearfix { *zoom: 1; }
 .clearfix:before, .clearfix:after {
     display: table;
@@ -29,6 +32,7 @@ a.refresh:before { content: '↻'; }
 a.inbox:before { content: '⇧'; display: inline-block; position: relative; -webkit-transform: rotate(180deg); margin-left: 5px; }
 a.compose:before { content: '✉'; font-size: 24px; position: relative; top: 4px; }
 a.sent:before { content: '⇧'; }
+a.close:before { content: 'ⓧ'; }
 
 #logo {
     font-weight: bold;
@@ -125,6 +129,8 @@ tbody tr.highlight { background: #eef !important; }
 
 td .subject { cursor: pointer; margin: 5px 0; }
 td .subject:hover { text-decoration: underline; }
+tr.msg .content { position: relative; }
+tr.msg .content .close { position: absolute; top: 0; right: 0; }
 tr.msg .subject { text-decoration: underline; padding: 5px; }
 tr.msg .date, tr.msg .to, tr.msg .from { margin: 5px 0; padding: 0 5px; }
 tr.msg .to { color: #999; }

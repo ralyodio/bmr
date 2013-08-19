@@ -9,7 +9,7 @@ _.extend(app.login, {
         ui.init();
 
         $login.show();
-        $login.on('submit.login', this.login);
+        $login.on('submit.login', this.login.bind(this));
         $("body > header").hide();
     },
 
