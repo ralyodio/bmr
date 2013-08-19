@@ -74,12 +74,14 @@ _.extend(ui, {
     },
 
     err: function (m) {
-        $("#msg").addClass('err').html(m).fadeIn();
+        clearTimeout(this.timers.msg);
+        $("#msg").stop().addClass('err').html(m).fadeIn();
         this.hideMsg();
     },
 
     ok: function (m) {
-        $("#msg").addClass('ok').html(m).fadeIn();
+        clearTimeout(this.timers.msg);
+        $("#msg").stop().addClass('ok').html(m).fadeIn();
         this.hideMsg();
     },
 

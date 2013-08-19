@@ -75,33 +75,44 @@ _.extend(app.inbox, {
         $inbox.fadeIn();
     },
 
-    showMsg: function(msg){
-        var $row = $('#inbox tbody tr[data-id='+msg.msgid+']')
-            , colCount = $row.find('td').length
-            , to = msg.toAddress
-            , from = msg.fromAddress;
+    preShowMsg: function(id){
+        app.log('preShowMsg');
 
-        app.log('show msg: ', msg);
+        var $row = $('#inbox tbody tr[data-id='+id+']')
+            , colCount = $row.find('td').length
 
         $row.after(
-            '<tr class="msg" data-msgid="'+msg.msgid+'">' +
+            '<tr class="msg" data-msgid="'+id+'">' +
                 '<td colspan="' + colCount + '">' +
-                    '<div class="content">' +
-                        '<a href="#" class="close">Close</a>' +
-                        '<h3 class="subject">' + msg.subject + '</h3>' +
-                        '<p class="date">' + msg.receivedTime + '</p>' +
-                        '<p data-from="' + from + '" class="from">From: ' + from + '</p>' +
-                        '<p data-to="' + to + '" class="to">To: ' + to + '</p>' +
-                        '<nav>' +
-                            '<a href="#" class="reply">Reply</a>' +
-                            '<a href="#" class="trash">Trash</a>' +
-                        '</nav>' +
-                        '<section class="message">' + msg.message + '</section>' +
-                    '</div>' +
+                    '<div class="content loading"></div>' +
                 '</td>' +
             '</tr>'
         );
+    },
 
+    showMsg: function(msg){
+        var $row = $('#inbox tbody tr[data-id='+msg.msgid+']')
+            , to = msg.toAddress
+            , from = msg.fromAddress
+            , $msg = $row.next('.msg')
+            , $content = $msg.find('.content');
+
+        app.log('show msg: ', msg);
+
+        $content.append(
+            '<a href="#" class="close">Close</a>' +
+            '<h3 class="subject">' + msg.subject + '</h3>' +
+            '<p class="date">' + msg.receivedTime + '</p>' +
+            '<p data-from="' + from + '" class="from">From: ' + from + '</p>' +
+            '<p data-to="' + to + '" class="to">To: ' + to + '</p>' +
+            '<nav>' +
+                '<a href="#" class="reply">Reply</a>' +
+                '<a href="#" class="trash">Trash</a>' +
+            '</nav>' +
+            '<section class="message">' + msg.message + '</section>'
+        );
+
+        $content.removeClass('loading');
         $row.data('isopen', true);
     },
 
@@ -132,6 +143,7 @@ _.extend(app.inbox, {
                 return;
             }
 
+            this.preShowMsg(id);
             api.getMessage(id, this.showMsg);
 
         }.bind(this));
