@@ -17,7 +17,7 @@ _.extend(app.identities, {
         $("a.identities").addClass('active').siblings().removeClass('active');
 
         $("#identities-action").on('submit.identities', this.actionItem.bind(this));
-        $("#identities-select-action").on('change', this.showActionFields.bind(this));
+        $("#identities-select-action").on('change.identities', this.showActionFields.bind(this));
 
         //handle click events on open addresses
         /* probably not needed for addresses unless we decide to show something when clicking one of them
