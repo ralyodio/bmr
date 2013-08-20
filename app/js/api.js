@@ -76,6 +76,24 @@ _.extend(api, {
         }
     },
 
+    listAddresses: function(refresh){
+        try {
+            this.conn.addresses.list(function(identities){
+                app.identities.showIdentities(identities, refresh)
+            });
+        } catch (err) {
+            app.log(err);
+        }
+    },
+
+    createRandomAddress: function (opts, cb) {
+        app.log('api.createRandomAddress: ', opts);
+
+        var label = opts.label;
+
+        this.conn.addresses.createRandom(label, cb); //returns address id
+    },
+
     destroy: function(){
         this.conn = null;
         ui.err('Disconnected from server');

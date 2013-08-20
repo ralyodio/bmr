@@ -21,7 +21,7 @@ _.extend(ui, {
         this.$body = $("body");
         this.$header = $("body > header");
 
-        $(window).on('popstate.ui', function(e){
+        $(window).on('popstate.ui', function(){
 //            if ( !this.globals.currPage || this.globals.currPage === 'login' ) return;
 
             var newPage = window.location.href.split('#')[1];
@@ -222,6 +222,17 @@ _.extend(ui, {
             $tbody.append($rows); //existing rows get re-ordered w/o loosing events
             this.shiftCheck.reset();
         }.bind(this));
+    },
+
+    resetForm: function($form){
+        this.clearFormErrors($form);
+        $form[0].reset();
+    },
+
+    clearFormErrors: function($form){
+        var $labels = $form.find('label');
+
+        $labels.removeClass('error');
     },
 
     destroy: function(){

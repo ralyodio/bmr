@@ -13,6 +13,7 @@
     <script src="/js/login.js"></script>
     <script src="/js/inbox.js"></script>
     <script src="/js/sent.js"></script>
+    <script src="/js/identities.js"></script>
     <script src="/js/logout.js"></script>
 </head>
 <body>
@@ -23,9 +24,9 @@
     <nav class="tabs">
         <a href="#inbox" class="inbox">Inbox <span class="total">-</span></a>
         <a href="#" class="compose">Compose</a>
-        <a href="#sent" class="sent">Sent</a>
-        <a href="#identities" class="identities">Identities</a>
-        <a href="#subscriptions" class="subscriptions">Subscriptions</a>
+        <a href="#sent" class="sent">Sent <span class="total">-</span></a>
+        <a href="#identities" class="identities">Identities <span class="total">-</span></a>
+        <a href="#subscriptions" class="subscriptions">Subscriptions <span class="total">-</span></a>
     </nav>
     <nav>
         <a href="#logout">Logout</a>
@@ -35,10 +36,10 @@
 
 <form id="login" class="clearfix" method="post">
     <fieldset>
-        <p><label for="user">Username</label> <input type="text" name="user" id="user" value="michael"></p>
-        <p><label for="password">Password</label> <input type="password" id="password" name="pass" value="hastings"></p>
-        <p><label for="host">Host</label> <input type="text" id="host" name="host" value="192.168.1.64"></p>
-        <p><label for="port">Port</label> <input type="text" id="port" name="port" value="9442"></p>
+        <p><label for="user">Username</label> <input type="text" name="user" id="user" value="bradley"></p>
+        <p><label for="password">Password</label> <input type="password" id="password" name="pass" value="manning"></p>
+        <p><label for="host">Host</label> <input type="text" id="host" name="host" value="localhost"></p>
+        <p><label for="port">Port</label> <input type="text" id="port" name="port" value="8442"></p>
     </fieldset>
     <input type="submit" value="Login">
 </form>
@@ -90,6 +91,46 @@
     </table>
 </section>
 
+<section id="identities">
+    <table>
+        <caption>
+            <form id="identities-action">
+                <select id="identities-select-action">
+                    <option value="create-address">Create address</option>
+                    <option value="enable-address">Enable address</option>
+                    <option value="disable-address">Disable address</option>
+                </select>
+                <input type="submit" value="Apply">
+                <fieldset id="create-address" class="clearfix">
+                    <div>
+                        <p><label>Address label: <input type="text" name="label"></label></p>
+                        <p><label><input type="checkbox" name="eighteenByteRipe"> Do extra work for shorter address (18-byte RIPE)</label></p>
+                    </div>
+                    <div>
+                        <p><label>Total difficulty: <input type="text" class="small" name="totalDifficulty" value="1.0" maxlength="3"></label></p>
+                        <p><label>Small message difficulty: <input class="small" type="text" name="smallMessageDifficulty" value="1.0"></label></p>
+                    </div>
+                </fieldset>
+                <fieldset id="enable-address" class="hide">
+                    enable
+                </fieldset>
+                <fieldset id="disable-address" class="hide">
+                    disable
+                </fieldset>
+            </form>
+        </caption>
+        <thead>
+        <tr>
+            <th class="no-sort"><input type="checkbox" name="mark-all"></th>
+            <th>Label</th>
+            <th>Address</th>
+            <th>Enabled</th>
+            <th>Stream</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
 <script>
 //application initialization
 (function($){

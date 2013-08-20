@@ -45,7 +45,7 @@ _.extend(app.inbox, {
             , $tbody = $table.find("tbody");
 
         //msgs = msgs.slice(0, 10);
-        msgs.forEach(function (item, i) {
+        msgs.forEach(function (item) {
             var time = item.receivedTime
                 , from = item.fromAddress
                 , to = item.toAddress
@@ -55,7 +55,7 @@ _.extend(app.inbox, {
 
             $tbody.append(
                 '<tr data-id="' + id + '">' +
-                    '<td><input type="checkbox" name="mark" value="' + id + '"></td>' +
+                    '<td class="mark-item"><input type="checkbox" name="mark" value="' + id + '"></td>' +
                     '<td data-sort="' + from + '"><span class="nowrap" data-from="' + from + '">' + from + '</span></td>' +
                     '<td data-sort="' + to + '"><span class="nowrap" data-to="' + to + '">' + to + '</span></td>' +
                     '<td data-sort="' + item.subject + '"><span class="subject">' + item.subject + '</span></td>' +

@@ -100,7 +100,7 @@ a.close:before {
     font-weight: normal;
 }
 
-#inbox, #sent {
+#inbox, #sent, #identities {
     display: none;
 }
 
@@ -159,6 +159,10 @@ td {
     border: 1px solid #ddd;
 }
 
+td.mark-item {
+    text-align: center;
+}
+
 td span[data-to], td span[data-from] {
     max-width: 100px;
     overflow: hidden;
@@ -178,12 +182,6 @@ th.no-sort {
     cursor: default;
 }
 
-/*
-th:first-child { border-top-left-radius: 5px; }
-th:last-child { border-top-right-radius: 5px; }
-tr:last-child td:first-child { border-bottom-left-radius: 5px; }
-tr:last-child td:last-child { border-bottom-right-radius: 5px; }
-*/
 th.asc:after {
     content: ' ▲';
 }
@@ -197,6 +195,9 @@ tbody {
     position: relative;
 }
 
+/*
+TODO add class .loading to tbody
+*/
 tbody:empty:before {
     content: 'Loading...';
     color: #444;
@@ -287,15 +288,20 @@ label {
     display: inline-block;
 }
 
+label.error {
+    color: #900;
+}
 fieldset {
     border: 1px solid #ddd;
-    margin-bottom: 10px;
+    margin: 10px 0;
     border-radius: 5px;
 }
 
-fieldset input {
+#login fieldset input:not([type=radio]):not([type=checkbox]), #identities input[name=label] {
     width: 50%;
 }
+
+input.small { width: 3em; }
 
 body.login {
     max-width: 75%;
@@ -317,6 +323,16 @@ form#login label {
 
 form#login input[type=submit] {
     float: right;
+}
+
+fieldset#create-address > div {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+fieldset#create-address input[type=text] {
+    margin-left: 5px;
 }
 
 

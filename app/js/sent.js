@@ -57,7 +57,7 @@ _.extend(app.sent, {
             //replace date with status
             $tbody.append(
                 '<tr data-id="' + id + '">' +
-                    '<td><input type="checkbox" name="mark" value="' + id + '"></td>' +
+                    '<td class="mark-item"><input type="checkbox" name="mark" value="' + id + '"></td>' +
                     '<td data-sort="' + from + '"><span class="nowrap" data-from="' + from + '">' + from + '</span></td>' +
                     '<td data-sort="' + to + '"><span class="nowrap" data-to="' + to + '">' + to + '</span></td>' +
                     '<td data-sort="' + item.subject + '"><span class="subject">' + item.subject + '</span></td>' +
