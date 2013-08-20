@@ -1,6 +1,6 @@
-app.inbox = window.app.inbox = {};
+app.sent = window.app.sent = {};
 
-_.extend(app.inbox, {
+_.extend(app.sent, {
     init: function () {
         if (!api.conn) {
             app.log('No connection.');
@@ -8,18 +8,18 @@ _.extend(app.inbox, {
             return;
         }
 
-        app.log('app.inbox.init');
+        app.log('app.sent.init');
 
         ui.init();
-        api.getInbox(); //needs spinner
+        api.sentMessages(); //needs spinner
 
         $("body > header").show();
-        $("a.inbox").addClass('active').siblings().removeClass('active');
+        $("a.sent").addClass('active').siblings().removeClass('active');
 
-        $("#inbox-action").on('submit.inbox', this.actionItem.bind(this));
+        $("#sent-action").on('submit.sent', this.actionItem.bind(this));
 
         //handle click events on open messages
-        $("#inbox table").on('click.inbox', 'tr.msg', function (e) {
+        $("#sent table").on('click.sent', 'tr.msg', function (e) {
             e.preventDefault();
 
             var $el = $(e.target) //clicked element
@@ -28,7 +28,7 @@ _.extend(app.inbox, {
 
             //handle msg actions
             if ( $el.is('a.trash') ) {
-                app.log('trash msg');
+                app.log('trash sent msg');
                 api.moveToTrash(id, this.moveToTrash);
 
             } else if ( $el.is('a.close') ) {
@@ -38,28 +38,32 @@ _.extend(app.inbox, {
         }.bind(this));
     },
 
-    showInbox: function (msgs) {
-        var $inbox = $("#inbox")
-            , $table = $inbox.find('table')
-            , $total = $('a.inbox .total')
-            , $tbody = $table.find("tbody");
+    showSent: function (msgs) {
+        var $sent = $("#sent")
+            , $table = $sent.find('table')
+            , $total = $('a.sent .total')
+            , $tbody = $sent.find("tbody");
 
+        app.log(msgs);
         //msgs = msgs.slice(0, 10);
         msgs.forEach(function (item, i) {
-            var time = item.receivedTime
+            var time = item.lastActionTime
                 , from = item.fromAddress
                 , to = item.toAddress
                 , id = item.msgid;
 
             //app.log(item);
 
+            //replace date with status
             $tbody.append(
                 '<tr data-id="' + id + '">' +
                     '<td><input type="checkbox" name="mark" value="' + id + '"></td>' +
                     '<td data-sort="' + from + '"><span class="nowrap" data-from="' + from + '">' + from + '</span></td>' +
                     '<td data-sort="' + to + '"><span class="nowrap" data-to="' + to + '">' + to + '</span></td>' +
                     '<td data-sort="' + item.subject + '"><span class="subject">' + item.subject + '</span></td>' +
+                    '<td class="nowrap" data-sort="' + item.status + '"><span title="' + item.lastActionTime + '">' + item.status + '</span></td>' +
                     '<td class="nowrap" data-sort="' + moment(time).unix() + '"><span title="' + time + '">' + moment(time).fromNow() + '</span></td>' +
+
                     '</tr>'
             );
         });
@@ -72,13 +76,13 @@ _.extend(app.inbox, {
         this.readMsg($table);
 
         $total.text(msgs.length);
-        $inbox.fadeIn();
+        $sent.fadeIn();
     },
 
     preShowMsg: function(id){
         app.log('preShowMsg');
 
-        var $row = $('#inbox tbody tr[data-id='+id+']')
+        var $row = $('#sent tbody tr[data-id='+id+']')
             , colCount = $row.find('td').length;
 
         $row.after(
@@ -91,22 +95,22 @@ _.extend(app.inbox, {
     },
 
     showMsg: function(msg){
-        var $row = $('#inbox tbody tr[data-id='+msg.msgid+']')
+        var $row = $('#sent tbody tr[data-id='+msg.msgid+']')
             , to = msg.toAddress
             , from = msg.fromAddress
             , $msg = $row.next('.msg')
             , $content = $msg.find('.content');
 
-        app.log('show msg: ', msg);
+        app.log('show sent msg: ', msg);
 
         $content.append(
             '<a href="#" class="close">Close</a>' +
             '<h3 class="subject">' + msg.subject + '</h3>' +
-            '<p class="date">' + msg.receivedTime + '</p>' +
-            '<p data-from="' + from + '" class="from">From: ' + from + '</p>' +
+            '<p class="date">' + msg.lastActionTime + '</p>' +
             '<p data-to="' + to + '" class="to">To: ' + to + '</p>' +
+            '<p data-from="' + from + '" class="from">From: ' + from + '</p>' +
             '<nav>' +
-                '<a href="#" class="reply">Reply</a>' +
+                '<a href="#" class="add-address">Add address</a>' +
                 '<a href="#" class="trash">Trash</a>' +
             '</nav>' +
             '<section class="message">' + msg.message + '</section>'
@@ -119,7 +123,7 @@ _.extend(app.inbox, {
     hideMsg: function(id){
         app.log('hideMsg: ', id);
 
-        var $row = $('#inbox tbody tr[data-id='+id+']');
+        var $row = $('#sent tbody tr[data-id='+id+']');
 
         $row.data('isopen', false);
         $row.next('.msg').remove();
@@ -128,7 +132,7 @@ _.extend(app.inbox, {
     readMsg: function ($table) {
         var $subjects = $table.find('tbody .subject');
 
-        $subjects.on('click.inbox', function (e) {
+        $subjects.on('click.sent', function (e) {
             e.preventDefault();
 
             var $subject = $(e.currentTarget)
@@ -136,7 +140,7 @@ _.extend(app.inbox, {
                 , isOpen = !!$row.data('isopen')
                 , id = $row.attr('data-id');
 
-            app.log('read msg: ' + id);
+            app.log('read sent msg: ' + id);
 
             if ( isOpen ) {
                 this.hideMsg(id);
@@ -144,13 +148,13 @@ _.extend(app.inbox, {
             }
 
             this.preShowMsg(id);
-            api.getMessage(id, this.showMsg);
+            api.getSentMessage(id, this.showMsg);
 
         }.bind(this));
     },
 
     moveToTrash: function (id, msg) {
-        var $table = $("#inbox table")
+        var $table = $("#sent table")
             , $row = $table.find('tbody tr[data-id=' + id + ']')
             , $openMsg = $row.next('.msg');
 
@@ -163,9 +167,9 @@ _.extend(app.inbox, {
             });
         }
 
-        //remove the original inbox row
+        //remove the original sent row
         $row.fadeOut(600, function () {
-            var $total = $("a.inbox .total")
+            var $total = $("a.sent .total")
                 , total = $total.text()-1;
 
             $total.text(total);
@@ -191,13 +195,13 @@ _.extend(app.inbox, {
     },
 
     destroy: function () {
-        var $inbox = $("#inbox");
+        var $sent = $("#sent");
 
         ui.destroy();
-        $(document).add('*').off('.inbox .ui');
+        $(document).add('*').off('.sent .ui');
 
-        $inbox.hide();
-        $inbox.find("tbody").empty();
+        $sent.hide();
+        $sent.find("tbody").empty();
 
         if (ui.globals.currPage === 'login') {
             $("body > header").hide();

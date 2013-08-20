@@ -19,6 +19,7 @@ body {
     font-size: 12px;
     max-width: 90%;
     margin: 20px auto;
+    color: #000;
 }
 
 .hide {
@@ -99,7 +100,7 @@ a.close:before {
     font-weight: normal;
 }
 
-#inbox {
+#inbox, #sent {
     display: none;
 }
 
@@ -261,9 +262,11 @@ tr.msg .date, tr.msg .to, tr.msg .from {
     padding: 0 5px;
 }
 
-tr.msg .to {
+tr.msg .to, #sent tr.msg .from {
     color: #999;
 }
+
+#sent tr.msg .to { color: #000; }
 
 tr.msg .message {
     font-family: monospace;

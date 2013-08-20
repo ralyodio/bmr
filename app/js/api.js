@@ -14,7 +14,7 @@ _.extend(api, {
     },
 
     getMessage: function (id, cb) {
-        app.log('getMessage ' + id);
+        app.log('api.getMessage ' + id);
         try {
             this.conn.messages.inbox.single(id, cb);
         } catch (err) {
@@ -48,15 +48,24 @@ _.extend(api, {
     sentMessages: function () {
         try {
             this.conn.messages.sent.list(function (msgs) {
-                app.log(msgs);
+                app.sent.showSent(msgs);
             });
         } catch (err) {
             app.log(err);
         }
     },
 
+    getSentMessage: function(id, cb){
+        app.log('api.getSentMessage: ', id);
+        try {
+            this.conn.messages.sent.single(id, cb);
+        } catch (err) {
+            app.log(err);
+        }
+    },
+
     moveToTrash: function (id, cb) {
-        app.log('moveToTrash: ', id);
+        app.log('api.moveToTrash: ', id);
 
         try {
             this.conn.messages.inbox.moveToTrash(id, function(msg){
