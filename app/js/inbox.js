@@ -3,12 +3,12 @@ app.inbox = window.app.inbox = {};
 _.extend(app.inbox, {
     init: function () {
         if (!api.conn) {
-            app.log('No connection.');
+            c.log('No connection.');
             ui.navigateTo(null, 'logout');
             return;
         }
 
-        app.log('app.inbox.init');
+        c.log('app.inbox.init');
 
         ui.init();
         api.getInbox(); //needs spinner
@@ -28,11 +28,11 @@ _.extend(app.inbox, {
 
             //handle msg actions
             if ( $el.is('a.trash') ) {
-                app.log('trash msg');
+                c.log('trash msg');
                 api.moveToTrash(id, this.moveToTrash);
 
             } else if ( $el.is('a.close') ) {
-                app.log('close msg');
+                c.log('close msg');
                 this.hideMsg(id);
             }
         }.bind(this));
@@ -51,7 +51,7 @@ _.extend(app.inbox, {
                 , to = item.toAddress
                 , id = item.msgid;
 
-            //app.log(item);
+            //c.log(item);
 
             $tbody.append(
                 '<tr data-id="' + id + '">' +
@@ -76,7 +76,7 @@ _.extend(app.inbox, {
     },
 
     preShowMsg: function(id){
-        app.log('preShowMsg');
+        c.log('preShowMsg');
 
         var $row = $('#inbox tbody tr[data-id='+id+']')
             , colCount = $row.find('td').length;
@@ -97,7 +97,7 @@ _.extend(app.inbox, {
             , $msg = $row.next('.msg')
             , $content = $msg.find('.content');
 
-        app.log('show msg: ', msg);
+        c.log('show msg: ', msg);
 
         $content.append(
             '<a href="#" class="close">Close</a>' +
@@ -117,7 +117,7 @@ _.extend(app.inbox, {
     },
 
     hideMsg: function(id){
-        app.log('hideMsg: ', id);
+        c.log('hideMsg: ', id);
 
         var $row = $('#inbox tbody tr[data-id='+id+']');
 
@@ -136,7 +136,7 @@ _.extend(app.inbox, {
                 , isOpen = !!$row.data('isopen')
                 , id = $row.attr('data-id');
 
-            app.log('read msg: ' + id);
+            c.log('read msg: ' + id);
 
             if ( isOpen ) {
                 this.hideMsg(id);

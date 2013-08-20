@@ -16,7 +16,9 @@ _.extend(ui, {
     dom: {},
 
     init: function () {
-        app.log('ui.init');
+        this.logger();
+
+        c.log('ui.init');
 
         this.$body = $("body");
         this.$header = $("body > header");
@@ -26,7 +28,7 @@ _.extend(ui, {
 
             var newPage = window.location.href.split('#')[1];
 
-            app.log('popstate ', this.globals.currPage, newPage);
+            c.log('popstate ', this.globals.currPage, newPage);
 
             this.navigateTo(this.globals.currPage, newPage);
         }.bind(this));
@@ -52,7 +54,7 @@ _.extend(ui, {
     navigateTo: function (currPage, newPage) {
         var $body = this.$body;
 
-        app.log('navigateTo from ' + currPage + ' to ' + newPage);
+        c.log('navigateTo from ' + currPage + ' to ' + newPage);
 
         /*
         if ( newPage === 'logout' ) {
@@ -71,6 +73,12 @@ _.extend(ui, {
 
         $body.addClass(newPage);
         app[newPage].init();
+    },
+
+    logger: function(){
+        var fn = function(){};
+
+        window.c = window.console ? console : { log: fn, dir: fn, error: fn, info: fn };
     },
 
     err: function (m) {
@@ -106,7 +114,7 @@ _.extend(ui, {
         var $cb = $table.find('thead [name=mark-all]')
             , $toCheck = $table.find('tbody td:first-child [type=checkbox]');
 
-        app.log('markAll');
+        c.log('markAll');
         $cb.on('click.ui', function (e) {
             var $cb = $(e.currentTarget)
                 , isChecked = $cb.is(':checked');
@@ -124,7 +132,7 @@ _.extend(ui, {
                     //cb.checked = !cb.checked;
                 }.bind(this))
             } else {
-                app.log('here', $cb, isChecked);
+                c.log('here', $cb, isChecked);
                 $toCheck.prop('checked', isChecked);
                 $toCheck.parents('tr')[( isChecked ? 'addClass' : 'removeClass' )]('highlight');
             }
@@ -135,7 +143,7 @@ _.extend(ui, {
         lastChecked: null,
 
         init: function ($table) {
-            app.log('shiftCheck.init');
+            c.log('shiftCheck.init');
 
             var $cbs = $table.find('tbody td:first-child [type=checkbox]');
 

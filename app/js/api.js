@@ -14,24 +14,24 @@ _.extend(api, {
     },
 
     getMessage: function (id, cb) {
-        app.log('api.getMessage ' + id);
+        c.log('api.getMessage ' + id);
         try {
             this.conn.messages.inbox.single(id, cb);
         } catch (err) {
-            app.log(err);
+            c.log(err);
         }
     },
 
     auth: function (data, cb) {
-        app.log(data);
+        c.log(data);
 
         try {
             this.conn = require('bitmessage-node')(data.host, data.port, data.user, data.pass);
-            app.log('conn', this.conn);
+            c.log('conn', this.conn);
             cb();
         } catch (err) {
             ui.err('Could not connect');
-            app.log(err);
+            c.log(err);
         }
     },
 
@@ -41,7 +41,7 @@ _.extend(api, {
                 app.inbox.showInbox(msgs);
             });
         } catch (err) {
-            app.log(err);
+            c.log(err);
         }
     },
 
@@ -51,28 +51,28 @@ _.extend(api, {
                 app.sent.showSent(msgs);
             });
         } catch (err) {
-            app.log(err);
+            c.log(err);
         }
     },
 
     getSentMessage: function(id, cb){
-        app.log('api.getSentMessage: ', id);
+        c.log('api.getSentMessage: ', id);
         try {
             this.conn.messages.sent.single(id, cb);
         } catch (err) {
-            app.log(err);
+            c.log(err);
         }
     },
 
     moveToTrash: function (id, cb) {
-        app.log('api.moveToTrash: ', id);
+        c.log('api.moveToTrash: ', id);
 
         try {
             this.conn.messages.inbox.moveToTrash(id, function(msg){
                 cb(id, msg);
             });
         } catch (err) {
-            app.log(err);
+            c.log(err);
         }
     },
 
@@ -82,12 +82,12 @@ _.extend(api, {
                 app.identities.showIdentities(identities, refresh)
             });
         } catch (err) {
-            app.log(err);
+            c.log(err);
         }
     },
 
     createRandomAddress: function (opts, cb) {
-        app.log('api.createRandomAddress: ', opts);
+        c.log('api.createRandomAddress: ', opts);
 
         var label = opts.label;
 
@@ -97,6 +97,6 @@ _.extend(api, {
     destroy: function(){
         this.conn = null;
         ui.err('Disconnected from server');
-        app.log('Disconnected');
+        c.log('Disconnected');
     }
 });

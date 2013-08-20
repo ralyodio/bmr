@@ -4,7 +4,7 @@ _.extend(app.login, {
     init: function(){
         var $login = $("#login");
 
-        app.log('app.login.init');
+        c.log('app.login.init');
 
         ui.init();
 

@@ -3,12 +3,12 @@ app.identities = window.app.identities = {};
 _.extend(app.identities, {
     init: function () {
         if (!api.conn) {
-            app.log('No connection.');
+            c.log('No connection.');
             ui.navigateTo(null, 'logout');
             return;
         }
 
-        app.log('app.identities.init');
+        c.log('app.identities.init');
 
         ui.init();
         api.listAddresses(); //needs spinner
@@ -30,11 +30,11 @@ _.extend(app.identities, {
 
             //handle msg actions
             if ( $el.is('a.trash') ) {
-                app.log('trash sent msg');
+                c.log('trash sent msg');
                 api.moveToTrash(id, this.moveToTrash);
 
             } else if ( $el.is('a.close') ) {
-                app.log('close msg');
+                c.log('close msg');
                 this.hideMsg(id);
             }
         }.bind(this));
@@ -58,7 +58,7 @@ _.extend(app.identities, {
             , $total = $('a.identities .total')
             , $tbody = $pg.find("tbody");
 
-        app.log('identities', identities);
+        c.log('identities', identities);
 
         if ( refresh ) {
             $tbody.empty();
@@ -70,7 +70,7 @@ _.extend(app.identities, {
                 , stream = item.stream
                 , enabled = item.enabled;
 
-            //app.log(item);
+            //c.log(item);
 
             $tbody.append(
                 '<tr data-address="' + address + '">' +
@@ -106,7 +106,7 @@ _.extend(app.identities, {
             , $table = $form.parents('section').find('table')
             , $checked = $table.find('tbody td:first-child [type=checkbox]:checked');
 
-        app.log('actionItem: ' + action);
+        c.log('actionItem: ' + action);
 
         ui.clearFormErrors($form);
 
@@ -114,14 +114,14 @@ _.extend(app.identities, {
             $.each($checked, function (i, cb) {
                 var id = cb.value;
 
-                app.log('enable address: ', id);
+                c.log('enable address: ', id);
             }.bind(this));
 
         } else if ( action === 'disable-address' ) {
             $.each($checked, function (i, cb) {
                 var id = cb.value;
 
-                app.log('disable address: ', id);
+                c.log('disable address: ', id);
             }.bind(this));
 
         } else if ( action === 'create-address' ) {
@@ -133,7 +133,7 @@ _.extend(app.identities, {
             opts.smallMessageDifficulty = f.smallMessageDifficulty.value;
             opts.eighteenByteRipe = f.eighteenByteRipe.checked;
 
-            app.log('form: ', f, opts);
+            c.log('form: ', f, opts);
 
 
             if ( opts.label && opts.label.length ) {

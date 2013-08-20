@@ -3,12 +3,12 @@ app.sent = window.app.sent = {};
 _.extend(app.sent, {
     init: function () {
         if (!api.conn) {
-            app.log('No connection.');
+            c.log('No connection.');
             ui.navigateTo(null, 'logout');
             return;
         }
 
-        app.log('app.sent.init');
+        c.log('app.sent.init');
 
         ui.init();
         api.sentMessages(); //needs spinner
@@ -28,11 +28,11 @@ _.extend(app.sent, {
 
             //handle msg actions
             if ( $el.is('a.trash') ) {
-                app.log('trash sent msg');
+                c.log('trash sent msg');
                 api.moveToTrash(id, this.moveToTrash);
 
             } else if ( $el.is('a.close') ) {
-                app.log('close msg');
+                c.log('close msg');
                 this.hideMsg(id);
             }
         }.bind(this));
@@ -44,7 +44,7 @@ _.extend(app.sent, {
             , $total = $('a.sent .total')
             , $tbody = $sent.find("tbody");
 
-        app.log(msgs);
+        c.log(msgs);
         //msgs = msgs.slice(0, 10);
         msgs.forEach(function (item, i) {
             var time = item.lastActionTime
@@ -52,7 +52,7 @@ _.extend(app.sent, {
                 , to = item.toAddress
                 , id = item.msgid;
 
-            //app.log(item);
+            //c.log(item);
 
             //replace date with status
             $tbody.append(
@@ -80,7 +80,7 @@ _.extend(app.sent, {
     },
 
     preShowMsg: function(id){
-        app.log('preShowMsg');
+        c.log('preShowMsg');
 
         var $row = $('#sent tbody tr[data-id='+id+']')
             , colCount = $row.find('td').length;
@@ -101,7 +101,7 @@ _.extend(app.sent, {
             , $msg = $row.next('.msg')
             , $content = $msg.find('.content');
 
-        app.log('show sent msg: ', msg);
+        c.log('show sent msg: ', msg);
 
         $content.append(
             '<a href="#" class="close">Close</a>' +
@@ -121,7 +121,7 @@ _.extend(app.sent, {
     },
 
     hideMsg: function(id){
-        app.log('hideMsg: ', id);
+        c.log('hideMsg: ', id);
 
         var $row = $('#sent tbody tr[data-id='+id+']');
 
@@ -140,7 +140,7 @@ _.extend(app.sent, {
                 , isOpen = !!$row.data('isopen')
                 , id = $row.attr('data-id');
 
-            app.log('read sent msg: ' + id);
+            c.log('read sent msg: ' + id);
 
             if ( isOpen ) {
                 this.hideMsg(id);
