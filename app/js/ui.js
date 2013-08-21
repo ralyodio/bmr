@@ -78,7 +78,7 @@ _.extend(ui, {
     logger: function(){
         var fn = function(){};
 
-        window.c = window.console ? console : { log: fn, dir: fn, error: fn, info: fn };
+        window.c = window.console ? console : { log: fn, warn: fn, dir: fn, error: fn, info: fn };
     },
 
     err: function (m) {
