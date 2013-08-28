@@ -31,7 +31,7 @@ Add the following lines to the bottom of the `[bitmessagesettings]` section:
     apiusername = edward
     apipassword = 5n0wd3n
 
-If you want to run PyMessage in Daemon mode without the client starting, add `daemon = true` to `[bitmessagesettings]`.
+If you want to run PyMessage in Daemon mode without the PyQT client starting, add `daemon = true` to `[bitmessagesettings]`.
 
 #### Bmr (client -- this app)
 
