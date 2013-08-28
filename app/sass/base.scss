@@ -1,0 +1,363 @@
+@charset "UTF-8";
+
+/* DO NOT EDIT FILES IN ./css. See ./sass instead */
+
+.clearfix {
+  *zoom: 1;
+
+  &:before, &:after {
+    display: table;
+    content: "";
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 12px;
+  max-width: 90%;
+  margin: 20px auto;
+  color: #000;
+}
+
+.hide {
+  display: none;
+}
+
+h1 {
+  margin-bottom: 0;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.wrap {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+a {
+  text-decoration: none;
+  margin-right: 5px;
+}
+
+nav a {
+  padding: 3px 7px;
+}
+
+nav.tabs a.active {
+  background: #eef;
+  border: 1px solid #ccf;
+  border-radius: 3px;
+}
+
+header nav:nth-child(2) a {
+  padding: 0;
+}
+
+a[class]:before {
+  margin-right: 5px;
+}
+
+a.refresh:before {
+  content: '↻';
+}
+
+a.inbox:before {
+  content: '⇧';
+  display: inline-block;
+  position: relative;
+  -webkit-transform: rotate(180deg);
+  margin-left: 5px;
+}
+
+a.compose:before {
+  content: '✉';
+  font-size: 24px;
+  position: relative;
+  top: 4px;
+}
+
+a.sent:before {
+  content: '⇧';
+}
+
+a.close:before {
+  content: 'ⓧ';
+}
+
+#logo {
+  font-weight: bold;
+  font-size: 26px;
+  margin: 0 auto 10px;
+  text-align: left;
+  background: url(/img/logo.png) no-repeat 0 0;
+  padding-left: 140px;
+  height: 95px;
+  line-height: 95px;
+  width: 315px;
+
+  small {
+    font-weight: normal;
+  }
+}
+
+#inbox, #sent, #identities {
+  display: none;
+}
+
+#msg {
+  border: 1px solid transparent;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  min-height: 10px;
+  line-height: 10px;
+
+  &.err {
+    border-color: #c00;
+    color: #900;
+    background-color: #edd;
+  }
+
+  &.ok {
+    border-color: #0c0;
+    color: #090;
+    background-color: #ded;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption {
+  text-align: left;
+  padding: 5px 0;
+}
+
+header {
+  nav:nth-child(1) {
+    float: left;
+  }
+
+  nav:nth-child(2) {
+    float: right;
+    position: relative;
+    top: 10px;
+  }
+}
+
+.total:before {
+  content: '(';
+}
+
+.total:after {
+  content: ')';
+}
+
+td {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+
+  .mark-item {
+    text-align: center;
+  }
+
+  span[data-to], span[data-from] {
+    max-width: 100px;
+    overflow: hidden;
+    display: block;
+  }
+
+  .subject {
+    display: block;
+    cursor: pointer;
+    margin: 5px 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+th {
+  border: 1px solid #666;
+  font-weight: bold;
+  color: #fff;
+  background-color: #666;
+  padding: 5px 10px;
+  cursor: pointer;
+
+  &.no-sort {
+    cursor: default;
+  }
+
+  &.asc:after {
+    content: ' ▲';
+  }
+
+  &.desc:after {
+    content: ' ▼';
+  }
+}
+
+tbody {
+  min-height: 100px;
+  position: relative;
+}
+
+/*
+TODO add class .loading to tbody
+*/
+tbody:empty:before {
+  content: 'Loading...';
+  color: #444;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  font-size: 120%;
+}
+
+tbody tr:nth-child(even):not(.msg) {
+  background-color: #f5f6f6;
+}
+
+tbody tr.highlight {
+  background: #eef !important;
+}
+
+tr.msg {
+  .content {
+    position: relative;
+
+    &.loading {
+      min-height: 50px;
+      &:empty:before {
+        content: 'Loading...';
+        color: #666;
+        text-align: center;
+        width: 100px;
+        height: 20px;
+        line-height: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -50px;
+        margin-top: -10px;
+      }
+    }
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .subject {
+      text-decoration: underline;
+      padding: 5px;
+    }
+
+    .date, .to, .from {
+      margin: 5px 0;
+      padding: 0 5px;
+    }
+
+    .to {
+      color: #999;
+    }
+
+    .message {
+      font-family: monospace;
+      white-space: pre-wrap;
+      padding: 10px;
+    }
+
+    [contenteditable]:focus {
+      font-weight: normal;
+      text-decoration: none;
+    }
+  }
+}
+
+#sent tr.msg {
+  .to {
+    color: #000;
+  }
+  .from {
+    color: #999;
+  }
+}
+
+form {
+  margin: 10px auto;
+}
+
+label {
+  display: inline-block;
+}
+
+label.error {
+  color: #900;
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+#login fieldset input:not([type=radio]):not([type=checkbox]), #identities input[name=label] {
+  width: 50%;
+}
+
+input.small {
+  width: 3em;
+}
+
+body.login {
+  max-width: 75%;
+
+  #msg {
+    max-width: 62%;
+    margin: 0 auto 15px;
+  }
+}
+
+form#login {
+  max-width: 70%;
+  margin: 0 auto;
+
+  label {
+    min-width: 25%;
+  }
+
+  input[type=submit] {
+    float: right;
+  }
+}
+
+fieldset#create-address > div {
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+
+  input[type=text] {
+    margin-left: 5px;
+  }
+}
+
+/*
+@media (max-width: 800px) {
+    td .subject {
+        max-width: 300px;
+    }
+}*/

@@ -58,7 +58,7 @@ _.extend(app.inbox, {
                     '<td class="mark-item"><input type="checkbox" name="mark" value="' + id + '"></td>' +
                     '<td data-sort="' + from + '"><span class="nowrap" data-from="' + from + '">' + from + '</span></td>' +
                     '<td data-sort="' + to + '"><span class="nowrap" data-to="' + to + '">' + to + '</span></td>' +
-                    '<td data-sort="' + item.subject + '"><span class="subject">' + item.subject + '</span></td>' +
+                    '<td data-sort="' + item.subject + '"><span class="subject wrap">' + item.subject + '</span></td>' +
                     '<td class="nowrap" data-sort="' + moment(time).unix() + '"><span title="' + time + '">' + moment(time).fromNow() + '</span></td>' +
                     '</tr>'
             );

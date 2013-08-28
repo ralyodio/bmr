@@ -1,338 +1,264 @@
-/*
-TODO install sass
-*/
+@charset "UTF-8";
+/* DO NOT EDIT FILES IN ./css. See ./sass instead */
 .clearfix {
-    *zoom: 1;
-}
-
-.clearfix:before, .clearfix:after {
+  *zoom: 1; }
+  .clearfix:before, .clearfix:after {
     display: table;
-    content: "";
-}
-
-.clearfix:after {
-    clear: both;
-}
+    content: ""; }
+  .clearfix:after {
+    clear: both; }
 
 body {
-    font-family: sans-serif;
-    font-size: 12px;
-    max-width: 90%;
-    margin: 20px auto;
-    color: #000;
-}
+  font-family: sans-serif;
+  font-size: 12px;
+  max-width: 90%;
+  margin: 20px auto;
+  color: #000; }
 
 .hide {
-    display: none;
-}
+  display: none; }
 
 h1 {
-    margin-bottom: 0;
-}
+  margin-bottom: 0; }
 
 .nowrap {
-    white-space: nowrap;
-}
+  white-space: nowrap; }
+
+.wrap {
+  word-wrap: break-word;
+  word-break: break-all; }
 
 a {
-    text-decoration: none;
-    margin-right: 5px;
-}
+  text-decoration: none;
+  margin-right: 5px; }
 
 nav a {
-    padding: 3px 7px;
-}
+  padding: 3px 7px; }
 
 nav.tabs a.active {
-    background: #eef;
-    border: 1px solid #ccf;
-    border-radius: 3px;
-}
+  background: #eef;
+  border: 1px solid #ccf;
+  border-radius: 3px; }
 
 header nav:nth-child(2) a {
-    padding: 0;
-}
+  padding: 0; }
 
 a[class]:before {
-    margin-right: 5px;
-}
+  margin-right: 5px; }
 
 a.refresh:before {
-    content: '↻';
-}
+  content: '↻'; }
 
 a.inbox:before {
-    content: '⇧';
-    display: inline-block;
-    position: relative;
-    -webkit-transform: rotate(180deg);
-    margin-left: 5px;
-}
+  content: '⇧';
+  display: inline-block;
+  position: relative;
+  -webkit-transform: rotate(180deg);
+  margin-left: 5px; }
 
 a.compose:before {
-    content: '✉';
-    font-size: 24px;
-    position: relative;
-    top: 4px;
-}
+  content: '✉';
+  font-size: 24px;
+  position: relative;
+  top: 4px; }
 
 a.sent:before {
-    content: '⇧';
-}
+  content: '⇧'; }
 
 a.close:before {
-    content: 'ⓧ';
-}
+  content: 'ⓧ'; }
 
 #logo {
-    font-weight: bold;
-    font-size: 26px;
-    margin: 0 auto 10px;
-    text-align: left;
-    background: url(/img/logo.png) no-repeat 0 0;
-    padding-left: 140px;
-    height: 95px;
-    line-height: 95px;
-    width: 315px;
-}
-
-#logo small {
-    font-weight: normal;
-}
+  font-weight: bold;
+  font-size: 26px;
+  margin: 0 auto 10px;
+  text-align: left;
+  background: url(/img/logo.png) no-repeat 0 0;
+  padding-left: 140px;
+  height: 95px;
+  line-height: 95px;
+  width: 315px; }
+  #logo small {
+    font-weight: normal; }
 
 #inbox, #sent, #identities {
-    display: none;
-}
+  display: none; }
 
 #msg {
-    border: 1px solid transparent;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    min-height: 10px;
-    line-height: 10px;
-}
-
-#msg.err {
+  border: 1px solid transparent;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  min-height: 10px;
+  line-height: 10px; }
+  #msg.err {
     border-color: #c00;
     color: #900;
-    background-color: #edd;
-}
-
-#msg.ok {
+    background-color: #edd; }
+  #msg.ok {
     border-color: #0c0;
     color: #090;
-    background-color: #ded;
-}
+    background-color: #ded; }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-}
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0; }
 
 caption {
-    text-align: left;
-    padding: 5px 0;
-}
+  text-align: left;
+  padding: 5px 0; }
 
 header nav:nth-child(1) {
-    float: left;
-}
-
+  float: left; }
 header nav:nth-child(2) {
-    float: right;
-    position: relative;
-    top: 10px;
-}
+  float: right;
+  position: relative;
+  top: 10px; }
 
 .total:before {
-    content: '(';
-}
+  content: '('; }
 
 .total:after {
-    content: ')';
-}
+  content: ')'; }
 
 td {
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-}
-
-td.mark-item {
-    text-align: center;
-}
-
-td span[data-to], td span[data-from] {
+  padding: 5px 10px;
+  border: 1px solid #ddd; }
+  td .mark-item {
+    text-align: center; }
+  td span[data-to], td span[data-from] {
     max-width: 100px;
     overflow: hidden;
+    display: block; }
+  td .subject {
     display: block;
-}
+    cursor: pointer;
+    margin: 5px 0; }
+    td .subject:hover {
+      text-decoration: underline; }
 
 th {
-    border: 1px solid #666;
-    font-weight: bold;
-    color: #fff;
-    background-color: #666;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-th.no-sort {
-    cursor: default;
-}
-
-th.asc:after {
-    content: ' ▲';
-}
-
-th.desc:after {
-    content: ' ▼';
-}
+  border: 1px solid #666;
+  font-weight: bold;
+  color: #fff;
+  background-color: #666;
+  padding: 5px 10px;
+  cursor: pointer; }
+  th.no-sort {
+    cursor: default; }
+  th.asc:after {
+    content: ' ▲'; }
+  th.desc:after {
+    content: ' ▼'; }
 
 tbody {
-    min-height: 100px;
-    position: relative;
-}
+  min-height: 100px;
+  position: relative; }
 
 /*
 TODO add class .loading to tbody
 */
 tbody:empty:before {
-    content: 'Loading...';
-    color: #444;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -50px;
-    font-size: 120%;
-}
+  content: 'Loading...';
+  color: #444;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  font-size: 120%; }
 
 tbody tr:nth-child(even):not(.msg) {
-    background-color: #f5f6f6;
-}
+  background-color: #f5f6f6; }
 
 tbody tr.highlight {
-    background: #eef !important;
-}
-
-td .subject {
-    cursor: pointer;
-    margin: 5px 0;
-}
-
-td .subject:hover {
-    text-decoration: underline;
-}
+  background: #eef !important; }
 
 tr.msg .content {
-    position: relative;
-}
-
-tr.msg .content.loading {
-    min-height: 50px;
-}
-
-tr.msg .content.loading:empty:before {
-    content: 'Loading...';
-    color: #666;
-    text-align: center;
-    width: 100px;
-    height: 20px;
-    line-height: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -50px;
-    margin-top: -10px;
-}
-
-tr.msg .content .close {
+  position: relative; }
+  tr.msg .content.loading {
+    min-height: 50px; }
+    tr.msg .content.loading:empty:before {
+      content: 'Loading...';
+      color: #666;
+      text-align: center;
+      width: 100px;
+      height: 20px;
+      line-height: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -50px;
+      margin-top: -10px; }
+  tr.msg .content .close {
     position: absolute;
     top: 0;
-    right: 0;
-}
-
-tr.msg .subject {
+    right: 0; }
+  tr.msg .content .subject {
     text-decoration: underline;
-    padding: 5px;
-}
-
-tr.msg .date, tr.msg .to, tr.msg .from {
+    padding: 5px; }
+  tr.msg .content .date, tr.msg .content .to, tr.msg .content .from {
     margin: 5px 0;
-    padding: 0 5px;
-}
-
-tr.msg .to, #sent tr.msg .from {
-    color: #999;
-}
-
-#sent tr.msg .to { color: #000; }
-
-tr.msg .message {
+    padding: 0 5px; }
+  tr.msg .content .to {
+    color: #999; }
+  tr.msg .content .message {
     font-family: monospace;
     white-space: pre-wrap;
-    padding: 10px;
-}
-
-tr.msg [contenteditable]:focus {
+    padding: 10px; }
+  tr.msg .content [contenteditable]:focus {
     font-weight: normal;
-    text-decoration: none;
-}
+    text-decoration: none; }
+
+#sent tr.msg .to {
+  color: #000; }
+#sent tr.msg .from {
+  color: #999; }
 
 form {
-    margin: 10px auto;
-}
+  margin: 10px auto; }
 
 label {
-    display: inline-block;
-}
+  display: inline-block; }
 
 label.error {
-    color: #900;
-}
+  color: #900; }
+
 fieldset {
-    border: 1px solid #ddd;
-    margin: 10px 0;
-    border-radius: 5px;
-}
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  border-radius: 5px; }
 
 #login fieldset input:not([type=radio]):not([type=checkbox]), #identities input[name=label] {
-    width: 50%;
-}
+  width: 50%; }
 
-input.small { width: 3em; }
+input.small {
+  width: 3em; }
 
 body.login {
-    max-width: 75%;
-}
-
-body.login #msg {
+  max-width: 75%; }
+  body.login #msg {
     max-width: 62%;
-    margin: 0 auto 15px;
-}
+    margin: 0 auto 15px; }
 
 form#login {
-    max-width: 70%;
-    margin: 0 auto;
-}
-
-form#login label {
-    min-width: 25%;
-}
-
-form#login input[type=submit] {
-    float: right;
-}
+  max-width: 70%;
+  margin: 0 auto; }
+  form#login label {
+    min-width: 25%; }
+  form#login input[type=submit] {
+    float: right; }
 
 fieldset#create-address > div {
-    float: left;
-    width: 50%;
-    box-sizing: border-box;
-}
+  float: left;
+  width: 50%;
+  box-sizing: border-box; }
+  fieldset#create-address > div input[type=text] {
+    margin-left: 5px; }
 
-fieldset#create-address input[type=text] {
-    margin-left: 5px;
-}
-
-
+/*
+@media (max-width: 800px) {
+    td .subject {
+        max-width: 300px;
+    }
+}*/
