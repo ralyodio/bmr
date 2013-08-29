@@ -2,6 +2,7 @@ var app = window.app || {};
 
 //application-specific methods
 _.extend(app, {
+    //deprecated infavor of ui.logger()
     log: function(){
         if ( !window.console ) return;
 
@@ -13,6 +14,6 @@ _.extend(app, {
 
     create: function(namespace, object){
         app[namespace] = window.app[namespace] = {};
-        _.extend(app[namespace], object);
+        _.extend(app[namespace], object, { ns: namespace });
     }
 });
