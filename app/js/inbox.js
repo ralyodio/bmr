@@ -1,6 +1,4 @@
-app.inbox = window.app.inbox = {};
-
-_.extend(app.inbox, {
+app.create('inbox', {
     init: function () {
         if (!api.conn) {
             c.log('No connection.');

@@ -9,5 +9,10 @@ _.extend(app, {
         var log = Function.prototype.bind.call(console.log, console);
 
         log.apply(console, args);
+    },
+
+    create: function(namespace, object){
+        app[namespace] = window.app[namespace] = {};
+        _.extend(app[namespace], object);
     }
 });

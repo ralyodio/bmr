@@ -1,6 +1,4 @@
-app.logout = window.app.logout || {};
-
-_.extend(app.logout, {
+app.create('logout', {
     init: function () {
         c.log('app.logout.init');
         api.destroy();

@@ -1,6 +1,4 @@
-app.login = window.app.login || {};
-
-_.extend(app.login, {
+app.create('login', {
     init: function(){
         var $login = $("#login");
 

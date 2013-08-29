@@ -107,7 +107,7 @@ _.extend(ui, {
             $("#msg").fadeTo(600, 0, function () {
                 $(this).removeClass('ok err').html('');
             });
-        }, 2500);
+        }, 3000);
     },
 
     markAll: function ($table) {
@@ -241,6 +241,23 @@ _.extend(ui, {
         var $labels = $form.find('label');
 
         $labels.removeClass('error');
+    },
+
+    showActionFields: function(e){
+        var $option = $(e.currentTarget).find('option:selected')
+            , $form = $(e.target).parents('form')
+            , action = $option.val()
+            , $active = $form.find('fieldset#'+action)
+            , $fieldsets;
+
+        if ( $active.length ) {
+            $fieldsets = $active.siblings('fieldset');
+            $fieldsets.hide();
+            $active.slideDown();
+        } else {
+            $fieldsets = $form.find('fieldset');
+            $fieldsets.hide();
+        }
     },
 
     destroy: function(){

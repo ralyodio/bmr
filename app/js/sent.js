@@ -1,6 +1,4 @@
-app.sent = window.app.sent = {};
-
-_.extend(app.sent, {
+app.create('sent', {
     init: function () {
         if (!api.conn) {
             c.log('No connection.');

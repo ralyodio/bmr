@@ -94,6 +94,20 @@ _.extend(api, {
         this.conn.addresses.createRandom(label, cb); //returns address id
     },
 
+    listSubscriptions: function(refresh){
+        try {
+            this.conn.subscriptions.list(function(subscriptions){
+                app.subscriptions.showSubscriptions(subscriptions, refresh);
+            });
+        } catch (err) {
+            c.error(err);
+        }
+    },
+
+    subscribe: function(address, label, cb){
+        this.conn.subscriptions.subscribe(address, label, cb); //returns string with status
+    },
+
     destroy: function(){
         this.conn = null;
         ui.err('Disconnected from server');

@@ -81,7 +81,7 @@ a.close:before {
   #logo small {
     font-weight: normal; }
 
-#inbox, #sent, #identities {
+#inbox, #sent, #identities, #subscriptions {
   display: none; }
 
 #msg {
@@ -223,6 +223,8 @@ label {
 
 label.error {
   color: #900; }
+  label.error input[type=text] {
+    border: 1px solid #900; }
 
 fieldset {
   border: 1px solid #ddd;
@@ -231,6 +233,14 @@ fieldset {
 
 #login fieldset input:not([type=radio]):not([type=checkbox]), #identities input[name=label] {
   width: 50%; }
+
+#subscriptions input[type=text] {
+  min-width: 200px; }
+
+input[type=text], input[type=password] {
+  border: 1px solid #ccc;
+  padding: 3px 5px;
+  border-radius: 3px; }
 
 input.small {
   width: 3em; }

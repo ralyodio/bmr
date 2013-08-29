@@ -1,6 +1,4 @@
-app.identities = window.app.identities = {};
-
-_.extend(app.identities, {
+app.create('identities', {
     init: function () {
         if (!api.conn) {
             c.log('No connection.');
@@ -17,7 +15,7 @@ _.extend(app.identities, {
         $("a.identities").addClass('active').siblings().removeClass('active');
 
         $("#identities-action").on('submit.identities', this.actionItem.bind(this));
-        $("#identities-select-action").on('change.identities', this.showActionFields.bind(this));
+        $("#identities-select-action").on('change.identities', ui.showActionFields);
 
         //handle click events on open addresses
         /* probably not needed for addresses unless we decide to show something when clicking one of them
@@ -39,17 +37,6 @@ _.extend(app.identities, {
             }
         }.bind(this));
         */
-    },
-
-    showActionFields: function(e){
-        var $option = $(e.currentTarget).find('option:selected')
-            , $form = $("#identities-action")
-            , action = $option.val()
-            , $active = $form.find('fieldset#'+action)
-            , $fieldsets = $active.siblings('fieldset');
-
-        $fieldsets.hide();
-        $active.slideDown();
     },
 
     showIdentities: function (identities, refresh) {

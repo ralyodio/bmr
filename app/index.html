@@ -4,7 +4,7 @@
     <title>Bmr - the Bitmessage reader</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/base.css">
-		<script src="/bower_components/jquery/jquery.min.js"></script>
+    <script src="/bower_components/jquery/jquery.min.js"></script>
     <script src="/bower_components/underscore/underscore-min.js"></script>
     <script src="/bower_components/momentjs/min/moment.min.js"></script>
     <script src="/js/ui.js"></script>
@@ -14,6 +14,7 @@
     <script src="/js/inbox.js"></script>
     <script src="/js/sent.js"></script>
     <script src="/js/identities.js"></script>
+    <script src="/js/subscriptions.js"></script>
     <script src="/js/logout.js"></script>
 </head>
 <body>
@@ -78,14 +79,14 @@
             </form>
         </caption>
         <thead>
-        <tr>
-            <th class="no-sort"><input type="checkbox" name="mark-all"></th>
-            <th>From</th>
-            <th>To</th>
-            <th>Subject</th>
-            <th class="status">Status</th>
-            <th class="date">Last</th>
-        </tr>
+            <tr>
+                <th class="no-sort"><input type="checkbox" name="mark-all"></th>
+                <th>From</th>
+                <th>To</th>
+                <th>Subject</th>
+                <th class="status">Status</th>
+                <th class="date">Last</th>
+            </tr>
         </thead>
         <tbody></tbody>
     </table>
@@ -111,26 +112,56 @@
                         <p><label>Small message difficulty: <input class="small" type="text" name="smallMessageDifficulty" value="1.0"></label></p>
                     </div>
                 </fieldset>
+                <!--
                 <fieldset id="enable-address" class="hide">
                     enable
                 </fieldset>
                 <fieldset id="disable-address" class="hide">
                     disable
                 </fieldset>
+                -->
             </form>
         </caption>
         <thead>
-        <tr>
-            <th class="no-sort"><input type="checkbox" name="mark-all"></th>
-            <th>Label</th>
-            <th>Address</th>
-            <th>Enabled</th>
-            <th>Stream</th>
-        </tr>
+            <tr>
+                <th class="no-sort"><input type="checkbox" name="mark-all"></th>
+                <th>Label</th>
+                <th>Address</th>
+                <th>Enabled</th>
+                <th>Stream</th>
+            </tr>
         </thead>
         <tbody></tbody>
     </table>
 </section>
+
+<section id="subscriptions">
+    <table>
+        <caption>
+            <form id="subscriptions-action">
+                <select id="subscriptions-select-action">
+                    <option value="add-subscription">Add subscription</option>
+                    <option value="delete-subscription">Delete subscription</option>
+                </select>
+                <input type="submit" value="Apply">
+                <fieldset id="add-subscription" class="clearfix">
+                    <p><label>Subscription label: <input type="text" name="label"></label></p>
+                    <p><label>Subscription address: <input type="text" name="address"></label></p>
+                </fieldset>
+            </form>
+        </caption>
+        <thead>
+            <tr>
+                <th class="no-sort"><input type="checkbox" name="mark-all"></th>
+                <th>Label</th>
+                <th>Address</th>
+                <th>Enabled</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
 <script>
 //application initialization
 (function($){
