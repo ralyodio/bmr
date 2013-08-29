@@ -139,17 +139,12 @@ app.create('identities', {
     },
 
     destroy: function () {
-        var $pg = $("#identities");
+        var $pg = $('#' + this.ns);
 
         ui.destroy();
-        $(document).add('*').off('.identities .ui');
+        $(document).add('*').off('.' + this.ns);
 
         $pg.hide();
         $pg.find("tbody").empty();
-
-        if (ui.globals.currPage === 'login') {
-            $("body > header").hide();
-            ui.$header.hide();
-        }
     }
 });

@@ -193,17 +193,12 @@ app.create('sent', {
     },
 
     destroy: function () {
-        var $sent = $("#sent");
+        var $pg = $('#' + this.ns);
 
         ui.destroy();
-        $(document).add('*').off('.sent .ui');
+        $(document).add('*').off('.' + this.ns);
 
-        $sent.hide();
-        $sent.find("tbody").empty();
-
-        if (ui.globals.currPage === 'login') {
-            $("body > header").hide();
-            ui.$header.hide();
-        }
+        $pg.hide();
+        $pg.find("tbody").empty();
     }
 });

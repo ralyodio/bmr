@@ -189,17 +189,12 @@ app.create('inbox', {
     },
 
     destroy: function () {
-        var $inbox = $("#inbox");
+        var $pg = $('#' + this.ns);
 
         ui.destroy();
-        $(document).add('*').off('.inbox .ui');
+        $(document).add('*').off('.' + this.ns);
 
-        $inbox.hide();
-        $inbox.find("tbody").empty();
-
-        if (ui.globals.currPage === 'login') {
-            $("body > header").hide();
-            ui.$header.hide();
-        }
+        $pg.hide();
+        $pg.find("tbody").empty();
     }
 });

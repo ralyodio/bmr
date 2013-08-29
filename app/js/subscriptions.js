@@ -120,17 +120,12 @@ app.create('subscriptions', {
     },
 
     destroy: function () {
-        var $pg = $("#subscriptions");
+        var $pg = $('#' + this.ns);
 
         ui.destroy();
-        $(document).add('*').off('.subscriptions .ui');
+        $(document).add('*').off('.' + this.ns);
 
         $pg.hide();
         $pg.find("tbody").empty();
-
-        if (ui.globals.currPage === 'login') {
-            $("body > header").hide();
-            ui.$header.hide();
-        }
     }
 });

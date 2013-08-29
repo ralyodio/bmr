@@ -263,5 +263,9 @@ _.extend(ui, {
     destroy: function(){
         $(window).off('.ui');
         $(document).add('*').off('.ui');
+
+        if (this.globals.currPage === 'login') {
+            this.$header.hide();
+        }
     }
 });
