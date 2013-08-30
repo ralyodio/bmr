@@ -108,6 +108,10 @@ _.extend(api, {
         this.conn.subscriptions.subscribe(address, label, cb); //returns string with status
     },
 
+    unsubscribe: function(address, cb){
+        this.conn.subscriptions.unsubscribe(address, cb); //returns string with status
+    },
+
     destroy: function(){
         this.conn = null;
         ui.err('Disconnected from server');

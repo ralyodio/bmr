@@ -43,7 +43,7 @@ app.create('subscriptions', {
                     '<td data-sort="' + label + '"><span class="nowrap">' + label + '</span></td>' +
                     '<td data-sort="' + address + '"><span class="nowrap">' + address + '</span></td>' +
                     '<td data-sort="' + enabled + '"><span class="enabled">' + enabled + '</span></td>' +
-                    '</tr>'
+                '</tr>'
             );
         });
 
@@ -76,10 +76,29 @@ app.create('subscriptions', {
 
         if ( action === 'delete-subscription' ) {
             $.each($checked, function (i, cb) {
-                var id = cb.value;
+                var address = cb.value;
 
-                c.log('delete subscription: ', id);
-            }.bind(this));
+                api.unsubscribe(address, function(response){
+                    var stat = response.split(/API Error (\d+): /)
+                        , $row = $table.find('tr[data-address='+address+']');
+
+                    if ( stat[1] ) {
+                        ui.err(stat[2]);
+                        c.error(stat[1], stat[2]);
+                    } else {
+                        ui.ok('Subscription has been deleted');
+                        c.log('subscription status: ', address, stat[0]);
+
+                        $row.fadeOut(600, function(){
+                            var $total = $("a.subscriptions .total")
+                                , total = $total.text()-1;
+
+                            $total.text(total);
+                            $(this).remove();
+                        });
+                    }
+                });
+            });
 
         } else if ( action === 'add-subscription' ) {
             var f = $form.get(0)

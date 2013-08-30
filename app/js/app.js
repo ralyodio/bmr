@@ -13,7 +13,18 @@ _.extend(app, {
     },
 
     create: function(namespace, object){
-        app[namespace] = window.app[namespace] = {};
-        _.extend(app[namespace], object, { ns: namespace });
+        var base = {
+            parent: this,
+            destroy: this.destroy
+        };
+
+        app[namespace] = window.app[namespace] || {};
+
+        _.extend(base, object, { ns: namespace }); //override base class with implementation
+        _.extend(app[namespace], base);
+    },
+
+    destroy: function(){
+        c.log('app.destroy');
     }
 });

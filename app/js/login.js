@@ -36,11 +36,15 @@ app.create('login', {
     },
 
     destroy: function(){
+        c.log('app.login.destroy');
+
         var $pg = $('#' + this.ns);
 
         ui.destroy();
         $(document).add('*').off('.' + this.ns);
 
         $pg.hide();
+
+        this.parent.destroy();
     }
 });
