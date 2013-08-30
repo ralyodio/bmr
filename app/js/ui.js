@@ -260,6 +260,58 @@ _.extend(ui, {
         }
     },
 
+    modal: function($content, opts){
+        var $overlay = $('#overlay')
+            , $modal = $('<div id="modal" />')
+            , $header
+            , $footer
+            , $section
+            , defaults = {
+                header: 'Compose message',
+                primaryText: 'Send'
+            };
+
+        opts = _.extend(defaults, opts);
+
+        function getMaxHeight(){
+            return $modal.outerHeight() - ( $header.outerHeight() + $footer.outerHeight() );
+        }
+
+        //clean up any existing modals
+        $("#modal").remove();
+        $("#overlay").hide();
+
+        //close on overlay click
+        $overlay.one('click.ui.modal', function(e){
+            $(e.currentTarget).hide();
+            $("#modal").remove();
+            $(window).off('.ui.modal');
+        });
+
+        $overlay.show();
+
+        //add content
+        $modal.append('<header><h2>'+opts.header+'</h2></header>');
+        $modal.append('<section>'+ $content + '</section>');
+        $modal.append('<footer><button class="btn-primary">'+opts.primaryText+'</button></footer>');
+
+        $header = $modal.find('> header');
+        $section = $modal.find('> section');
+        $footer = $modal.find('> footer');
+
+        $overlay.after($modal);
+
+        //calculate content height/position
+        $modal.css({ marginTop: -$modal.outerHeight()/2 });
+        $section.css('maxHeight', getMaxHeight());
+
+        $(window).on('resize.ui.modal', function(){
+            $section.css('maxHeight', ''); //reset needed to calculate new height
+            $modal.css({ marginTop: -$modal.outerHeight()/2 });
+            $section.css('maxHeight', getMaxHeight());
+        });
+    },
+
     destroy: function(){
         $(window).off('.ui');
         $(document).add('*').off('.ui');
