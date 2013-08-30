@@ -273,43 +273,56 @@ _.extend(ui, {
 
         opts = _.extend(defaults, opts);
 
+        function hideModal(e){
+            if ( e ) e.preventDefault();
+
+            $("#modal").remove();
+            $("#overlay").hide();
+            $(window).off('.ui.modal');
+            $(document).add('*').off('.ui.modal');
+        }
+
+        function resizeModal(){
+            var scrollTop = $(window).scrollTop();
+
+            $section.css('maxHeight', ''); //reset needed to calculate new height
+            $modal.css({ marginTop: -( $modal.outerHeight()/2 + scrollTop ) });
+            $section.css('maxHeight', getMaxHeight());
+        }
+
         function getMaxHeight(){
             return $modal.outerHeight() - ( $header.outerHeight() + $footer.outerHeight() );
         }
 
-        //clean up any existing modals
-        $("#modal").remove();
-        $("#overlay").hide();
+        hideModal();
 
         //close on overlay click
-        $overlay.one('click.ui.modal', function(e){
-            $(e.currentTarget).hide();
-            $("#modal").remove();
-            $(window).off('.ui.modal');
-        });
+        $overlay.one('click.ui.modal', hideModal);
 
         $overlay.show();
 
         //add content
-        $modal.append('<header><h2>'+opts.header+'</h2></header>');
+        $modal.append('<header><h2>'+opts.header+'</h2><a href="#" class="close">Close</a></header>');
         $modal.append('<section>'+ $content + '</section>');
         $modal.append('<footer><button class="btn-primary">'+opts.primaryText+'</button></footer>');
 
+        //cache
         $header = $modal.find('> header');
         $section = $modal.find('> section');
         $footer = $modal.find('> footer');
 
         $overlay.after($modal);
 
-        //calculate content height/position
-        $modal.css({ marginTop: -$modal.outerHeight()/2 });
-        $section.css('maxHeight', getMaxHeight());
+        resizeModal();
 
-        $(window).on('resize.ui.modal', function(){
-            $section.css('maxHeight', ''); //reset needed to calculate new height
-            $modal.css({ marginTop: -$modal.outerHeight()/2 });
-            $section.css('maxHeight', getMaxHeight());
+        //events
+        $header.on('click.ui.modal', '.close', hideModal);
+        $footer.on('click.ui.modal', '.btn-primary', function(e){
+            e.preventDefault();
+            c.log('.btn-primary clicked');
         });
+
+        $(window).on('resize.ui.modal', resizeModal);
     },
 
     destroy: function(){

@@ -50,9 +50,16 @@ body {
     line-height: 50px;
     border-bottom: 1px solid #eee;
     padding: 0 20px;
+    position: relative;
 
     h2 {
       margin: 0;
+    }
+
+    a.close {
+      position: absolute;
+      right: 10px;
+      top: 0;
     }
   }
 

@@ -39,9 +39,14 @@ body {
     height: 50px;
     line-height: 50px;
     border-bottom: 1px solid #eee;
-    padding: 0 20px; }
+    padding: 0 20px;
+    position: relative; }
     #modal header h2 {
       margin: 0; }
+    #modal header a.close {
+      position: absolute;
+      right: 10px;
+      top: 0; }
   #modal footer {
     display: block;
     height: 50px;
