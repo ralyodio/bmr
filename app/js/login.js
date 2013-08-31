@@ -1,14 +1,14 @@
 app.create('login', {
     init: function(){
-        var $login = $("#login");
-
+        ui.init();
         c.log('app.login.init');
 
-        ui.init();
+        ui.$pg = $(ui.tpl('login', {}));
+        ui.$header.after(ui.$pg);
+        ui.$header.hide();
 
-        $login.show();
-        $login.on('submit.login', this.login.bind(this));
-        $("body > header").hide();
+        //events
+        ui.$pg.on('submit.login', this.login);
     },
 
     login: function(e){
@@ -26,7 +26,7 @@ app.create('login', {
             ui.init();
             ui.ok('Successfully connected to API');
             //move to app.hideLogin
-            $("#login").hide({
+            ui.$pg.hide({
                 duration: 0,
                 complete: function(){
                     ui.navigateTo('login', 'inbox');
@@ -38,12 +38,9 @@ app.create('login', {
     destroy: function(){
         c.log('app.login.destroy');
 
-        var $pg = $('#' + this.ns);
-
         ui.destroy();
+        ui.$pg.remove();
         $(document).add('*').off('.' + this.ns);
-
-        $pg.hide();
 
         this.parent.destroy();
     }

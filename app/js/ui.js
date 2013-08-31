@@ -10,6 +10,7 @@ _.extend(ui, {
         msg: null
     },
 
+    $pg: null,
     $body: null,
     $header: null,
 
@@ -20,8 +21,8 @@ _.extend(ui, {
 
         c.log('ui.init');
 
-        this.$body = $("body");
-        this.$header = $("body > header");
+        this.$body = $('body');
+        this.$header = this.$body.find('> header');
 
         $(window).on('popstate.ui', function(){
 //            if ( !this.globals.currPage || this.globals.currPage === 'login' ) return;
@@ -366,6 +367,10 @@ _.extend(ui, {
 
         _.extend(defaults, opts);
         return new Spinner(defaults).spin($target.get(0));
+    },
+
+    tpl: function(name, data){
+        return Handlebars.templates[name](data);
     },
 
     destroy: function(){
