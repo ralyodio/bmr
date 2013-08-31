@@ -44,6 +44,8 @@ app.create('sent', {
 
         c.log(msgs);
         //msgs = msgs.slice(0, 10);
+
+        msgs = ui.sortByDateAttr(msgs, 'lastActionTime');
         msgs.forEach(function (item, i) {
             var time = item.lastActionTime
                 , from = item.fromAddress

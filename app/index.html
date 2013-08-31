@@ -7,6 +7,7 @@
     <script src="/bower_components/jquery/jquery.min.js"></script>
     <script src="/bower_components/underscore/underscore-min.js"></script>
     <script src="/bower_components/momentjs/min/moment.min.js"></script>
+    <script src="/bower_components/spinjs/dist/spin.min.js"></script>
     <script src="/js/ui.js"></script>
     <script src="/js/api.js"></script>
     <script src="/js/app.js"></script>
@@ -42,7 +43,7 @@
         <p><label for="host">Host</label> <input type="text" id="host" name="host" value="bitmessagehost"></p>
         <p><label for="port">Port</label> <input type="text" id="port" name="port" value="9442"></p>
     </fieldset>
-    <input type="submit" value="Login">
+    <button type="submit">Login</button>
 </form>
 
 <section id="inbox">
@@ -52,7 +53,7 @@
                 <select>
                     <option value="trash">Move to trash</option>
                 </select>
-                <input type="submit" value="Apply">
+                <button type="submit">Apply</button>
             </form>
         </caption>
         <thead>
@@ -75,7 +76,7 @@
                 <select>
                     <option value="trash">Move to trash</option>
                 </select>
-                <input type="submit" value="Apply">
+                <button type="submit">Apply</button>
             </form>
         </caption>
         <thead>
@@ -101,7 +102,7 @@
                     <option value="enable-address">Enable address</option>
                     <option value="disable-address">Disable address</option>
                 </select>
-                <input type="submit" value="Apply">
+                <button type="submit">Apply</button>
                 <fieldset id="create-address" class="clearfix">
                     <div>
                         <p><label>Address label: <input type="text" name="label"></label></p>
@@ -143,7 +144,7 @@
                     <option value="add-subscription">Add subscription</option>
                     <option value="delete-subscription">Delete subscription</option>
                 </select>
-                <input type="submit" value="Apply">
+                <button type="submit">Apply</button>
                 <fieldset id="add-subscription" class="clearfix">
                     <p><label>Subscription label: <input type="text" name="label"></label></p>
                     <p><label>Subscription address: <input type="text" name="address"></label></p>

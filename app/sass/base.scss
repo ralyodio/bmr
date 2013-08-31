@@ -15,6 +15,28 @@
   }
 }
 
+@mixin empty {
+  content: 'Loading...';
+  color: #666;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  margin-left: -50px;
+  font-size: 120%;
+  text-align: center;
+  height: 20px;
+  line-height: 20px;
+  margin-top: -10px;
+}
+
+.spin.btn {
+  display: inline-block;
+  height: 50px;
+  width: 25px;
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif;
   font-size: 12px;
@@ -70,16 +92,17 @@ body {
     border-top: 1px solid #eee;
     padding: 0 20px;
     text-align: right;
-
-    button {
-      margin-left: 10px;
-    }
   }
 
   section {
     padding: 10px 20px;
+    min-height: 100px;
     overflow-y: auto;
     box-sizing: border-box;
+
+    &:empty:before {
+      @include empty;
+    }
   }
 }
 
@@ -90,6 +113,18 @@ body {
 h1 {
   margin-bottom: 0;
 }
+
+/*
+button {
+  display: inline-block;
+  border: 1px solid #ccc;
+  background: #eee;
+  color: #000;
+  border-radius: 3px;
+  padding: 3px 10px;
+  margin: 0 0 0 10px;
+}
+*/
 
 .nowrap {
   white-space: nowrap;
@@ -165,6 +200,8 @@ a.close:before {
     font-weight: normal;
   }
 }
+
+
 
 #inbox, #sent, #identities, #subscriptions {
   display: none;
@@ -283,14 +320,9 @@ tbody {
 TODO add class .loading to tbody
 */
 tbody:empty:before {
-  content: 'Loading...';
-  color: #444;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -50px;
-  font-size: 120%;
+  @include empty;
 }
+
 
 tbody tr:nth-child(even):not(.msg) {
   background-color: #f5f6f6;
@@ -306,18 +338,9 @@ tr.msg {
 
     &.loading {
       min-height: 50px;
+
       &:empty:before {
-        content: 'Loading...';
-        color: #666;
-        text-align: center;
-        width: 100px;
-        height: 20px;
-        line-height: 20px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-left: -50px;
-        margin-top: -10px;
+        @include empty;
       }
     }
 
@@ -444,7 +467,7 @@ form#login {
     min-width: 25%;
   }
 
-  input[type=submit] {
+  button[type=submit] {
     float: right;
   }
 }

@@ -39,7 +39,12 @@ app.create('inbox', {
     },
 
     showReply: function(id){
-        //need spinner inside modal
+        //create base modal
+        var $modal = ui.modal('', {
+            header: 'Reply to message',
+            primaryText: 'Reply'
+        });
+
         api.getMessage(id, function(msg){
             api.listAddresses(function(identities){
                 var options = '';
@@ -66,14 +71,13 @@ app.create('inbox', {
                         '</form>'
                     );
 
-                var $modal = ui.modal(form, {
-                    header: 'Reply to message',
-                    primaryText: 'Reply'
-                });
-
+                //populate the modal
+                $modal.find('> section').append(form);
+                $modal.trigger('resize.ui.modal');
                 $modal.find('textarea.message').focus();
 
-                $modal.on('primary.ui.modal', function(e){
+                //handle modal primary button click
+                $modal.on('primary.ui.modal', function(e, spin){
                     var f = $("#reply").get(0)
                         , toAddress = f.to.value
                         , fromAddress = f.from.value
@@ -85,6 +89,7 @@ app.create('inbox', {
                     api.sendMessage(toAddress, fromAddress, subject, message, function(ackdata){
                         c.log(ackdata);
 
+                        spin.stop();
                         ui.hideModal();
                         ui.ok("Your reply has been sent");
                     });
@@ -102,13 +107,7 @@ app.create('inbox', {
         //msgs = msgs.slice(0, 10);
 
         //default to most recent first
-        //do this for all data tables
-        msgs.sort(function(a, b){
-            var aVal = moment(a.receivedTime).unix()
-                , bVal = moment(b.receivedTime).unix();
-
-            return aVal < bVal ? 1 : ( aVal > bVal ? -1 : 0);
-        });
+        msgs = ui.sortByDateAttr(msgs, 'receivedTime');
 
         msgs.forEach(function (item) {
             var time = item.receivedTime

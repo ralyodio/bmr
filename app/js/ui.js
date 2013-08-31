@@ -317,9 +317,18 @@ _.extend(ui, {
         $header.on('click.ui.modal', '.close', this.hideModal);
         $footer.on('click.ui.modal', '.btn-primary', function(e){
             e.preventDefault();
-            $modal.trigger('primary.ui.modal');
+
+            var spin
+                , $btn = $(e.target)
+                , $spin = $('<em class="spin btn">&nbsp;</em>');
+
+            $btn.attr('disabled', true);
+            $btn.before($spin);
+            spin = ui.spin($spin);
+            $modal.trigger('primary.ui.modal', spin);
         });
 
+        $modal.on('resize.ui.modal', resizeModal);
         $(window).on('resize.ui.modal', resizeModal);
 
         return $modal;
@@ -335,6 +344,28 @@ _.extend(ui, {
                 rect.bottom <= (window.innerHeight || document. documentElement.clientHeight) && /*or $(window).height() */
                 rect.right <= (window.innerWidth || document. documentElement.clientWidth) /*or $(window).width() */
         );
+    },
+
+    sortByDateAttr: function(data, attr){
+        return data.sort(function(a, b){
+            var aVal = moment(a[attr]).unix()
+                , bVal = moment(b[attr]).unix();
+
+            return aVal < bVal ? 1 : ( aVal > bVal ? -1 : 0);
+        });
+    },
+
+    spin: function($target, opts){
+        var defaults = {
+            lines: 11,
+            width: 2,
+            radius: 0,
+            length: 8,
+            color: '#999'
+        };
+
+        _.extend(defaults, opts);
+        return new Spinner(defaults).spin($target.get(0));
     },
 
     destroy: function(){
