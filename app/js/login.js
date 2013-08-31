@@ -4,7 +4,7 @@ app.create('login', {
         c.log('app.login.init');
 
         ui.$pg = $(ui.tpl('login', {}));
-        ui.$header.after(ui.$pg);
+        ui.$content.append(ui.$pg);
         ui.$header.hide();
 
         //events

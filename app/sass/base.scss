@@ -15,7 +15,7 @@
   }
 }
 
-@mixin empty {
+.empty {
   content: 'Loading...';
   color: #666;
   position: absolute;
@@ -101,7 +101,7 @@ body {
     box-sizing: border-box;
 
     &:empty:before {
-      @include empty;
+      @extend .empty;
     }
   }
 }
@@ -320,7 +320,7 @@ tbody {
 TODO add class .loading to tbody
 */
 tbody:empty:before {
-  @include empty;
+  @extend .empty;
 }
 
 
@@ -340,7 +340,7 @@ tr.msg {
       min-height: 50px;
 
       &:empty:before {
-        @include empty;
+        @extend .empty;
       }
     }
 

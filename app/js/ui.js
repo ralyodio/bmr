@@ -10,9 +10,10 @@ _.extend(ui, {
         msg: null
     },
 
-    $pg: null,
     $body: null,
     $header: null,
+    $content: null,
+    $pg: null,
 
     dom: {},
 
@@ -23,6 +24,7 @@ _.extend(ui, {
 
         this.$body = $('body');
         this.$header = this.$body.find('> header');
+        this.$content = this.$body.find('> #content');
 
         $(window).on('popstate.ui', function(){
 //            if ( !this.globals.currPage || this.globals.currPage === 'login' ) return;
