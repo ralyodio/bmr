@@ -32,8 +32,65 @@ app.create('inbox', {
             } else if ( $el.is('a.close') ) {
                 c.log('close msg');
                 this.hideMsg(id);
+            } else if ( $el.is('a.reply') ) {
+                this.showReply(id);
             }
         }.bind(this));
+    },
+
+    showReply: function(id){
+        //need spinner inside modal
+        api.getMessage(id, function(msg){
+            api.listAddresses(function(identities){
+                var options = '';
+
+                _.each(identities, function(id){
+                    options += '<option value="'+id.address+'">'+id.label+'</option>';
+                });
+
+                var form = (
+                    '<form id="reply" method="post">' +
+                        '<input type="hidden" name="id" value="'+msg.msgid+'">' +
+                        '<fieldset>' +
+                        '<p>' +
+                            '<label for="reply-from">From</label>' +
+                            '<select name="from" id="reply-from">'+ options +'</select>' +
+                        '</p>' +
+                        '<p><label for="reply-to">To</label> <input type="text" name="to" id="reply-to" value="'+msg.fromAddress+'"></p>' +
+                        '<p><label for="reply-subject">Subject</label> <input type="text" name="subject" id="reply-subject" value="'+msg.subject+'"></p>' +
+                        '<textarea name="message" class="message" id="reply-body">' +
+                        '&#13;&#10;&#13;&#10;------------------------------------------------------&#13;&#10;' +
+                        msg.message +
+                        '</textarea>' +
+                        '</fieldset>' +
+                        '</form>'
+                    );
+
+                var $modal = ui.modal(form, {
+                    header: 'Reply to message',
+                    primaryText: 'Reply'
+                });
+
+                $modal.find('textarea.message').focus();
+
+                $modal.on('primary.ui.modal', function(e){
+                    var f = $("#reply").get(0)
+                        , toAddress = f.to.value
+                        , fromAddress = f.from.value
+                        , subject = f.subject.value
+                        , message = f.message.value;
+
+                    c.log('Sending message', f);
+
+                    api.sendMessage(toAddress, fromAddress, subject, message, function(ackdata){
+                        c.log(ackdata);
+
+                        ui.hideModal();
+                        ui.ok("Your reply has been sent");
+                    });
+                });
+            });
+        });
     },
 
     showInbox: function (msgs) {
@@ -43,6 +100,16 @@ app.create('inbox', {
             , $tbody = $table.find("tbody");
 
         //msgs = msgs.slice(0, 10);
+
+        //default to most recent first
+        //do this for all data tables
+        msgs.sort(function(a, b){
+            var aVal = moment(a.receivedTime).unix()
+                , bVal = moment(b.receivedTime).unix();
+
+            return aVal < bVal ? 1 : ( aVal > bVal ? -1 : 0);
+        });
+
         msgs.forEach(function (item) {
             var time = item.receivedTime
                 , from = item.fromAddress

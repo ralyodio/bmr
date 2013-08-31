@@ -9,7 +9,7 @@ app.create('identities', {
         c.log('app.identities.init');
 
         ui.init();
-        api.listAddresses(); //needs spinner
+        api.listAddresses(this.showIdentities); //needs spinner
 
         $("body > header").show();
         $("a.identities").addClass('active').siblings().removeClass('active');
@@ -128,7 +128,7 @@ app.create('identities', {
                     var refresh = true;
 
                     ui.ok('Address ' + address + ' has been created');
-                    api.listAddresses(refresh);
+                    api.listAddresses(this.showIdentities, refresh);
                     ui.resetForm($form);
                 }.bind(this));
             } else {

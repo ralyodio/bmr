@@ -22,6 +22,14 @@ _.extend(api, {
         }
     },
 
+    sendMessage: function(toAddress, fromAddress, subject, message, cb){
+        try {
+            this.conn.messages.send(toAddress, fromAddress, subject, message, cb);
+        } catch ( err ) {
+            c.error(err);
+        }
+    },
+
     auth: function (data, cb) {
         c.log(data);
 
@@ -76,10 +84,10 @@ _.extend(api, {
         }
     },
 
-    listAddresses: function(refresh){
+    listAddresses: function(cb, refresh){
         try {
             this.conn.addresses.list(function(identities){
-                app.identities.showIdentities(identities, refresh)
+                cb(identities, refresh);
             });
         } catch (err) {
             c.log(err);

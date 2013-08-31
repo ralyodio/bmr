@@ -12,7 +12,7 @@ body {
   font-family: sans-serif;
   font-size: 12px;
   max-width: 90%;
-  margin: 20px auto;
+  margin: 35px auto;
   color: #000; }
 
 #overlay {
@@ -25,7 +25,7 @@ body {
   left: 0; }
 
 #modal {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   width: 80%;
@@ -131,12 +131,18 @@ a.close:before {
   display: none; }
 
 #msg {
-  border: 1px solid transparent;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid transparent;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 0;
   margin-bottom: 15px;
   min-height: 10px;
-  line-height: 10px; }
+  line-height: 10px;
+  text-align: center; }
   #msg.err {
     border-color: #c00;
     color: #900;
@@ -256,6 +262,24 @@ tr.msg .content {
     font-weight: normal;
     text-decoration: none; }
 
+.message {
+  font-family: monospace;
+  white-space: pre-wrap;
+  padding: 10px; }
+
+#reply label {
+  min-width: 10%; }
+#reply input[type=text] {
+  width: 50%;
+  box-sizing: border-box; }
+  #reply input[type=text][name=subject] {
+    width: 89%; }
+#reply .message {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 150px;
+  display: block; }
+
 #sent tr.msg .to {
   color: #000; }
 #sent tr.msg .from {
@@ -283,7 +307,7 @@ fieldset {
 #subscriptions input[type=text] {
   min-width: 200px; }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], textarea {
   border: 1px solid #ccc;
   padding: 3px 5px;
   border-radius: 3px; }
@@ -293,9 +317,6 @@ input.small {
 
 body.login {
   max-width: 75%; }
-  body.login #msg {
-    max-width: 62%;
-    margin: 0 auto 15px; }
 
 form#login {
   max-width: 70%;

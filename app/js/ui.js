@@ -260,6 +260,15 @@ _.extend(ui, {
         }
     },
 
+    hideModal: function(e){
+        if ( e ) e.preventDefault();
+
+        $("#modal").remove();
+        $("#overlay").hide();
+        $(window).off('.ui.modal');
+        $(document).add('*').off('.ui.modal');
+    },
+
     modal: function($content, opts){
         var $overlay = $('#overlay')
             , $modal = $('<div id="modal" />')
@@ -273,20 +282,9 @@ _.extend(ui, {
 
         opts = _.extend(defaults, opts);
 
-        function hideModal(e){
-            if ( e ) e.preventDefault();
-
-            $("#modal").remove();
-            $("#overlay").hide();
-            $(window).off('.ui.modal');
-            $(document).add('*').off('.ui.modal');
-        }
-
         function resizeModal(){
-            var scrollTop = $(window).scrollTop();
-
-            $section.css('maxHeight', ''); //reset needed to calculate new height
-            $modal.css({ marginTop: -( $modal.outerHeight()/2 + scrollTop ) });
+            $section.css('maxHeight', ''); //reset to calculate new height
+            $modal.css('marginTop', -$modal.outerHeight()/2);
             $section.css('maxHeight', getMaxHeight());
         }
 
@@ -294,10 +292,10 @@ _.extend(ui, {
             return $modal.outerHeight() - ( $header.outerHeight() + $footer.outerHeight() );
         }
 
-        hideModal();
+        this.hideModal();
 
         //close on overlay click
-        $overlay.one('click.ui.modal', hideModal);
+        $overlay.one('click.ui.modal', this.hideModal);
 
         $overlay.show();
 
@@ -316,13 +314,27 @@ _.extend(ui, {
         resizeModal();
 
         //events
-        $header.on('click.ui.modal', '.close', hideModal);
+        $header.on('click.ui.modal', '.close', this.hideModal);
         $footer.on('click.ui.modal', '.btn-primary', function(e){
             e.preventDefault();
-            c.log('.btn-primary clicked');
+            $modal.trigger('primary.ui.modal');
         });
 
         $(window).on('resize.ui.modal', resizeModal);
+
+        return $modal;
+    },
+
+    isElementInViewport: function($el) {
+        var el = $el.get(0)
+            , rect = el.getBoundingClientRect();
+
+        return (
+            rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document. documentElement.clientHeight) && /*or $(window).height() */
+                rect.right <= (window.innerWidth || document. documentElement.clientWidth) /*or $(window).width() */
+        );
     },
 
     destroy: function(){
