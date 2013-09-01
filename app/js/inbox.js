@@ -47,10 +47,17 @@ app.create('inbox', {
 
         api.getMessage(id, function(msg){
             api.listAddresses(function(identities){
-                var options = '';
+                var options = ''
+                    , firstId = identities[0].address;
 
                 _.each(identities, function(id){
-                    options += '<option value="'+id.address+'">'+id.label+'</option>';
+                    var attr = '';
+
+                    if ( id === firstId ) {
+                        attr = ' selected';
+                    }
+
+                    options += '<option value="'+id.address+'"'+attr+'>'+id.label+'</option>';
                 });
 
                 var form = (
@@ -59,7 +66,7 @@ app.create('inbox', {
                         '<fieldset>' +
                         '<p>' +
                             '<label for="reply-from">From</label>' +
-                            '<select name="from" id="reply-from">'+ options +'</select>' +
+                            '<select name="from" id="reply-from">'+ options +'</select> <span id="reply-id">'+firstId+'</span>' +
                         '</p>' +
                         '<p><label for="reply-to">To</label> <input type="text" name="to" id="reply-to" value="'+msg.fromAddress+'"></p>' +
                         '<p><label for="reply-subject">Subject</label> <input type="text" name="subject" id="reply-subject" value="'+msg.subject+'"></p>' +
@@ -75,6 +82,11 @@ app.create('inbox', {
                 $modal.find('> section').append(form);
                 $modal.trigger('resize.ui.modal');
                 $modal.find('textarea.message').focus();
+
+                //update the address shown
+                $modal.find('#reply-from').on('change.ui.modal', function(e){
+                    $("#reply-id").text(this.value);
+                });
 
                 //handle modal primary button click
                 $modal.on('primary.ui.modal', function(e, spin){
