@@ -6,18 +6,21 @@ app.create('inbox', {
             return;
         }
 
+        ui.init();
         c.log('app.inbox.init');
 
-        ui.init();
-        api.getInbox(); //needs spinner
+        ui.$pg = $(ui.tpl('inbox', {}));
+        ui.$content.append(ui.$pg);
+        ui.$header.show();
 
-        $("body > header").show();
-        $("a.inbox").addClass('active').siblings().removeClass('active');
+        api.getInbox(this.showInbox.bind(this)); //needs spinner
 
-        $("#inbox-action").on('submit.inbox', this.actionItem.bind(this));
+        //page events
+        ui.$header.find('a.inbox').addClass('active').siblings().removeClass('active');
+        ui.$pg.find("#inbox-action").on('submit.inbox', this.actionItem.bind(this));
 
-        //handle click events on open messages
-        $("#inbox table").on('click.inbox', 'tr.msg', function (e) {
+        //handle click events on currently opened messages
+        ui.$pg.find("table").on('click.inbox', 'tr.msg', function (e) {
             e.preventDefault();
 
             var $el = $(e.target) //clicked element
@@ -27,7 +30,7 @@ app.create('inbox', {
             //handle msg actions
             if ( $el.is('a.trash') ) {
                 c.log('trash msg');
-                api.moveToTrash(id, this.moveToTrash);
+                api.moveToTrash(id, this.moveToTrash.bind(this));
 
             } else if ( $el.is('a.close') ) {
                 c.log('close msg');
@@ -47,36 +50,14 @@ app.create('inbox', {
 
         api.getMessage(id, function(msg){
             api.listAddresses(function(identities){
-                var options = ''
-                    , firstId = identities[0].address;
+                identities[0].selected = true; //pre-select the first address in menu
 
-                _.each(identities, function(id){
-                    var attr = '';
-
-                    if ( id === firstId ) {
-                        attr = ' selected';
-                    }
-
-                    options += '<option value="'+id.address+'"'+attr+'>'+id.label+'</option>';
+                var options = ui.tpl('inbox.reply.options', { identities: identities });
+                var form = ui.tpl('inbox.reply', {
+                    msg: msg,
+                    options: options,
+                    selectedId: identities[0].address
                 });
-
-                var form = (
-                    '<form id="reply" method="post">' +
-                        '<input type="hidden" name="id" value="'+msg.msgid+'">' +
-                        '<fieldset>' +
-                        '<p>' +
-                            '<label for="reply-from">From</label>' +
-                            '<select name="from" id="reply-from">'+ options +'</select> <span id="reply-id">'+firstId+'</span>' +
-                        '</p>' +
-                        '<p><label for="reply-to">To</label> <input type="text" name="to" id="reply-to" value="'+msg.fromAddress+'"></p>' +
-                        '<p><label for="reply-subject">Subject</label> <input type="text" name="subject" id="reply-subject" value="'+msg.subject+'"></p>' +
-                        '<textarea name="message" class="message" id="reply-body">' +
-                        '&#13;&#10;&#13;&#10;------------------------------------------------------&#13;&#10;' +
-                        msg.message +
-                        '</textarea>' +
-                        '</fieldset>' +
-                        '</form>'
-                    );
 
                 //populate the modal
                 $modal.find('> section').append(form);
@@ -103,7 +84,7 @@ app.create('inbox', {
 
                         spin.stop();
                         ui.hideModal();
-                        ui.ok("Your reply has been sent");
+                        ui.ok("Your reply has been sent!");
                     });
                 });
             });
@@ -111,9 +92,9 @@ app.create('inbox', {
     },
 
     showInbox: function (msgs) {
-        var $inbox = $("#inbox")
-            , $table = $inbox.find('table')
-            , $total = $('a.inbox .total')
+        var messages = [] //template data
+            , $table = ui.$pg.find('table')
+            , $total = ui.$header.find('a.inbox .total')
             , $tbody = $table.find("tbody");
 
         //msgs = msgs.slice(0, 10);
@@ -121,24 +102,22 @@ app.create('inbox', {
         //default to most recent first
         msgs = ui.sortByDateAttr(msgs, 'receivedTime');
 
+        //prepare data for template
         msgs.forEach(function (item) {
-            var time = item.receivedTime
-                , from = item.fromAddress
-                , to = item.toAddress
-                , id = item.msgid;
+            var time = item.receivedTime;
 
-            //c.log(item);
-
-            $tbody.append(
-                '<tr data-id="' + id + '">' +
-                    '<td class="mark-item"><input type="checkbox" name="mark" value="' + id + '"></td>' +
-                    '<td data-sort="' + from + '"><span class="nowrap" data-from="' + from + '">' + from + '</span></td>' +
-                    '<td data-sort="' + to + '"><span class="nowrap" data-to="' + to + '">' + to + '</span></td>' +
-                    '<td data-sort="' + item.subject + '"><span class="subject wrap">' + item.subject + '</span></td>' +
-                    '<td class="nowrap" data-sort="' + moment(time).unix() + '"><span title="' + time + '">' + moment(time).fromNow() + '</span></td>' +
-                    '</tr>'
-            );
+            messages.push({
+                time: time
+                , subject: item.subject
+                , timeSortable: moment(time).unix()
+                , timeReadable: moment(time).fromNow()
+                , from: item.fromAddress
+                , to: item.toAddress
+                , id: item.msgid
+            });
         });
+
+        $tbody.append(ui.tpl('inbox.messages', { messages: messages }));
 
         //initialize events for the table
         ui.markAll($table);
@@ -148,46 +127,26 @@ app.create('inbox', {
         this.readMsg($table);
 
         $total.text(msgs.length);
-        $inbox.fadeIn();
+        ui.$pg.fadeIn();
     },
 
     preShowMsg: function(id){
-        c.log('preShowMsg');
+        c.log('app.inbox.preShowMsg', id);
 
-        var $row = $('#inbox tbody tr[data-id='+id+']')
+        var $row = ui.$pg.find('tbody tr[data-id='+id+']')
             , colCount = $row.find('td').length;
 
-        $row.after(
-            '<tr class="msg" data-msgid="'+id+'">' +
-                '<td colspan="' + colCount + '">' +
-                    '<div class="content loading"></div>' +
-                '</td>' +
-            '</tr>'
-        );
+        $row.after(ui.tpl('inbox.message', { id: id, colCount: colCount }));
     },
 
     showMsg: function(msg){
-        var $row = $('#inbox tbody tr[data-id='+msg.msgid+']')
-            , to = msg.toAddress
-            , from = msg.fromAddress
+        c.log('app.inbox.showMsg', msg);
+
+        var $row = ui.$pg.find('tbody tr[data-id='+msg.msgid+']')
             , $msg = $row.next('.msg')
             , $content = $msg.find('.content');
 
-        c.log('show msg: ', msg);
-
-        $content.append(
-            '<a href="#" class="close">Close</a>' +
-            '<h3 class="subject">' + msg.subject + '</h3>' +
-            '<p class="date">' + msg.receivedTime + '</p>' +
-            '<p data-from="' + from + '" class="from">From: ' + from + '</p>' +
-            '<p data-to="' + to + '" class="to">To: ' + to + '</p>' +
-            '<nav>' +
-                '<a href="#" class="reply">Reply</a>' +
-                '<a href="#" class="trash">Trash</a>' +
-            '</nav>' +
-            '<section class="message">' + msg.message + '</section>'
-        );
-
+        $content.append(ui.tpl('inbox.message.content', { msg: msg }));
         $content.removeClass('loading');
         $row.data('isopen', true);
     },
@@ -195,7 +154,7 @@ app.create('inbox', {
     hideMsg: function(id){
         c.log('hideMsg: ', id);
 
-        var $row = $('#inbox tbody tr[data-id='+id+']');
+        var $row = ui.$pg.find('tbody tr[data-id='+id+']');
 
         $row.data('isopen', false);
         $row.next('.msg').remove();
@@ -226,7 +185,7 @@ app.create('inbox', {
     },
 
     moveToTrash: function (id, msg) {
-        var $table = $("#inbox table")
+        var $table = ui.$pg.find('table')
             , $row = $table.find('tbody tr[data-id=' + id + ']')
             , $openMsg = $row.next('.msg');
 
@@ -241,7 +200,7 @@ app.create('inbox', {
 
         //remove the original inbox row
         $row.fadeOut(600, function () {
-            var $total = $("a.inbox .total")
+            var $total = ui.$header.find('a.inbox .total')
                 , total = $total.text()-1;
 
             $total.text(total);
@@ -254,7 +213,7 @@ app.create('inbox', {
 
         var $form = $(e.target)
             , action = $form.find('option:selected').val()
-            , $table = $form.parents('section').find('table')
+            , $table = ui.$pg.find('table')
             , $checked = $table.find('tbody td:first-child [type=checkbox]:checked');
 
         if (action === 'trash') {
@@ -267,12 +226,12 @@ app.create('inbox', {
     },
 
     destroy: function () {
-        var $pg = $('#' + this.ns);
+        c.log('app.login.destroy');
 
         ui.destroy();
         $(document).add('*').off('.' + this.ns);
+        ui.$pg.remove();
 
-        $pg.hide();
-        $pg.find("tbody").empty();
+        this.parent.destroy();
     }
 });

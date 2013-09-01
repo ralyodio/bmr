@@ -43,11 +43,9 @@ _.extend(api, {
         }
     },
 
-    getInbox: function () {
+    getInbox: function (cb) {
         try {
-            this.conn.messages.inbox.list(function (msgs) {
-                app.inbox.showInbox(msgs);
-            });
+            this.conn.messages.inbox.list(cb);
         } catch (err) {
             c.log(err);
         }
