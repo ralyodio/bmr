@@ -9,20 +9,23 @@ app.create('subscriptions', {
         c.log('app.subscriptions.init');
 
         ui.init();
-        api.listSubscriptions(); //needs spinner
 
-        $("body > header").show();
-        $("a.subscriptions").addClass('active').siblings().removeClass('active');
+        ui.$pg = $(ui.tpl('subscriptions', {}));
+        ui.$content.append(ui.$pg);
+        ui.$header.show();
+        ui.$header.find('a.subscriptions').addClass('active').siblings().removeClass('active');
 
-        $("#subscriptions-action").on('submit.subscriptions', this.actionItem.bind(this));
-        $("#subscriptions-select-action").on('change.subscriptions', ui.showActionFields);
+        api.listSubscriptions(this.showSubscriptions); //needs spinner
+
+        //events
+        ui.$pg.find('#subscriptions-action').on('submit.subscriptions', this.actionItem.bind(this));
+        ui.$pg.find('#subscriptions-select-action').on('change.subscriptions', ui.showActionFields);
     },
 
     showSubscriptions: function (subscriptions, refresh) {
-        var $pg = $("#subscriptions")
-            , $table = $pg.find('table')
-            , $total = $('a.subscriptions .total')
-            , $tbody = $pg.find("tbody");
+        var $table = ui.$pg.find('table')
+            , $total = ui.$header.find('a.subscriptions .total')
+            , $tbody = $table.find("tbody");
 
         c.log('subscriptions', subscriptions);
 
@@ -30,22 +33,7 @@ app.create('subscriptions', {
             $tbody.empty();
         }
 
-        subscriptions.forEach(function (item) {
-            var address = item.address
-                , label = item.label
-                , enabled = item.enabled;
-
-            //c.log(item);
-
-            $tbody.append(
-                '<tr data-address="' + address + '">' +
-                    '<td class="mark-item"><input type="checkbox" name="mark" value="' + address + '"></td>' +
-                    '<td data-sort="' + label + '"><span class="nowrap">' + label + '</span></td>' +
-                    '<td data-sort="' + address + '"><span class="nowrap">' + address + '</span></td>' +
-                    '<td data-sort="' + enabled + '"><span class="enabled">' + enabled + '</span></td>' +
-                '</tr>'
-            );
-        });
+        $tbody.append(ui.tpl('subscriptionsList', { subscriptions: subscriptions }));
 
         //initialize events for the table
         if ( !refresh ) {
@@ -56,10 +44,10 @@ app.create('subscriptions', {
         ui.shiftCheck.init($table);
         ui.checkItem($table);
 
-        //call to wire up events here for address rows
+        //stub: wire up events here for address rows here
 
         $total.text(subscriptions.length);
-        $pg.fadeIn();
+        ui.$pg.fadeIn();
     },
 
     actionItem: function (e) {
@@ -67,7 +55,7 @@ app.create('subscriptions', {
 
         var $form = $(e.target)
             , action = $form.find('option:selected').val()
-            , $table = $form.parents('section').find('table')
+            , $table = ui.$pg.find('table')
             , $checked = $table.find('tbody td:first-child [type=checkbox]:checked');
 
         c.log('actionItem: ' + action);
@@ -112,6 +100,7 @@ app.create('subscriptions', {
                     var refresh = true
                         , stat = response.split(/API Error (\d+): /);
 
+                    //show error if there was one
                     if ( stat[1] ) {
                         ui.err(stat[2]);
                         $form.find('input[name=address]').parents('label').addClass('error');
@@ -119,7 +108,7 @@ app.create('subscriptions', {
                     } else {
                         ui.ok('Subscription has been added');
                         c.log('subscription status: ', stat[0]);
-                        api.listSubscriptions(refresh);
+                        api.listSubscriptions(this.showSubscriptions, refresh);
                         ui.resetForm($form);
                     }
                 }.bind(this));
@@ -139,12 +128,12 @@ app.create('subscriptions', {
     },
 
     destroy: function () {
-        var $pg = $('#' + this.ns);
+        c.log('app.subscriptions.destroy');
 
         ui.destroy();
+        ui.$pg.remove();
         $(document).add('*').off('.' + this.ns);
 
-        $pg.hide();
-        $pg.find("tbody").empty();
+        this.parent.destroy();
     }
 });

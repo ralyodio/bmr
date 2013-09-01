@@ -7,6 +7,8 @@ app.create('logout', {
     },
 
     destroy: function () {
-        c.log('app.logout.destroy?');
+        c.log('app.logout.destroy');
+
+        this.parent.destroy();
     }
 });

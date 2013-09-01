@@ -18,7 +18,7 @@ _.extend(api, {
         try {
             this.conn.messages.inbox.single(id, cb);
         } catch (err) {
-            c.log(err);
+            c.error(err);
         }
     },
 
@@ -35,11 +35,10 @@ _.extend(api, {
 
         try {
             this.conn = require('bitmessage-node')(data.host, data.port, data.user, data.pass);
-            c.log('conn', this.conn);
             cb();
         } catch (err) {
-            ui.err('Could not connect');
-            c.log(err);
+            ui.err('Could not connect to API');
+            c.error(err);
         }
     },
 
@@ -47,7 +46,7 @@ _.extend(api, {
         try {
             this.conn.messages.inbox.list(cb);
         } catch (err) {
-            c.log(err);
+            c.error(err);
         }
     },
 
@@ -57,7 +56,7 @@ _.extend(api, {
                 app.sent.showSent(msgs);
             });
         } catch (err) {
-            c.log(err);
+            c.error(err);
         }
     },
 
@@ -66,7 +65,7 @@ _.extend(api, {
         try {
             this.conn.messages.sent.single(id, cb);
         } catch (err) {
-            c.log(err);
+            c.error(err);
         }
     },
 
@@ -78,7 +77,7 @@ _.extend(api, {
                 cb(id, msg);
             });
         } catch (err) {
-            c.log(err);
+            c.error(err);
         }
     },
 
@@ -88,7 +87,7 @@ _.extend(api, {
                 cb(identities, refresh);
             });
         } catch (err) {
-            c.log(err);
+            c.error(err);
         }
     },
 
@@ -100,10 +99,10 @@ _.extend(api, {
         this.conn.addresses.createRandom(label, cb); //returns address id
     },
 
-    listSubscriptions: function(refresh){
+    listSubscriptions: function(cb, refresh){
         try {
             this.conn.subscriptions.list(function(subscriptions){
-                app.subscriptions.showSubscriptions(subscriptions, refresh);
+                cb(subscriptions, refresh);
             });
         } catch (err) {
             c.error(err);

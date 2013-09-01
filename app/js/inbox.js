@@ -12,11 +12,11 @@ app.create('inbox', {
         ui.$pg = $(ui.tpl('inbox', {}));
         ui.$content.append(ui.$pg);
         ui.$header.show();
+        ui.$header.find('a.inbox').addClass('active').siblings().removeClass('active');
 
         api.getInbox(this.showInbox.bind(this)); //needs spinner
 
         //page events
-        ui.$header.find('a.inbox').addClass('active').siblings().removeClass('active');
         ui.$pg.find("#inbox-action").on('submit.inbox', this.actionItem.bind(this));
 
         //handle click events on currently opened messages
@@ -171,7 +171,7 @@ app.create('inbox', {
                 , isOpen = !!$row.data('isopen')
                 , id = $row.attr('data-id');
 
-            c.log('read msg: ' + id);
+            c.log('app.inbox.readMsg', id);
 
             if ( isOpen ) {
                 this.hideMsg(id);
@@ -180,7 +180,6 @@ app.create('inbox', {
 
             this.preShowMsg(id);
             api.getMessage(id, this.showMsg);
-
         }.bind(this));
     },
 

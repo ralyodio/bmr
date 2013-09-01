@@ -225,12 +225,22 @@ a.close:before {
     border-color: #c00;
     color: #900;
     background-color: #edd;
+
+    &:before {
+      content: '⚠';
+      margin-right: 5px;
+    }
   }
 
   &.ok {
     border-color: #0c0;
     color: #090;
     background-color: #ded;
+
+    &:before {
+      content: '✓';
+      margin-right: 5px;
+    }
   }
 }
 

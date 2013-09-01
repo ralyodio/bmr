@@ -177,10 +177,16 @@ a.close:before {
     border-color: #c00;
     color: #900;
     background-color: #edd; }
+    #msg.err:before {
+      content: '⚠';
+      margin-right: 5px; }
   #msg.ok {
     border-color: #0c0;
     color: #090;
     background-color: #ded; }
+    #msg.ok:before {
+      content: '✓';
+      margin-right: 5px; }
 
 table {
   width: 100%;
