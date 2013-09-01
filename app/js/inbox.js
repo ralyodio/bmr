@@ -52,8 +52,8 @@ app.create('inbox', {
             api.listAddresses(function(identities){
                 identities[0].selected = true; //pre-select the first address in menu
 
-                var options = ui.tpl('inbox.reply.options', { identities: identities });
-                var form = ui.tpl('inbox.reply', {
+                var options = ui.tpl('inboxReplyOptions', { identities: identities });
+                var form = ui.tpl('inboxReply', {
                     msg: msg,
                     options: options,
                     selectedId: identities[0].address
@@ -117,7 +117,7 @@ app.create('inbox', {
             });
         });
 
-        $tbody.append(ui.tpl('inbox.messages', { messages: messages }));
+        $tbody.append(ui.tpl('inboxMessages', { messages: messages }));
 
         //initialize events for the table
         ui.markAll($table);
@@ -136,7 +136,7 @@ app.create('inbox', {
         var $row = ui.$pg.find('tbody tr[data-id='+id+']')
             , colCount = $row.find('td').length;
 
-        $row.after(ui.tpl('inbox.message', { id: id, colCount: colCount }));
+        $row.after(ui.tpl('inboxMessage', { id: id, colCount: colCount }));
     },
 
     showMsg: function(msg){
@@ -146,7 +146,7 @@ app.create('inbox', {
             , $msg = $row.next('.msg')
             , $content = $msg.find('.content');
 
-        $content.append(ui.tpl('inbox.message.content', { msg: msg }));
+        $content.append(ui.tpl('inboxMessageContent', { msg: msg }));
         $content.removeClass('loading');
         $row.data('isopen', true);
     },

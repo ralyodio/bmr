@@ -1,6 +1,31 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['inbox.message.content'] = template(function (Handlebars,depth0,helpers,partials,data) {
+templates['inbox'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<section id=\"inbox\">\n    <table>\n        <caption>\n            <form id=\"inbox-action\">\n                <select>\n                    <option value=\"trash\">Move to trash</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>From</th>\n            <th>To</th>\n            <th>Subject</th>\n            <th class=\"date\">Date</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  });
+templates['inboxMessage'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<tr class=\"msg\" data-msgid=\"";
+  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n    <td colspan=\"";
+  if (stack1 = helpers.colCount) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.colCount; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n        <div class=\"content loading\"></div>\n    </td>\n</tr>\n";
+  return buffer;
+  });
+templates['inboxMessageContent'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
@@ -23,24 +48,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + "</section>";
   return buffer;
   });
-templates['inbox.message'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
-
-
-  buffer += "<tr class=\"msg\" data-msgid=\"";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\n    <td colspan=\"";
-  if (stack1 = helpers.colCount) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.colCount; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\n        <div class=\"content loading\"></div>\n    </td>\n</tr>\n";
-  return buffer;
-  });
-templates['inbox.messages'] = template(function (Handlebars,depth0,helpers,partials,data) {
+templates['inboxMessages'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -108,7 +116,32 @@ function program1(depth0,data) {
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   });
-templates['inbox.reply.options'] = template(function (Handlebars,depth0,helpers,partials,data) {
+templates['inboxReply'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<form id=\"reply\" method=\"post\">\n    <input type=\"hidden\" name=\"id\" value=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.msgid)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">\n    <fieldset>\n        <p>\n            <label for=\"reply-from\">From</label>\n            <select name=\"from\" id=\"reply-from\">";
+  if (stack2 = helpers.options) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.options; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "</select> <span id=\"reply-id\">";
+  if (stack2 = helpers.selectedId) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.selectedId; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "</span>\n        </p>\n        <p><label for=\"reply-to\">To</label> <input type=\"text\" name=\"to\" id=\"reply-to\" value=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"></p>\n        <p><label for=\"reply-subject\">Subject</label> <input type=\"text\" name=\"subject\" id=\"reply-subject\" value=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.subject)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"></p>\n        <textarea name=\"message\" class=\"message\" id=\"reply-body\">&#13;&#10;&#13;&#10;------------------------------------------------------&#13;&#10;"
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</textarea>\n    </fieldset>\n</form>";
+  return buffer;
+  });
+templates['inboxReplyOptions'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -157,45 +190,12 @@ function program4(depth0,data) {
   buffer += "\n\n";
   return buffer;
   });
-templates['inbox.reply'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression;
-
-
-  buffer += "<form id=\"reply\" method=\"post\">\n    <input type=\"hidden\" name=\"id\" value=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.msgid)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">\n    <fieldset>\n        <p>\n            <label for=\"reply-from\">From</label>\n            <select name=\"from\" id=\"reply-from\">";
-  if (stack2 = helpers.options) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.options; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "</select> <span id=\"reply-id\">";
-  if (stack2 = helpers.selectedId) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.selectedId; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
-    + "</span>\n        </p>\n        <p><label for=\"reply-to\">To</label> <input type=\"text\" name=\"to\" id=\"reply-to\" value=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></p>\n        <p><label for=\"reply-subject\">Subject</label> <input type=\"text\" name=\"subject\" id=\"reply-subject\" value=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.subject)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></p>\n        <textarea name=\"message\" class=\"message\" id=\"reply-body\">&#13;&#10;&#13;&#10;------------------------------------------------------&#13;&#10;"
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</textarea>\n    </fieldset>\n</form>";
-  return buffer;
-  });
-templates['inbox'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<section id=\"inbox\">\n    <table>\n        <caption>\n            <form id=\"inbox-action\">\n                <select>\n                    <option value=\"trash\">Move to trash</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>From</th>\n            <th>To</th>\n            <th>Subject</th>\n            <th class=\"date\">Date</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
-  });
 templates['login'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<form id=\"login\" class=\"clearfix\" method=\"post\">\n    <fieldset>\n        <p><label for=\"user\">Username</label> <input type=\"text\" name=\"user\" id=\"user\" value=\"payton\"></p>\n        <p><label for=\"password\">Password</label> <input type=\"password\" id=\"password\" name=\"pass\" value=\"manning\"></p>\n        <p><label for=\"host\">Host</label> <input type=\"text\" id=\"host\" name=\"host\" value=\"bitmessagehost\"></p>\n        <p><label for=\"port\">Port</label> <input type=\"text\" id=\"port\" name=\"port\" value=\"8442\"></p>\n    </fieldset>\n    <button type=\"submit\">Login</button>\n</form>";
+  return "<form id=\"login\" class=\"clearfix\" method=\"post\">\n    <fieldset>\n        <p><label for=\"user\">Username</label> <input type=\"text\" name=\"user\" id=\"user\" value=\"bradley\"></p>\n        <p><label for=\"password\">Password</label> <input type=\"password\" id=\"password\" name=\"pass\" value=\"manning\"></p>\n        <p><label for=\"host\">Host</label> <input type=\"text\" id=\"host\" name=\"host\" value=\"bitmessagehost\"></p>\n        <p><label for=\"port\">Port</label> <input type=\"text\" id=\"port\" name=\"port\" value=\"9442\"></p>\n    </fieldset>\n    <button type=\"submit\">Login</button>\n</form>";
   });
 })();
