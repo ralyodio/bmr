@@ -10,7 +10,6 @@ app.create('sent', {
         c.log('app.sent.init');
 
         ui.$pg = $(ui.tpl('sent', {}));
-        ui.$content.append(ui.$pg);
         ui.$header.show();
         ui.$header.find('a.sent').addClass('active').siblings().removeClass('active');
 
@@ -76,6 +75,7 @@ app.create('sent', {
         app.message.readMsg($table, true);
 
         $total.text(msgs.length);
+        ui.$content.append(ui.$pg);
         ui.$pg.fadeIn();
     },
 

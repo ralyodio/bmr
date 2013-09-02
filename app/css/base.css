@@ -8,7 +8,7 @@
   .clearfix:after {
     clear: both; }
 
-.empty, #modal section:empty:before, tbody:empty:before, tr.msg .content.loading:empty:before {
+.empty, #content:empty:before, #modal section:empty:before, tbody:empty:before, tr.msg .content.loading:empty:before {
   content: 'Loading...';
   color: #666;
   position: absolute;
@@ -43,6 +43,10 @@ body {
   height: 100%;
   top: 0;
   left: 0; }
+
+#content:empty {
+  position: relative;
+  min-height: 100px; }
 
 #modal {
   position: fixed;

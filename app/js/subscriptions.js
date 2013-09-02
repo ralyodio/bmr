@@ -11,7 +11,6 @@ app.create('subscriptions', {
         ui.init();
 
         ui.$pg = $(ui.tpl('subscriptions', {}));
-        ui.$content.append(ui.$pg);
         ui.$header.show();
         ui.$header.find('a.subscriptions').addClass('active').siblings().removeClass('active');
 
@@ -47,6 +46,7 @@ app.create('subscriptions', {
         //stub: wire up events here for address rows here
 
         $total.text(subscriptions.length);
+        ui.$content.append(ui.$pg);
         ui.$pg.fadeIn();
     },
 

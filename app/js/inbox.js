@@ -10,7 +10,6 @@ app.create('inbox', {
         c.log('app.inbox.init');
 
         ui.$pg = $(ui.tpl('inbox', {}));
-        ui.$content.append(ui.$pg);
         ui.$header.show();
         ui.$header.find('a.inbox').addClass('active').siblings().removeClass('active');
 
@@ -43,7 +42,7 @@ app.create('inbox', {
 
     showReply: function(id){
         //create base modal
-        var $modal = ui.modal('', {
+        var modal = ui.modal.show('', {
             header: 'Reply to message',
             primaryText: 'Reply'
         });
@@ -60,17 +59,17 @@ app.create('inbox', {
                 });
 
                 //populate the modal
-                $modal.find('> section').append(form);
-                $modal.trigger('resize.ui.modal');
-                $modal.find('textarea.message').focus();
+                modal.$section.html(form);
+                modal.resize();
+                modal.$section.find('textarea.message').focus();
 
                 //update the address shown
-                $modal.find('#reply-from').on('change.ui.modal', function(e){
-                    $("#reply-id").text(this.value);
+                modal.$section.find('#reply-from').on('change.ui.modal', function(e){
+                    modal.$section.find("#reply-id").text(this.value);
                 });
 
                 //handle modal primary button click
-                $modal.on('primary.ui.modal', function(e, spin){
+                modal.$el.on('primary.ui.modal', function(e, spin){
                     var f = $("#reply").get(0)
                         , toAddress = f.to.value
                         , fromAddress = f.from.value
@@ -83,7 +82,7 @@ app.create('inbox', {
                         c.log(ackdata);
 
                         spin.stop();
-                        ui.hideModal();
+                        modal.hide();
                         ui.ok("Your reply has been sent!");
                     });
                 });
@@ -127,6 +126,7 @@ app.create('inbox', {
         app.message.readMsg($table, false);
 
         $total.text(msgs.length);
+        ui.$content.append(ui.$pg);
         ui.$pg.fadeIn();
     },
 

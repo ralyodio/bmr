@@ -55,6 +55,15 @@ body {
   left: 0;
 }
 
+#content:empty {
+  position: relative;
+  min-height: 100px;
+
+  &:before {
+    @extend .empty;
+  }
+}
+
 #modal {
   position: fixed;
   top: 50%;
@@ -332,7 +341,6 @@ TODO add class .loading to tbody
 tbody:empty:before {
   @extend .empty;
 }
-
 
 tbody tr:nth-child(even):not(.msg) {
   background-color: #f5f6f6;

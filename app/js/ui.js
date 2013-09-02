@@ -263,81 +263,7 @@ _.extend(ui, {
         }
     },
 
-    hideModal: function(e){
-        if ( e ) e.preventDefault();
-
-        $("#modal").remove();
-        $("#overlay").hide();
-        $(window).off('.ui.modal');
-        $(document).add('*').off('.ui.modal');
-    },
-
-    modal: function($content, opts){
-        var $overlay = $('#overlay')
-            , $modal = $('<div id="modal" />')
-            , $header
-            , $footer
-            , $section
-            , defaults = {
-                header: 'Compose message',
-                primaryText: 'Send'
-            };
-
-        opts = _.extend(defaults, opts);
-
-        function resizeModal(){
-            $section.css('maxHeight', ''); //reset to calculate new height
-            $modal.css('marginTop', -$modal.outerHeight()/2);
-            $section.css('maxHeight', getMaxHeight());
-        }
-
-        function getMaxHeight(){
-            return $modal.outerHeight() - ( $header.outerHeight() + $footer.outerHeight() );
-        }
-
-        this.hideModal();
-
-        //close on overlay click
-        $overlay.one('click.ui.modal', this.hideModal);
-
-        $overlay.show();
-
-        //add content
-        $modal.append('<header><h2>'+opts.header+'</h2><a href="#" class="close">Close</a></header>');
-        $modal.append('<section>'+ $content + '</section>');
-        $modal.append('<footer><button class="btn-primary">'+opts.primaryText+'</button></footer>');
-
-        //cache
-        $header = $modal.find('> header');
-        $section = $modal.find('> section');
-        $footer = $modal.find('> footer');
-
-        $overlay.after($modal);
-
-        resizeModal();
-
-        //events
-        $header.on('click.ui.modal', '.close', this.hideModal);
-        $footer.on('click.ui.modal', '.btn-primary', function(e){
-            e.preventDefault();
-
-            var spin
-                , $btn = $(e.target)
-                , $spin = $('<em class="spin btn">&nbsp;</em>');
-
-            $btn.attr('disabled', true);
-            $btn.before($spin);
-            spin = ui.spin($spin);
-            $modal.trigger('primary.ui.modal', spin);
-        });
-
-        $modal.on('resize.ui.modal', resizeModal);
-        $(window).on('resize.ui.modal', resizeModal);
-
-        return $modal;
-    },
-
-    isElementInViewport: function($el) {
+    isInViewport: function($el) {
         var el = $el.get(0)
             , rect = el.getBoundingClientRect();
 
@@ -373,6 +299,17 @@ _.extend(ui, {
 
     tpl: function(name, data){
         return Handlebars.templates[name](data);
+    },
+
+    create: function(namespace, object){
+        var base = {
+            parent: this
+        };
+
+        ui[namespace] = window.ui[namespace] || {};
+
+        _.extend(base, object, { ns: namespace }); //override base class with implementation
+        _.extend(ui[namespace], base);
     },
 
     destroy: function(){

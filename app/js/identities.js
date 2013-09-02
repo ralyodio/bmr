@@ -10,7 +10,6 @@ app.create('identities', {
         c.log('app.identities.init');
 
         ui.$pg = $(ui.tpl('identities', {}));
-        ui.$content.append(ui.$pg);
         ui.$header.show();
         ui.$header.find('a.identities').addClass('active').siblings().removeClass('active');
 
@@ -45,6 +44,7 @@ app.create('identities', {
         //call to wire up events here for address rows
 
         $total.text(identities.length);
+        ui.$content.append(ui.$pg);
         ui.$pg.fadeIn();
     },
 
