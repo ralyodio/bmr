@@ -41,10 +41,10 @@ app.create('inbox', {
     },
 
     showReply: function(id){
-        //create base modal
+        //create empty base modal
         var modal = ui.modal.show('', {
             header: 'Reply to message',
-            primaryText: 'Reply'
+            primaryButton: 'Reply'
         });
 
         api.getMessage(id, function(msg){

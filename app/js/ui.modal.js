@@ -8,7 +8,7 @@ ui.create('modal', {
     show: function(content, opts){
         var defaults = {
             header: 'Compose message',
-            primaryText: 'Send'
+            primaryButton: 'Send'
         };
 
         opts = _.extend(defaults, opts);
@@ -19,14 +19,14 @@ ui.create('modal', {
 
         this.hide(); //close existing
 
-        //close on overlay click
+        //close when overlay clicked
         this.$overlay.one('click.ui.modal', this.hide.bind(this));
         this.$overlay.show();
 
         //add content
         this.$el.append('<header><h2>'+opts.header+'</h2><a href="#" class="close">Close</a></header>');
         this.$el.append('<section>'+ content + '</section>');
-        this.$el.append('<footer><button class="btn-primary">'+opts.primaryText+'</button></footer>');
+        this.$el.append('<footer><button class="btn-primary">'+opts.primaryButton+'</button></footer>');
 
         //cache
         this.$header = this.$el.find('> header');
@@ -62,6 +62,10 @@ ui.create('modal', {
         if ( e ) e.preventDefault();
 
         this.$el.remove();
+        this.$section = null;
+        this.$footer = null;
+        this.$header = null;
+
         this.$overlay.hide();
         $(window).off('.ui.modal');
         $(document).add('*').off('.ui.modal');
