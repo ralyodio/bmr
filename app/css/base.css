@@ -286,14 +286,14 @@ tr.msg .content {
   white-space: pre-wrap;
   padding: 10px; }
 
-#reply label {
+#reply label, #compose label {
   min-width: 10%; }
-#reply input[type=text] {
+#reply input[type=text], #compose input[type=text] {
   width: 50%;
   box-sizing: border-box; }
-  #reply input[type=text][name=subject] {
+  #reply input[type=text][name=subject], #compose input[type=text][name=subject] {
     width: 89%; }
-#reply .message {
+#reply .message, #compose .message {
   box-sizing: border-box;
   width: 100%;
   min-height: 150px;

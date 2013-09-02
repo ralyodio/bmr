@@ -27,30 +27,24 @@ _.extend(ui, {
         this.$content = this.$body.find('> #content');
 
         $(window).on('popstate.ui', function(){
-//            if ( !this.globals.currPage || this.globals.currPage === 'login' ) return;
-
             var newPage = window.location.href.split('#')[1];
 
             c.log('popstate ', this.globals.currPage, newPage);
-
             this.navigateTo(this.globals.currPage, newPage);
         }.bind(this));
 
         $(document.body).on('click.ui', 'header nav a[href]', function (e) {
             e.preventDefault();
 
-            var currPage = window.location.href.split('#')[1]
+            var type = $(e.target).attr('data-type')
+                , currPage = window.location.href.split('#')[1]
                 , newPage = $(e.currentTarget).attr('href').split('#')[1];
 
-            //logout
-            /*
-            if ( newPage === 'logout' ) {
-                app.logout(currPage);
-                return;
+            if ( type === 'modal' ){
+                app[newPage].init();
+            } else {
+                this.navigateTo(currPage, newPage);
             }
-            */
-
-            this.navigateTo(currPage, newPage);
         }.bind(this));
     },
 
@@ -58,13 +52,6 @@ _.extend(ui, {
         var $body = this.$body;
 
         c.log('navigateTo from ' + currPage + ' to ' + newPage);
-
-        /*
-        if ( newPage === 'logout' ) {
-            app.logout(currPage);
-            return;
-        }
-        */
 
         history.pushState(null, null, '#'+newPage);
         this.globals.currPage = newPage;

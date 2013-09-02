@@ -61,6 +61,7 @@ ui.create('modal', {
     hide: function(e){
         if ( e ) e.preventDefault();
 
+        this.$el.trigger('hide.ui.modal');
         this.$el.remove();
         this.$section = null;
         this.$footer = null;
