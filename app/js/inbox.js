@@ -34,9 +34,9 @@ app.create('inbox', {
 
             } else if ( $el.is('a.close') ) {
                 c.log('close msg');
-                this.hideMsg(id);
+                app.message.hideMsg(id);
             } else if ( $el.is('a.reply') ) {
-                this.showReply(id);
+                this.showReply(id); //should be moved to app.message?
             }
         }.bind(this));
     },
@@ -124,63 +124,10 @@ app.create('inbox', {
         ui.shiftCheck.init($table);
         ui.sortTable($table);
         ui.checkItem($table);
-        this.readMsg($table);
+        app.message.readMsg($table, false);
 
         $total.text(msgs.length);
         ui.$pg.fadeIn();
-    },
-
-    preShowMsg: function(id){
-        c.log('app.inbox.preShowMsg', id);
-
-        var $row = ui.$pg.find('tbody tr[data-id='+id+']')
-            , colCount = $row.find('td').length;
-
-        $row.after(ui.tpl('inboxMessage', { id: id, colCount: colCount }));
-    },
-
-    showMsg: function(msg){
-        c.log('app.inbox.showMsg', msg);
-
-        var $row = ui.$pg.find('tbody tr[data-id='+msg.msgid+']')
-            , $msg = $row.next('.msg')
-            , $content = $msg.find('.content');
-
-        $content.append(ui.tpl('inboxMessageContent', { msg: msg }));
-        $content.removeClass('loading');
-        $row.data('isopen', true);
-    },
-
-    hideMsg: function(id){
-        c.log('hideMsg: ', id);
-
-        var $row = ui.$pg.find('tbody tr[data-id='+id+']');
-
-        $row.data('isopen', false);
-        $row.next('.msg').remove();
-    },
-
-    readMsg: function ($table) {
-        var $subjects = $table.find('tbody .subject');
-
-        $subjects.on('click.inbox', function (e) {
-            e.preventDefault();
-
-            var $subject = $(e.currentTarget)
-                , $row = $subject.parents('tr')
-                , isOpen = !!$row.data('isopen')
-                , id = $row.attr('data-id');
-
-            c.log('app.inbox.readMsg', id);
-
-            if ( isOpen ) {
-                this.hideMsg(id);
-                return;
-            }
-
-            this.preShowMsg(id);
-            api.getMessage(id, this.showMsg);
-        }.bind(this));
     },
 
     moveToTrash: function (id, msg) {
@@ -227,7 +174,10 @@ app.create('inbox', {
     destroy: function () {
         c.log('app.login.destroy');
 
+        app.message.destroy();
+
         ui.destroy();
+
         $(document).add('*').off('.' + this.ns);
         ui.$pg.remove();
 

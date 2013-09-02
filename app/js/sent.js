@@ -6,18 +6,20 @@ app.create('sent', {
             return;
         }
 
+        ui.init();
         c.log('app.sent.init');
 
-        ui.init();
-        api.sentMessages(); //needs spinner
+        ui.$pg = $(ui.tpl('sent', {}));
+        ui.$content.append(ui.$pg);
+        ui.$header.show();
+        ui.$header.find('a.sent').addClass('active').siblings().removeClass('active');
 
-        $("body > header").show();
-        $("a.sent").addClass('active').siblings().removeClass('active');
+        api.sentMessages(this.showSent.bind(this)); //needs spinner
 
-        $("#sent-action").on('submit.sent', this.actionItem.bind(this));
+        ui.$pg.find('#sent-action').on('submit.sent', this.actionItem.bind(this));
 
         //handle click events on open messages
-        $("#sent table").on('click.sent', 'tr.msg', function (e) {
+        ui.$pg.find('table').on('click.sent', 'tr.msg', function (e) {
             e.preventDefault();
 
             var $el = $(e.target) //clicked element
@@ -31,130 +33,55 @@ app.create('sent', {
 
             } else if ( $el.is('a.close') ) {
                 c.log('close msg');
-                this.hideMsg(id);
+                app.message.hideMsg(id);
             }
         }.bind(this));
     },
 
     showSent: function (msgs) {
-        var $sent = $("#sent")
-            , $table = $sent.find('table')
-            , $total = $('a.sent .total')
-            , $tbody = $sent.find("tbody");
+        var messages = []
+            , $table = ui.$pg.find('table')
+            , $total = ui.$header.find('a.sent .total')
+            , $tbody = $table.find("tbody");
 
         c.log(msgs);
         //msgs = msgs.slice(0, 10);
 
+        //default to most recent first
         msgs = ui.sortByDateAttr(msgs, 'lastActionTime');
-        msgs.forEach(function (item, i) {
-            var time = item.lastActionTime
-                , from = item.fromAddress
-                , to = item.toAddress
-                , id = item.msgid;
 
-            //c.log(item);
+        //prepare data for template
+        msgs.forEach(function (item) {
+            var time = item.lastActionTime;
 
-            //replace date with status
-            $tbody.append(
-                '<tr data-id="' + id + '">' +
-                    '<td class="mark-item"><input type="checkbox" name="mark" value="' + id + '"></td>' +
-                    '<td data-sort="' + from + '"><span class="nowrap" data-from="' + from + '">' + from + '</span></td>' +
-                    '<td data-sort="' + to + '"><span class="nowrap" data-to="' + to + '">' + to + '</span></td>' +
-                    '<td data-sort="' + item.subject + '"><span class="subject">' + item.subject + '</span></td>' +
-                    '<td class="nowrap" data-sort="' + item.status + '"><span title="' + item.lastActionTime + '">' + item.status + '</span></td>' +
-                    '<td class="nowrap" data-sort="' + moment(time).unix() + '"><span title="' + time + '">' + moment(time).fromNow() + '</span></td>' +
-
-                    '</tr>'
-            );
+            messages.push({
+                time: time
+                , subject: item.subject
+                , timeSortable: moment(time).unix()
+                , timeReadable: moment(time).fromNow()
+                , from: item.fromAddress
+                , to: item.toAddress
+                , id: item.msgid
+                , status: item.status
+            });
         });
+
+        $tbody.append(ui.tpl('sentMessages', { messages: messages }));
 
         //initialize events for the table
         ui.markAll($table);
         ui.shiftCheck.init($table);
         ui.sortTable($table);
         ui.checkItem($table);
-        this.readMsg($table);
+        app.message.readMsg($table, true);
 
         $total.text(msgs.length);
-        $sent.fadeIn();
-    },
-
-    preShowMsg: function(id){
-        c.log('preShowMsg');
-
-        var $row = $('#sent tbody tr[data-id='+id+']')
-            , colCount = $row.find('td').length;
-
-        $row.after(
-            '<tr class="msg" data-msgid="'+id+'">' +
-                '<td colspan="' + colCount + '">' +
-                    '<div class="content loading"></div>' +
-                '</td>' +
-            '</tr>'
-        );
-    },
-
-    showMsg: function(msg){
-        var $row = $('#sent tbody tr[data-id='+msg.msgid+']')
-            , to = msg.toAddress
-            , from = msg.fromAddress
-            , $msg = $row.next('.msg')
-            , $content = $msg.find('.content');
-
-        c.log('show sent msg: ', msg);
-
-        $content.append(
-            '<a href="#" class="close">Close</a>' +
-            '<h3 class="subject">' + msg.subject + '</h3>' +
-            '<p class="date">' + msg.lastActionTime + '</p>' +
-            '<p data-to="' + to + '" class="to">To: ' + to + '</p>' +
-            '<p data-from="' + from + '" class="from">From: ' + from + '</p>' +
-            '<nav>' +
-                '<a href="#" class="add-address">Add address</a>' +
-                '<a href="#" class="trash">Trash</a>' +
-            '</nav>' +
-            '<section class="message">' + msg.message + '</section>'
-        );
-
-        $content.removeClass('loading');
-        $row.data('isopen', true);
-    },
-
-    hideMsg: function(id){
-        c.log('hideMsg: ', id);
-
-        var $row = $('#sent tbody tr[data-id='+id+']');
-
-        $row.data('isopen', false);
-        $row.next('.msg').remove();
-    },
-
-    readMsg: function ($table) {
-        var $subjects = $table.find('tbody .subject');
-
-        $subjects.on('click.sent', function (e) {
-            e.preventDefault();
-
-            var $subject = $(e.currentTarget)
-                , $row = $subject.parents('tr')
-                , isOpen = !!$row.data('isopen')
-                , id = $row.attr('data-id');
-
-            c.log('read sent msg: ' + id);
-
-            if ( isOpen ) {
-                this.hideMsg(id);
-                return;
-            }
-
-            this.preShowMsg(id);
-            api.getSentMessage(id, this.showMsg);
-
-        }.bind(this));
+        ui.$pg.fadeIn();
     },
 
     moveToTrash: function (id, msg) {
-        var $table = $("#sent table")
+        //should be refactored to app.message (inbox.js too)
+        var $table = ui.$pg.find('table')
             , $row = $table.find('tbody tr[data-id=' + id + ']')
             , $openMsg = $row.next('.msg');
 
@@ -169,7 +96,7 @@ app.create('sent', {
 
         //remove the original sent row
         $row.fadeOut(600, function () {
-            var $total = $("a.sent .total")
+            var $total = ui.$header.find('a.sent .total')
                 , total = $total.text()-1;
 
             $total.text(total);
@@ -182,7 +109,7 @@ app.create('sent', {
 
         var $form = $(e.target)
             , action = $form.find('option:selected').val()
-            , $table = $form.parents('section').find('table')
+            , $table = ui.$pg.find('table')
             , $checked = $table.find('tbody td:first-child [type=checkbox]:checked');
 
         if (action === 'trash') {
@@ -195,12 +122,14 @@ app.create('sent', {
     },
 
     destroy: function () {
-        var $pg = $('#' + this.ns);
+        c.log('app.sent.destroy');
+
+        app.message.destroy();
 
         ui.destroy();
         $(document).add('*').off('.' + this.ns);
+        ui.$pg.remove();
 
-        $pg.hide();
-        $pg.find("tbody").empty();
+        this.parent.destroy();
     }
 });

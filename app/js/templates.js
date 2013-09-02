@@ -73,46 +73,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<section id=\"inbox\">\n    <table>\n        <caption>\n            <form id=\"inbox-action\">\n                <select>\n                    <option value=\"trash\">Move to trash</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>From</th>\n            <th>To</th>\n            <th>Subject</th>\n            <th class=\"date\">Date</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
   });
-templates['inboxMessage'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
-
-
-  buffer += "<tr class=\"msg\" data-msgid=\"";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\n    <td colspan=\"";
-  if (stack1 = helpers.colCount) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.colCount; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\n        <div class=\"content loading\"></div>\n    </td>\n</tr>\n";
-  return buffer;
-  });
-templates['inboxMessageContent'] = template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
-
-
-  buffer += "<a href=\"#\" class=\"close\">Close</a>\n<h3 class=\"subject\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.subject)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</h3>\n<p class=\"date\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.receivedTime)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</p>\n<p data-from=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" class=\"from\">From: "
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</p>\n<p data-to=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.toAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" class=\"to\">To: "
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.toAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</p>\n<nav>\n    <a href=\"#\" class=\"reply\">Reply</a>\n    <a href=\"#\" class=\"trash\">Trash</a>\n</nav>\n<section class=\"message\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</section>";
-  return buffer;
-  });
 templates['inboxMessages'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -262,6 +222,167 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 
   return "<form id=\"login\" class=\"clearfix\" method=\"post\">\n    <fieldset>\n        <p><label for=\"user\">Username</label> <input type=\"text\" name=\"user\" id=\"user\" value=\"bradley\"></p>\n        <p><label for=\"password\">Password</label> <input type=\"password\" id=\"password\" name=\"pass\" value=\"manning\"></p>\n        <p><label for=\"host\">Host</label> <input type=\"text\" id=\"host\" name=\"host\" value=\"bitmessagehost\"></p>\n        <p><label for=\"port\">Port</label> <input type=\"text\" id=\"port\" name=\"port\" value=\"9442\"></p>\n    </fieldset>\n    <button type=\"submit\">Login</button>\n</form>";
+  });
+templates['message'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<tr class=\"msg\" data-msgid=\"";
+  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n    <td colspan=\"";
+  if (stack1 = helpers.colCount) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.colCount; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n        <div class=\"content loading\"></div>\n    </td>\n</tr>\n";
+  return buffer;
+  });
+templates['messageContent'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n        <p class=\"date\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.lastActionTime)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</p>\n    ";
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n        <p class=\"date\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.receivedTime)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</p>\n    ";
+  return buffer;
+  }
+
+function program5(depth0,data) {
+  
+  
+  return "\n            <a href=\"#\" class=\"add-address\">Add to address book</a>\n        ";
+  }
+
+function program7(depth0,data) {
+  
+  
+  return "\n            <a href=\"#\" class=\"reply\">Reply</a>\n        ";
+  }
+
+  buffer += "<div class=\"message-container\">\n    <a href=\"#\" class=\"close\">Close</a>\n    <h3 class=\"subject\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.subject)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h3>\n    ";
+  stack2 = helpers['if'].call(depth0, depth0.isSentMessage, {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n    <p data-from=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\"from\">From: "
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</p>\n    <p data-to=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.toAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\"to\">To: "
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.toAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</p>\n    <nav>\n        ";
+  stack2 = helpers['if'].call(depth0, depth0.isSentMessage, {hash:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n        <a href=\"#\" class=\"trash\">Trash</a>\n    </nav>\n    <section class=\"message\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</section>\n</div>";
+  return buffer;
+  });
+templates['sent'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<section id=\"sent\">\n    <table>\n        <caption>\n            <form id=\"sent-action\">\n                <select>\n                    <option value=\"trash\">Move to trash</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>From</th>\n            <th>To</th>\n            <th>Subject</th>\n            <th class=\"status\">Status</th>\n            <th class=\"date\">Last</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  });
+templates['sentMessages'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n<tr data-id=\"";
+  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n    <td class=\"mark-item\"><input type=\"checkbox\" name=\"mark\" value=\"";
+  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"></td>\n    <td data-sort=\"";
+  if (stack1 = helpers.from) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.from; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span class=\"nowrap\" data-from=\"";
+  if (stack1 = helpers.from) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.from; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">";
+  if (stack1 = helpers.from) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.from; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n    <td data-sort=\"";
+  if (stack1 = helpers.to) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.to; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span class=\"nowrap\" data-to=\"";
+  if (stack1 = helpers.to) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.to; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">";
+  if (stack1 = helpers.to) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.to; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n    <td data-sort=\"";
+  if (stack1 = helpers.subject) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.subject; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span class=\"subject\">";
+  if (stack1 = helpers.subject) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.subject; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n    <td class=\"nowrap\" data-sort=\"";
+  if (stack1 = helpers.status) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.status; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span title=\"";
+  if (stack1 = helpers.lastActionTime) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.lastActionTime; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">";
+  if (stack1 = helpers.status) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.status; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n    <td class=\"nowrap\" data-sort=\"";
+  if (stack1 = helpers.timeSortable) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.timeSortable; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span title=\"";
+  if (stack1 = helpers.time) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.time; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">";
+  if (stack1 = helpers.timeReadable) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.timeReadable; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n</tr>\n";
+  return buffer;
+  }
+
+  stack1 = helpers.each.call(depth0, depth0.messages, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { return stack1; }
+  else { return ''; }
   });
 templates['subscriptions'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];

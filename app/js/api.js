@@ -50,11 +50,9 @@ _.extend(api, {
         }
     },
 
-    sentMessages: function () {
+    sentMessages: function (cb) {
         try {
-            this.conn.messages.sent.list(function (msgs) {
-                app.sent.showSent(msgs);
-            });
+            this.conn.messages.sent.list(cb);
         } catch (err) {
             c.error(err);
         }
