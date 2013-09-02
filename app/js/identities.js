@@ -6,69 +6,32 @@ app.create('identities', {
             return;
         }
 
+        ui.init();
         c.log('app.identities.init');
 
-        ui.init();
+        ui.$pg = $(ui.tpl('identities', {}));
+        ui.$content.append(ui.$pg);
+        ui.$header.show();
+        ui.$header.find('a.identities').addClass('active').siblings().removeClass('active');
+
         api.listAddresses(this.showIdentities); //needs spinner
 
-        $("body > header").show();
-        $("a.identities").addClass('active').siblings().removeClass('active');
-
-        $("#identities-action").on('submit.identities', this.actionItem.bind(this));
-        $("#identities-select-action").on('change.identities', ui.showActionFields);
-
-        //handle click events on open addresses
-        /* probably not needed for addresses unless we decide to show something when clicking one of them
-        $("#identities table").on('click.identities', 'tr.msg', function (e) {
-            e.preventDefault();
-
-            var $el = $(e.target) //clicked element
-                , $row = $(e.currentTarget)
-                , id = $row.attr('data-msgid'); //msg.msgid
-
-            //handle msg actions
-            if ( $el.is('a.trash') ) {
-                c.log('trash sent msg');
-                api.moveToTrash(id, this.moveToTrash);
-
-            } else if ( $el.is('a.close') ) {
-                c.log('close msg');
-                this.hideMsg(id);
-            }
-        }.bind(this));
-        */
+        ui.$pg.find('#identities-action').on('submit.identities', this.actionItem.bind(this));
+        ui.$pg.find('#identities-select-action').on('change.identities', ui.showActionFields);
     },
 
     showIdentities: function (identities, refresh) {
-        var $pg = $("#identities")
-            , $table = $pg.find('table')
-            , $total = $('a.identities .total')
-            , $tbody = $pg.find("tbody");
+        var $table = ui.$pg.find('table')
+            , $total = ui.$header.find('a.identities .total')
+            , $tbody = $table.find("tbody");
 
-        c.log('identities', identities);
+        c.log('app.identities.showIdentities', identities);
 
         if ( refresh ) {
             $tbody.empty();
         }
 
-        identities.forEach(function (item) {
-            var address = item.address
-                , label = item.label
-                , stream = item.stream
-                , enabled = item.enabled;
-
-            //c.log(item);
-
-            $tbody.append(
-                '<tr data-address="' + address + '">' +
-                    '<td class="mark-item"><input type="checkbox" name="mark" value="' + address + '"></td>' +
-                    '<td data-sort="' + label + '"><span class="nowrap">' + label + '</span></td>' +
-                    '<td data-sort="' + address + '"><span class="nowrap">' + address + '</span></td>' +
-                    '<td data-sort="' + enabled + '"><span class="enabled">' + enabled + '</span></td>' +
-                    '<td data-sort="' + stream + '"><span class="stream">' + stream + '</span></td>' +
-                '</tr>'
-            );
-        });
+        $tbody.append(ui.tpl('identitiesList', { identities: identities }));
 
         //initialize events for the table
         if ( !refresh ) {
@@ -82,7 +45,7 @@ app.create('identities', {
         //call to wire up events here for address rows
 
         $total.text(identities.length);
-        $pg.fadeIn();
+        ui.$pg.fadeIn();
     },
 
     actionItem: function (e) {
@@ -90,10 +53,10 @@ app.create('identities', {
 
         var $form = $(e.target)
             , action = $form.find('option:selected').val()
-            , $table = $form.parents('section').find('table')
+            , $table = ui.$pg.find('table')
             , $checked = $table.find('tbody td:first-child [type=checkbox]:checked');
 
-        c.log('actionItem: ' + action);
+        c.log('app.identities.actionItem', action);
 
         ui.clearFormErrors($form);
 
@@ -122,7 +85,6 @@ app.create('identities', {
 
             c.log('form: ', f, opts);
 
-
             if ( opts.label && opts.label.length ) {
                 api.createRandomAddress(opts, function(address){
                     var refresh = true;
@@ -139,12 +101,12 @@ app.create('identities', {
     },
 
     destroy: function () {
-        var $pg = $('#' + this.ns);
+        c.log('app.identities.destroy');
 
         ui.destroy();
         $(document).add('*').off('.' + this.ns);
+        ui.$pg.remove();
 
-        $pg.hide();
-        $pg.find("tbody").empty();
+        this.parent.destroy();
     }
 });

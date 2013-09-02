@@ -1,5 +1,70 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['identities'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<section id=\"identities\">\n    <table>\n        <caption>\n            <form id=\"identities-action\">\n                <select id=\"identities-select-action\">\n                    <option value=\"create-address\">Create address</option>\n                    <option value=\"enable-address\">Enable address</option>\n                    <option value=\"disable-address\">Disable address</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n                <fieldset id=\"create-address\" class=\"clearfix\">\n                    <div>\n                        <p><label>Address label: <input type=\"text\" name=\"label\"></label></p>\n                        <p><label><input type=\"checkbox\" name=\"eighteenByteRipe\"> Do extra work for shorter address (18-byte RIPE)</label></p>\n                    </div>\n                    <div>\n                        <p><label>Total difficulty: <input type=\"text\" class=\"small\" name=\"totalDifficulty\" value=\"1.0\" maxlength=\"3\"></label></p>\n                        <p><label>Small message difficulty: <input class=\"small\" type=\"text\" name=\"smallMessageDifficulty\" value=\"1.0\"></label></p>\n                    </div>\n                </fieldset>\n                <!--\n                <fieldset id=\"enable-address\" class=\"hide\">\n                    enable\n                </fieldset>\n                <fieldset id=\"disable-address\" class=\"hide\">\n                    disable\n                </fieldset>\n                -->\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>Label</th>\n            <th>Address</th>\n            <th>Enabled</th>\n            <th>Stream</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  });
+templates['identitiesList'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n<tr data-address=\"";
+  if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n    <td class=\"mark-item\"><input type=\"checkbox\" name=\"mark\" value=\"";
+  if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"></td>\n    <td data-sort=\"";
+  if (stack1 = helpers.label) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.label; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span class=\"nowrap\">";
+  if (stack1 = helpers.label) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.label; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n    <td data-sort=\"";
+  if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span class=\"nowrap\">";
+  if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n    <td data-sort=\"";
+  if (stack1 = helpers.enabled) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.enabled; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span class=\"enabled\">";
+  if (stack1 = helpers.enabled) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.enabled; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n    <td data-sort=\"";
+  if (stack1 = helpers.stream) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.stream; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span class=\"stream\">";
+  if (stack1 = helpers.stream) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.stream; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n</tr>\n";
+  return buffer;
+  }
+
+  stack1 = helpers.each.call(depth0, depth0.identities, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n";
+  return buffer;
+  });
 templates['inbox'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
