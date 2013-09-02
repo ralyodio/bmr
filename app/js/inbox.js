@@ -51,8 +51,8 @@ app.create('inbox', {
             api.listAddresses(function(identities){
                 identities[0].selected = true; //pre-select the first address in menu
 
-                var options = ui.tpl('inboxReplyOptions', { identities: identities });
-                var form = ui.tpl('inboxReply', {
+                var options = ui.tpl('replyOptions', { identities: identities });
+                var form = ui.tpl('reply', {
                     msg: msg,
                     options: options,
                     selectedId: identities[0].address
