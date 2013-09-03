@@ -4,8 +4,10 @@
             <form id="identities-action">
                 <select id="identities-select-action">
                     <option value="create-address">Create address</option>
+                    <!-- not supported by API yet
                     <option value="enable-address">Enable address</option>
                     <option value="disable-address">Disable address</option>
+                    -->
                 </select>
                 <button type="submit">Apply</button>
                 <fieldset id="create-address" class="clearfix">

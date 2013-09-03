@@ -1,5 +1,5 @@
 app.create('compose', {
-    init: function(){
+    init: function(id){
         c.log('app.compose.init');
 
         var modal = ui.modal.show('', {
@@ -14,8 +14,9 @@ app.create('compose', {
 
             var options = ui.tpl('fromOptions', { identities: identities });
             var form = ui.tpl('compose', {
-                options: options,
-                selectedId: identities[0].address
+                toAddress: id
+                , options: options
+                , selectedId: identities[0].address
             });
 
             //populate the modal

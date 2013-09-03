@@ -44,6 +44,16 @@ app.create('subscriptions', {
         ui.checkItem($table);
 
         //stub: wire up events here for address rows here
+        $tbody.on('click.subscriptions', 'tr .address', function(e){
+            //this might need to use sendBroadcast instead of sendMessage
+            e.preventDefault();
+
+            var $address = $(e.currentTarget)
+                , id = $address.text();
+
+            c.log('address', id);
+            app.compose.init(id);
+        });
 
         $total.text(subscriptions.length);
         ui.$content.append(ui.$pg);

@@ -10,11 +10,16 @@
     <p data-to="{{msg.toAddress}}" class="to">To: {{msg.toAddress}}</p>
     <nav>
         {{#if isSentMessage}}
-            <a href="#" class="add-address">Add to address book</a>
+            <!-- <a href="#" class="add-address">Add to address book</a> -->
         {{else}}
             <a href="#" class="reply">Reply</a>
         {{/if}}
         <a href="#" class="trash">Trash</a>
+        <a href="#" class="render-html">Show HTML</a>
     </nav>
-    <section class="message">{{msg.message}}</section>
+    {{#if renderHtml}}
+        <section class="message">{{{msg.message}}}</section>
+    {{else}}
+        <section class="message">{{msg.message}}</section>
+    {{/if}}
 </div>

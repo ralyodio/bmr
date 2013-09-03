@@ -33,6 +33,10 @@ app.create('sent', {
             } else if ( $el.is('a.close') ) {
                 c.log('close msg');
                 app.message.hideMsg(id);
+            } else if ( $el.is('a.render-html') ) {
+                var isSentMessage = true;
+
+                app.message.renderHtml(id, isSentMessage);
             }
         }.bind(this));
     },

@@ -8,14 +8,19 @@ app.create('message', {
         $row.after(ui.tpl('message', { id: id, colCount: colCount }));
     },
 
-    showMsg: function(msg, isSentMessage){
+    showMsg: function(msg, isSentMessage, renderHtml){
         c.log('app.message.showMsg', msg);
 
         var $row = ui.$pg.find('tbody tr[data-id='+msg.msgid+']')
             , $msg = $row.next('.msg')
             , $content = $msg.find('.content');
 
-        $content.append(ui.tpl('messageContent', { msg: msg, isSentMessage: isSentMessage }));
+        $content.append(ui.tpl('messageContent', {
+            msg: msg
+            , isSentMessage: isSentMessage
+            , renderHtml: renderHtml
+        }));
+
         $content.removeClass('loading');
         $row.data('isopen', true);
         $row.removeClass('unread');
@@ -62,6 +67,25 @@ app.create('message', {
                 }.bind(this), true); //mark as read
             }
         }.bind(this));
+    },
+
+    renderHtml: function(id, isSentMessage){
+        c.log('app.message.renderHtml', id);
+
+        var renderHtml = true;
+
+        this.hideMsg(id);
+        this.preShowMsg(id);
+
+        if ( isSentMessage ) {
+            api.getSentMessage(id, function(msg){
+                this.showMsg(msg, isSentMessage, renderHtml);
+            }.bind(this));
+        } else {
+            api.getMessage(id, function(msg){
+                this.showMsg(msg, isSentMessage, renderHtml);
+            }.bind(this));
+        }
     },
 
     destroy: function(){

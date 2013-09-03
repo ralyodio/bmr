@@ -36,6 +36,10 @@ app.create('inbox', {
                 app.message.hideMsg(id);
             } else if ( $el.is('a.reply') ) {
                 this.showReply(id); //should be moved to app.message?
+            } else if ( $el.is('a.render-html') ) {
+                var isSentMessage = false;
+
+                app.message.renderHtml(id, isSentMessage);
             }
         }.bind(this));
     },

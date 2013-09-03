@@ -14,7 +14,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack1 = helpers.selectedId) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.selectedId; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</span>\n        </p>\n        <p><label for=\"compose-to\">To</label> <input type=\"text\" name=\"to\" id=\"compose-to\"></p>\n        <p><label for=\"compose-subject\">Subject</label> <input type=\"text\" name=\"subject\" id=\"compose-subject\"></p>\n        <textarea name=\"message\" class=\"message\" id=\"compose-body\"></textarea>\n    </fieldset>\n</form>";
+    + "</span>\n        </p>\n        <p><label for=\"compose-to\">To</label> <input type=\"text\" name=\"to\" id=\"compose-to\" value=\"";
+  if (stack1 = helpers.toAddress) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.toAddress; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"></p>\n        <p><label for=\"compose-subject\">Subject</label> <input type=\"text\" name=\"subject\" id=\"compose-subject\"></p>\n        <textarea name=\"message\" class=\"message\" id=\"compose-body\"></textarea>\n    </fieldset>\n</form>";
   return buffer;
   });
 templates['fromOptions'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -72,7 +76,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<section id=\"identities\">\n    <table>\n        <caption>\n            <form id=\"identities-action\">\n                <select id=\"identities-select-action\">\n                    <option value=\"create-address\">Create address</option>\n                    <option value=\"enable-address\">Enable address</option>\n                    <option value=\"disable-address\">Disable address</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n                <fieldset id=\"create-address\" class=\"clearfix\">\n                    <div>\n                        <p><label>Address label: <input type=\"text\" name=\"label\"></label></p>\n                        <p><label><input type=\"checkbox\" name=\"eighteenByteRipe\"> Do extra work for shorter address (18-byte RIPE)</label></p>\n                    </div>\n                    <div>\n                        <p><label>Total difficulty: <input type=\"text\" class=\"small\" name=\"totalDifficulty\" value=\"1.0\" maxlength=\"3\"></label></p>\n                        <p><label>Small message difficulty: <input class=\"small\" type=\"text\" name=\"smallMessageDifficulty\" value=\"1.0\"></label></p>\n                    </div>\n                </fieldset>\n                <!--\n                <fieldset id=\"enable-address\" class=\"hide\">\n                    enable\n                </fieldset>\n                <fieldset id=\"disable-address\" class=\"hide\">\n                    disable\n                </fieldset>\n                -->\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>Label</th>\n            <th>Address</th>\n            <th>Enabled</th>\n            <th>Stream</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  return "<section id=\"identities\">\n    <table>\n        <caption>\n            <form id=\"identities-action\">\n                <select id=\"identities-select-action\">\n                    <option value=\"create-address\">Create address</option>\n                    <!-- not supported by API yet\n                    <option value=\"enable-address\">Enable address</option>\n                    <option value=\"disable-address\">Disable address</option>\n                    -->\n                </select>\n                <button type=\"submit\">Apply</button>\n                <fieldset id=\"create-address\" class=\"clearfix\">\n                    <div>\n                        <p><label>Address label: <input type=\"text\" name=\"label\"></label></p>\n                        <p><label><input type=\"checkbox\" name=\"eighteenByteRipe\"> Do extra work for shorter address (18-byte RIPE)</label></p>\n                    </div>\n                    <div>\n                        <p><label>Total difficulty: <input type=\"text\" class=\"small\" name=\"totalDifficulty\" value=\"1.0\" maxlength=\"3\"></label></p>\n                        <p><label>Small message difficulty: <input class=\"small\" type=\"text\" name=\"smallMessageDifficulty\" value=\"1.0\"></label></p>\n                    </div>\n                </fieldset>\n                <!--\n                <fieldset id=\"enable-address\" class=\"hide\">\n                    enable\n                </fieldset>\n                <fieldset id=\"disable-address\" class=\"hide\">\n                    disable\n                </fieldset>\n                -->\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>Label</th>\n            <th>Address</th>\n            <th>Enabled</th>\n            <th>Stream</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
   });
 templates['identitiesList'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -262,13 +266,32 @@ function program3(depth0,data) {
 function program5(depth0,data) {
   
   
-  return "\n            <a href=\"#\" class=\"add-address\">Add to address book</a>\n        ";
+  return "\n            <!-- <a href=\"#\" class=\"add-address\">Add to address book</a> -->\n        ";
   }
 
 function program7(depth0,data) {
   
   
   return "\n            <a href=\"#\" class=\"reply\">Reply</a>\n        ";
+  }
+
+function program9(depth0,data) {
+  
+  var buffer = "", stack1, stack2;
+  buffer += "\n        <section class=\"message\">";
+  stack2 = ((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1);
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "</section>\n    ";
+  return buffer;
+  }
+
+function program11(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n        <section class=\"message\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</section>\n    ";
+  return buffer;
   }
 
   buffer += "<div class=\"message-container\">\n    <a href=\"#\" class=\"close\">Close</a>\n    <h3 class=\"subject\">"
@@ -287,9 +310,10 @@ function program7(depth0,data) {
     + "</p>\n    <nav>\n        ";
   stack2 = helpers['if'].call(depth0, depth0.isSentMessage, {hash:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        <a href=\"#\" class=\"trash\">Trash</a>\n    </nav>\n    <section class=\"message\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</section>\n</div>";
+  buffer += "\n        <a href=\"#\" class=\"trash\">Trash</a>\n        <a href=\"#\" class=\"render-html\">Show HTML</a>\n    </nav>\n    ";
+  stack2 = helpers['if'].call(depth0, depth0.renderHtml, {hash:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n</div>";
   return buffer;
   });
 templates['reply'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -433,7 +457,7 @@ function program1(depth0,data) {
   if (stack1 = helpers.label) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.label; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"><span class=\"nowrap\">";
+    + "\"><span class=\"nowrap label\">";
   if (stack1 = helpers.label) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.label; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -441,7 +465,7 @@ function program1(depth0,data) {
   if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"><span class=\"nowrap\">";
+    + "\"><span class=\"nowrap address\">";
   if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
