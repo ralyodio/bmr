@@ -3,7 +3,7 @@
     "description": "Bmr - the Bitmessage reader",
     "version": "0.0.1",
     "main": "app://bmr/index.html#login",
-    "author": "Anthony Ettinger (chovy)",
+    "author": "chovy",
     "dependencies": {
         "bitmessage-node": "chovy/bitmessage-node"
     },
