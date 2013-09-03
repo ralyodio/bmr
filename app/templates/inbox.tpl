@@ -4,6 +4,8 @@
             <form id="inbox-action">
                 <select>
                     <option value="trash">Move to trash</option>
+                    <option value="read">Mark as read</option>
+                    <option value="unread">Mark as unread</option>
                 </select>
                 <button type="submit">Apply</button>
             </form>

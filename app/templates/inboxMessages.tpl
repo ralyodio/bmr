@@ -1,5 +1,5 @@
 {{#each messages}}
-<tr data-id="{{id}}">
+<tr data-id="{{id}}" class="{{class}}">
     <td class="mark-item"><input type="checkbox" name="mark" value="{{id}}"></td>
     <td data-sort="{{from}}"><span class="nowrap" data-from="{{from}}">{{from}}</span></td>
     <td data-sort="{{to}}"><span class="nowrap" data-to="{{to}}">{{to}}</span></td>

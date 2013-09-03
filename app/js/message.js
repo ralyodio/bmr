@@ -18,6 +18,7 @@ app.create('message', {
         $content.append(ui.tpl('messageContent', { msg: msg, isSentMessage: isSentMessage }));
         $content.removeClass('loading');
         $row.data('isopen', true);
+        $row.removeClass('unread');
     },
 
     hideMsg: function(id){
@@ -58,7 +59,7 @@ app.create('message', {
             } else {
                 api.getMessage(id, function(msg){
                     this.showMsg(msg, isSentMessage);
-                }.bind(this));
+                }.bind(this), true); //mark as read
             }
         }.bind(this));
     },

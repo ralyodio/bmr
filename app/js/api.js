@@ -13,10 +13,11 @@ _.extend(api, {
         this.auth(data, cb);
     },
 
-    getMessage: function (id, cb) {
-        c.log('api.getMessage ' + id);
+    getMessage: function (id, cb, read) {
+        c.log('api.getMessage', id, read);
+
         try {
-            this.conn.messages.inbox.single(id, cb);
+            this.conn.messages.inbox.single(id, cb, read);
         } catch (err) {
             c.error(err);
         }

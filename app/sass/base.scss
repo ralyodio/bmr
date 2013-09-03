@@ -350,6 +350,10 @@ tbody tr.highlight {
   background: #eef !important;
 }
 
+tr.unread {
+  font-weight: bold;
+}
+
 tr.msg {
   .content {
     position: relative;

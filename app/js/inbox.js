@@ -105,6 +105,7 @@ app.create('inbox', {
         msgs.forEach(function (item) {
             var time = item.receivedTime;
 
+            c.log('read', item.read);
             messages.push({
                 time: time
                 , subject: item.subject
@@ -113,6 +114,7 @@ app.create('inbox', {
                 , from: item.fromAddress
                 , to: item.toAddress
                 , id: item.msgid
+                , class: item.read ? '' : 'unread'
             });
         });
 
@@ -168,6 +170,23 @@ app.create('inbox', {
 
                 api.moveToTrash(id, this.moveToTrash);
             }.bind(this));
+        } else if ( action === 'read' || action === 'unread' ) {
+            $.each($checked, function(i, cb){
+               var id = cb.value
+                   , read = action === 'read' ? true : false;
+
+                api.getMessage(id, function(msg){
+                    var $row = $table.find('tr[data-id='+id+']');
+
+                    //mark the row as read or unread
+                    $row[action === 'read' ? 'removeClass' : 'addClass']('unread');
+
+                    //action finished, reset checkboxes
+                    $row.removeClass('highlight');
+                    $(cb).attr('checked', false);
+                    ui.ok('Message'+(i?'s':'')+' marked as ' + action);
+                }, read); //send 'read' state
+            });
         }
     },
 
