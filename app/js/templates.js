@@ -221,7 +221,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<form id=\"login\" class=\"clearfix\" method=\"post\">\n    <fieldset>\n        <p><label for=\"user\">Username</label> <input type=\"text\" name=\"user\" id=\"user\" value=\"\"></p>\n        <p><label for=\"password\">Password</label> <input type=\"password\" id=\"password\" name=\"pass\" value=\"\"></p>\n        <p><label for=\"host\">Host</label> <input type=\"text\" id=\"host\" name=\"host\" value=\"\"></p>\n        <p><label for=\"port\">Port</label> <input type=\"text\" id=\"port\" name=\"port\" value=\"8442\"></p>\n    </fieldset>\n    <button type=\"submit\">Login</button>\n</form>";
+  return "<form id=\"login\" class=\"clearfix\" method=\"post\">\n    <fieldset>\n        <p><label for=\"user\">Username</label> <input type=\"text\" name=\"user\" id=\"user\" value=\"bradley\"></p>\n        <p><label for=\"password\">Password</label> <input type=\"password\" id=\"password\" name=\"pass\" value=\"manning\"></p>\n        <p><label for=\"host\">Host</label> <input type=\"text\" id=\"host\" name=\"host\" value=\"bitmessagehost\"></p>\n        <p><label for=\"port\">Port</label> <input type=\"text\" id=\"port\" name=\"port\" value=\"9442\"></p>\n    </fieldset>\n    <button type=\"submit\">Login</button>\n</form>";
   });
 templates['message'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -277,6 +277,12 @@ function program7(depth0,data) {
 
 function program9(depth0,data) {
   
+  
+  return "\n            <a href=\"#\" class=\"render-html\">Show HTML</a>\n        ";
+  }
+
+function program11(depth0,data) {
+  
   var buffer = "", stack1, stack2;
   buffer += "\n        <section class=\"message\">";
   stack2 = ((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1);
@@ -285,7 +291,7 @@ function program9(depth0,data) {
   return buffer;
   }
 
-function program11(depth0,data) {
+function program13(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n        <section class=\"message\">"
@@ -310,8 +316,11 @@ function program11(depth0,data) {
     + "</p>\n    <nav>\n        ";
   stack2 = helpers['if'].call(depth0, depth0.isSentMessage, {hash:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        <a href=\"#\" class=\"trash\">Trash</a>\n        <a href=\"#\" class=\"render-html\">Show HTML</a>\n    </nav>\n    ";
-  stack2 = helpers['if'].call(depth0, depth0.renderHtml, {hash:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),data:data});
+  buffer += "\n        <a href=\"#\" class=\"trash\">Trash</a>\n        ";
+  stack2 = helpers.unless.call(depth0, depth0.renderHtml, {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n    </nav>\n    ";
+  stack2 = helpers['if'].call(depth0, depth0.renderHtml, {hash:{},inverse:self.program(13, program13, data),fn:self.program(11, program11, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n</div>";
   return buffer;

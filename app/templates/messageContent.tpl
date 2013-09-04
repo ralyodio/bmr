@@ -15,7 +15,9 @@
             <a href="#" class="reply">Reply</a>
         {{/if}}
         <a href="#" class="trash">Trash</a>
-        <a href="#" class="render-html">Show HTML</a>
+        {{#unless renderHtml}}
+            <a href="#" class="render-html">Show HTML</a>
+        {{/unless}}
     </nav>
     {{#if renderHtml}}
         <section class="message">{{{msg.message}}}</section>
