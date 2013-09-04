@@ -204,7 +204,13 @@ table {
 
 caption {
   text-align: left;
-  padding: 5px 0; }
+  padding: 5px 0;
+  position: relative; }
+
+#filter {
+  position: absolute;
+  top: 0;
+  right: 0; }
 
 header nav:nth-child(1) {
   float: left; }
@@ -359,10 +365,3 @@ fieldset#create-address > div {
   box-sizing: border-box; }
   fieldset#create-address > div input[type=text] {
     margin-left: 5px; }
-
-/*
-@media (max-width: 800px) {
-    td .subject {
-        max-width: 300px;
-    }
-}*/

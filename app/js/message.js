@@ -38,7 +38,14 @@ app.create('message', {
     readMsg: function ($table, isSentMessage) {
         c.log('app.message.readMessage: isSentMessage', isSentMessage);
 
-        var $subjects = $table.find('tbody .subject');
+        var $subjects;
+
+        if ( isSentMessage ) {
+            //can't open messages that haven't been sent yet
+            $subjects = $table.find('tbody tr[data-status=ackreceived] .subject');
+        } else {
+            $subjects = $table.find('tbody .subject');
+        }
 
         $subjects.on('click.message', function (e) {
             e.preventDefault();

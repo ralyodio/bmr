@@ -1,6 +1,6 @@
 <section id="inbox">
     <table>
-        <caption>
+        <caption class="clearfix">
             <form id="inbox-action">
                 <select>
                     <option value="trash">Move to trash</option>
@@ -8,6 +8,11 @@
                     <option value="unread">Mark as unread</option>
                 </select>
                 <button type="submit">Apply</button>
+            </form>
+            <form id="filter">
+                <label for="filter-value">Filter</label>
+                <input type="text" name="filter-value" id="filter-value">
+                <button type="reset">Clear</button>
             </form>
         </caption>
         <thead>

@@ -17,6 +17,7 @@ app.create('inbox', {
 
         //page events
         ui.$pg.find("#inbox-action").on('submit.inbox', this.actionItem.bind(this));
+        ui.filter();
 
         //handle click events on currently opened messages
         ui.$pg.find("table").on('click.inbox', 'tr.msg', function (e) {

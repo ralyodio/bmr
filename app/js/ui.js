@@ -233,6 +233,27 @@ _.extend(ui, {
         $labels.removeClass('error');
     },
 
+    filter: function(){
+        this.$pg.find('#filter-value').on('input.ui', this.filterInput.bind(this));
+        this.$pg.find('#filter button[type=reset]').on('click.ui', this.resetFilter.bind(this));
+    },
+
+    resetFilter: function(e){
+        this.$pg.find('tbody tr').show();
+    },
+
+    filterInput: function(e){
+        var val = $(e.target).val().toLowerCase()
+            , $rows = this.$pg.find('tbody tr');
+
+        $.each($rows, function(i, row){
+            var $row = $(row)
+                , subject = $row.find('.subject').text().toLowerCase();
+
+            $row[( subject.indexOf(val) > -1 ? 'show' : 'hide' )]();
+        });
+    },
+
     showActionFields: function(e){
         var $option = $(e.currentTarget).find('option:selected')
             , $form = $(e.target).parents('form')

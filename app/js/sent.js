@@ -15,7 +15,9 @@ app.create('sent', {
 
         api.sentMessages(this.showSent.bind(this)); //needs spinner
 
+        //page events
         ui.$pg.find('#sent-action').on('submit.sent', this.actionItem.bind(this));
+        ui.filter();
 
         //handle click events on open messages
         ui.$pg.find('table').on('click.sent', 'tr.msg', function (e) {

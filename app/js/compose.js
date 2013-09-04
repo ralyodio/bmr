@@ -37,10 +37,10 @@ app.create('compose', {
                     , subject = f.subject.value
                     , message = f.message.value;
 
-                c.log('Sending message', f);
+                c.log('Sending message', toAddress, fromAddress, subject);
 
                 api.sendMessage(toAddress, fromAddress, subject, message, function(ackdata){
-                    c.log(ackdata);
+                    c.log('ackdata', ackdata);
 
                     spin.stop();
                     modal.hide();
