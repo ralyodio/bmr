@@ -58,19 +58,43 @@ body {
   background: #fff;
   box-sizing: border-box;
   border-radius: 5px; }
+  #modal.minimized {
+    left: 0;
+    top: 0;
+    border-radius: 0;
+    margin: 0 !important;
+    z-index: 10;
+    height: 25px;
+    width: 120px; }
+    #modal.minimized .icons {
+      position: static;
+      right: auto; }
+      #modal.minimized .icons a.maximize {
+        display: block; }
+    #modal.minimized header {
+      border: 1px solid #eee;
+      line-height: 25px;
+      height: 25px;
+      border-radius: 0; }
+    #modal.minimized header h2, #modal.minimized footer, #modal.minimized section, #modal.minimized a.close, #modal.minimized a.minimize {
+      display: none; }
   #modal header {
     display: block;
     height: 50px;
     line-height: 50px;
     border-bottom: 1px solid #eee;
     padding: 0 20px;
-    position: relative; }
+    position: relative;
+    background: #fff;
+    border-radius: 5px 5px 0 0; }
     #modal header h2 {
       margin: 0; }
-    #modal header a.close {
+    #modal header .icons {
       position: absolute;
       right: 10px;
       top: 0; }
+      #modal header .icons a.maximize {
+        display: none; }
   #modal footer {
     display: block;
     height: 50px;
@@ -152,6 +176,14 @@ a.sent:before {
 
 a.close:before {
   content: 'ⓧ'; }
+
+a.maximize:before {
+  font-size: 18px;
+  content: '⦿'; }
+
+a.minimize:before {
+  font-size: 18px;
+  content: '⊝'; }
 
 #logo {
   font-weight: bold;

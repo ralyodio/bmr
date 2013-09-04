@@ -110,7 +110,6 @@ app.create('inbox', {
         msgs.forEach(function (item) {
             var time = item.receivedTime;
 
-            c.log('read', item.read);
             messages.push({
                 time: time
                 , subject: item.subject

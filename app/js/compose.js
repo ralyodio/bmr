@@ -44,7 +44,7 @@ app.create('compose', {
 
                     spin.stop();
                     modal.hide();
-                    ui.ok("Your message has been sent!");
+                    ui.ok("Your message has been sent");
                 });
             });
         });

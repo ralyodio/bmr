@@ -14,6 +14,7 @@ _.extend(ui, {
     $header: null,
     $content: null,
     $pg: null,
+    $modal: null,
 
     dom: {},
 
@@ -62,6 +63,12 @@ _.extend(ui, {
         }
 
         $body.addClass(newPage);
+
+        //close existing modal
+        if ( this.$modal ) {
+            this.modal.hide();
+        }
+
         app[newPage].init();
     },
 
@@ -302,6 +309,7 @@ _.extend(ui, {
         };
 
         _.extend(defaults, opts);
+
         return new Spinner(defaults).spin($target.get(0));
     },
 
