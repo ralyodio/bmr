@@ -1,4 +1,6 @@
 app.create('inbox', {
+    lastReceivedTime: null,
+
     init: function () {
         if (!api.conn) {
             c.log('No connection.');
@@ -6,7 +8,7 @@ app.create('inbox', {
             return;
         }
 
-        ui.init();
+        ui.init(this.ns);
         c.log('app.inbox.init');
 
         ui.$pg = $(ui.tpl('inbox', {}));
@@ -95,16 +97,22 @@ app.create('inbox', {
         });
     },
 
-    showInbox: function (msgs) {
-        var messages = [] //template data
-            , $table = ui.$pg.find('table')
+    showMessages: function(msgs){
+        var $table = ui.$pg.find('table')
             , $total = ui.$header.find('a.inbox .total')
             , $tbody = $table.find("tbody");
 
-        //msgs = msgs.slice(0, 10);
-
-        //default to most recent first
         msgs = ui.sortByDateAttr(msgs, 'receivedTime');
+
+        //save the time of the most recent message for long polling new messages
+        this.lastReceivedTime = msgs[0] ? msgs[0].receivedTime : this.lastReceivedTime;
+
+        $tbody.prepend(ui.tpl('inboxMessages', { messages: this.getMessagesData(msgs) }));
+        $total.text($tbody.find('tr').length);
+    },
+
+    getMessagesData: function(msgs){
+        var messages = [];
 
         //prepare data for template
         msgs.forEach(function (item) {
@@ -122,7 +130,44 @@ app.create('inbox', {
             });
         });
 
-        $tbody.html(ui.tpl('inboxMessages', { messages: messages }));
+        return messages;
+    },
+
+    showInbox: function (msgs) {
+        var messages = [] //template data
+            , $table = ui.$pg.find('table')
+            , $total = ui.$header.find('a.inbox .total')
+            , $tbody = $table.find("tbody");
+
+        //msgs = msgs.slice(0, 10);
+
+        //default to most recent first
+        //msgs = ui.sortByDateAttr(msgs, 'receivedTime');
+
+        //save the time of the most recent message for long polling new messages
+        //this.lastReceivedTime = msgs[0].receivedTime;
+
+        /*
+        //prepare data for template
+        msgs.forEach(function (item) {
+            var time = item.receivedTime;
+
+            messages.push({
+                time: time
+                , subject: item.subject
+                , timeSortable: moment(time).unix()
+                , timeReadable: moment(time).fromNow()
+                , from: item.fromAddress
+                , to: item.toAddress
+                , id: item.msgid
+                , class: item.read ? '' : 'unread'
+            });
+        });
+        */
+
+        //$tbody.html(ui.tpl('inboxMessages', { messages: this.getMessagesData(msgs) }));
+
+        this.showMessages(msgs);
 
         //initialize events for the table
         ui.markAll($table);
@@ -131,7 +176,7 @@ app.create('inbox', {
         ui.checkItem($table);
         app.message.readMsg($table, false);
 
-        $total.text(msgs.length);
+        //$total.text(msgs.length);
         ui.$content.append(ui.$pg);
         ui.$pg.fadeIn();
     },
@@ -177,7 +222,7 @@ app.create('inbox', {
         } else if ( action === 'read' || action === 'unread' ) {
             $.each($checked, function(i, cb){
                var id = cb.value
-                   , read = action === 'read' ? true : false;
+                   , read = !!(action === 'read');
 
                 api.getMessage(id, function(msg){
                     var $row = $table.find('tr[data-id='+id+']');

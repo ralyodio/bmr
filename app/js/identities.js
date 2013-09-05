@@ -6,7 +6,7 @@ app.create('identities', {
             return;
         }
 
-        ui.init();
+        ui.init(this.ns);
         c.log('app.identities.init');
 
         ui.$pg = $(ui.tpl('identities', {}));

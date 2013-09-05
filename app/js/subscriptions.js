@@ -8,7 +8,7 @@ app.create('subscriptions', {
 
         c.log('app.subscriptions.init');
 
-        ui.init();
+        ui.init(this.ns);
 
         ui.$pg = $(ui.tpl('subscriptions', {}));
         ui.$header.show();

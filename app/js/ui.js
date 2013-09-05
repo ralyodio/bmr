@@ -16,14 +16,16 @@ _.extend(ui, {
     $content: null,
     $pg: null,
     $modal: null,
+    ns: null,
 
     dom: {},
 
-    init: function () {
+    init: function (ns) {
         this.logger();
 
         c.log('ui.init');
 
+        this.ns = ns;
         this.$body = $('body');
         this.$header = this.$body.find('> header');
         this.$content = this.$body.find('> #content');
@@ -109,13 +111,12 @@ _.extend(ui, {
     },
 
     markAll: function ($table) {
-        var $cb = $table.find('thead [name=mark-all]')
-            , $toCheck = $table.find('tbody td:first-child [type=checkbox]');
-
         c.log('markAll');
-        $cb.on('click.ui', function (e) {
+
+        $table.on('click.ui', 'thead [name=mark-all]', function (e) {
             var $cb = $(e.currentTarget)
-                , isChecked = $cb.is(':checked');
+                , isChecked = $cb.prop('checked')
+                , $toCheck = $table.find('tbody tr:visible td:first-child [type=checkbox]'); //only visible rows.
 
             if (e.metaKey) {
                 //invert checked boxes
@@ -131,7 +132,7 @@ _.extend(ui, {
                 }.bind(this))
             } else {
                 c.log('here', $cb, isChecked);
-                $toCheck.prop('checked', isChecked);
+                $toCheck.prop('checked', isChecked); //bug?
                 $toCheck.parents('tr')[( isChecked ? 'addClass' : 'removeClass' )]('highlight');
             }
         }.bind(this));
@@ -141,6 +142,38 @@ _.extend(ui, {
         lastChecked: null,
 
         init: function ($table) {
+            c.log('shiftCheck.init');
+
+            this.reset();
+
+            $table.on('click.ui', 'tbody td:first-child [type=checkbox]', function (e) {
+                var start = null
+                    , end = null
+                    , _this = e.currentTarget
+                    , _$tbody = $(_this).parents('tbody')
+                    , $_cbs = _$tbody.find('tr:visible td:first-child [type=checkbox]') //get the re-ordered list, only visible
+                    , $checked;
+
+                if (!this.lastChecked) {
+                    this.lastChecked = _this;
+                    return;
+                }
+
+                if (e.shiftKey) {
+                    start = $_cbs.index(_this);
+                    end = $_cbs.index(this.lastChecked);
+
+                    //grab the boxes to auto-check
+                    $checked = $_cbs.slice(Math.min(start, end), Math.max(start, end) + 1);
+                    $checked.prop('checked', this.lastChecked.checked);
+                    $checked.parents('tr')[( this.lastChecked.checked ? 'addClass' : 'removeClass' )]('highlight');
+                }
+
+                this.lastChecked = _this;
+            }.bind(this));
+        },
+
+        initOld: function ($table) {
             c.log('shiftCheck.init');
 
             var $cbs = $table.find('tbody td:first-child [type=checkbox]');
@@ -179,6 +212,16 @@ _.extend(ui, {
     },
 
     checkItem: function ($table) {
+        $table.find('tbody').on('click.ui', 'td:first-child [type=checkbox]', function (e) {
+            var $cb = $(e.currentTarget)
+                , $row = $cb.parents('tr')
+                , isChecked = $cb.is(':checked');
+
+            $row[( isChecked ? 'addClass' : 'removeClass' )]('highlight');
+        }.bind(this));
+    },
+
+    checkItemOld: function ($table) {
         var $cbs = $table.find('tbody td:first-child [type=checkbox]');
 
         $cbs.on('click.ui', function (e) {
@@ -194,10 +237,10 @@ _.extend(ui, {
         var $thead = $table.find('thead')
             , $tbody = $table.find('tbody');
 
-
-        $thead.find('th').on('click.ui', function (e) {
+        $thead.on('click.ui', 'th:not(.no-sort)', function (e) {
             e.preventDefault();
-            $tbody.find('tr.msg').remove();
+
+            $tbody.find('tr.msg').remove(); //remove open messages
 
             var $th = $(e.currentTarget)
                 , $rows = $tbody.find('tr')
@@ -225,7 +268,7 @@ _.extend(ui, {
             $th.removeClass('asc desc');
             $th.siblings().removeClass('asc desc');
             $th.addClass(dir);
-            $tbody.append($rows); //existing rows get re-ordered w/o loosing events
+            $tbody.append($rows); //existing rows get re-ordered w/o loosing events when .append()
             this.shiftCheck.reset();
         }.bind(this));
     },
@@ -244,22 +287,32 @@ _.extend(ui, {
     filter: function(){
         this.$pg.find('#filter-value').on('input.ui', this.filterInput.bind(this));
         this.$pg.find('#filter button[type=reset]').on('click.ui', this.resetFilter.bind(this));
+        this.$pg.find('#filter #include').on('click.ui', function(e){
+            this.filterInput.call(this);
+        }.bind(this));
     },
 
     resetFilter: function(e){
         this.$pg.find('tbody tr').show();
+        this.$header.find('a.'+this.ns+' .total').text(this.$pg.find('tbody tr:visible').length);
     },
 
     filterInput: function(e){
-        var val = $(e.target).val().toLowerCase()
+        var val = this.$pg.find('#filter-value').val().toLowerCase()
+            , $include = this.$pg.find('#include')
+            , includeField = $include.prop('checked')
             , $rows = this.$pg.find('tbody tr');
 
         $.each($rows, function(i, row){
             var $row = $(row)
-                , subject = $row.find('.subject').text().toLowerCase();
+                , field = $row.find('.'+$include.val()).text().toLowerCase()
+                , subject = $row.find('.subject').text().toLowerCase()
+                , hasMatch = includeField ? subject.indexOf(val) > -1 || field.indexOf(val) > -1 : subject.indexOf(val) > -1;
 
-            $row[( subject.indexOf(val) > -1 ? 'show' : 'hide' )]();
+            $row[( hasMatch ? 'show' : 'hide' )]();
         });
+
+        this.$header.find('a.'+this.ns+' .total').text(this.$pg.find('tbody tr:visible').length);
     },
 
     showActionFields: function(e){
@@ -330,6 +383,8 @@ _.extend(ui, {
     },
 
     destroy: function(){
+        this.ns = null;
+
         $(window).off('.ui');
         $(document).add('*').off('.ui');
 

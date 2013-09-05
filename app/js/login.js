@@ -1,6 +1,6 @@
 app.create('login', {
     init: function(){
-        ui.init();
+        ui.init(this.ns);
         c.log('app.login.init');
 
         ui.$pg = $(ui.tpl('login', {}));

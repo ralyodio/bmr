@@ -6,7 +6,7 @@ app.create('sent', {
             return;
         }
 
-        ui.init();
+        ui.init(this.ns);
         c.log('app.sent.init');
 
         ui.$pg = $(ui.tpl('sent', {}));

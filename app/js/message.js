@@ -15,7 +15,7 @@ app.create('message', {
             , $msg = $row.next('.msg')
             , $content = $msg.find('.content');
 
-        $content.append(ui.tpl('messageContent', {
+        $content.html(ui.tpl('messageContent', {
             msg: msg
             , isSentMessage: isSentMessage
             , renderHtml: renderHtml
@@ -38,16 +38,10 @@ app.create('message', {
     readMsg: function ($table, isSentMessage) {
         c.log('app.message.readMessage: isSentMessage', isSentMessage);
 
-        var $subjects;
+        //can't open messages that haven't been sent yet
+        var subjects = isSentMessage ? 'tr[data-status=ackreceived] .subject' : 'tr .subject';
 
-        if ( isSentMessage ) {
-            //can't open messages that haven't been sent yet
-            $subjects = $table.find('tbody tr[data-status=ackreceived] .subject');
-        } else {
-            $subjects = $table.find('tbody .subject');
-        }
-
-        $subjects.on('click.message', function (e) {
+        $table.on('click.message', subjects, function (e) {
             e.preventDefault();
 
             var $subject = $(e.currentTarget)
