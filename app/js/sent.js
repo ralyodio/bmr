@@ -73,6 +73,18 @@ app.create('sent', {
 
         $tbody.append(ui.tpl('sentMessages', { messages: messages }));
 
+        //wire up events here for rows here
+        $tbody.on('click.sent', 'tr .to', function(e){
+            e.preventDefault();
+
+            var $address = $(e.currentTarget)
+                , id = $address.text();
+
+            c.log('address', id);
+            app.compose.init(id);
+        });
+
+
         //initialize events for the table
         ui.markAll($table);
         ui.shiftCheck.init($table);

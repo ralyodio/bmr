@@ -221,14 +221,14 @@ a.inbox:before {
   margin-left: 5px;
 }
 
-a.compose:before, .address:before {
+a.compose:before, .address:before, .to:before{
   content: '✉';
   font-size: 24px;
   position: relative;
   top: 4px;
 }
 
-.address {
+.address, .to {
   cursor: pointer;
 
   &:before {
