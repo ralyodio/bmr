@@ -43,9 +43,12 @@ To run Bmr, you first need to [download node-webkit](https://github.com/rogerwan
 To install Bmr, you need to clone the git repository:
 
     git clone https://github.com/chovy/bmr.git
-    cd ./bmr
+    cd ./bmr/app
+    npm install
 
 Once you download the `node-webkit` binary, just copy that into the `./bmr/app` directory and then double-click it to launch Bmr.
+
+To update the code just type `git pull`.
 
 ##### Alternative: build it
 
