@@ -21,6 +21,9 @@ Find your `keys.dat` file:
     # Mac
     ~/Library/Application Support/PyBitmessage/keys.dat
 
+    # Windows
+    # not sure where keys.dat is
+
 Add the following lines to the bottom of the `[bitmessagesettings]` section:
 
     [bitmessagesettings]
@@ -35,7 +38,7 @@ If you want to run PyMessage in Daemon mode without the PyQT client starting, ad
 
 #### Bmr (client -- this app)
 
-To run Bmr, you first need to [download and install node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
+To run Bmr, you first need to [download node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
 
 To install Bmr, you need to clone the git repository:
 
@@ -44,7 +47,7 @@ To install Bmr, you need to clone the git repository:
 
 Once you download the `node-webkit` binary, just copy that into the `./bmr/app` directory and then double-click it to launch Bmr.
 
-##### alternative: build it
+##### Alternative: build it
 
 Run the ./build script to build the node-webkit `bmr.nw` app:
 
