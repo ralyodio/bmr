@@ -78,7 +78,7 @@ app.create('sent', {
             e.preventDefault();
 
             var $address = $(e.currentTarget)
-                , id = $address.text();
+                , id = $address.attr('data-to');
 
             c.log('address', id);
             app.compose.init(id);

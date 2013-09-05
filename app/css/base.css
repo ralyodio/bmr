@@ -163,15 +163,15 @@ a.inbox:before {
   -webkit-transform: rotate(180deg);
   margin-left: 5px; }
 
-a.compose:before, .address:before, .to:before {
+a.compose:before, .address:before, #sent .to:before, #inbox .msg .from:before {
   content: '✉';
   font-size: 24px;
   position: relative;
   top: 4px; }
 
-.address, .to {
+.address, #sent .to, #inbox .msg .from {
   cursor: pointer; }
-  .address:before, .to:before {
+  .address:before, #sent .to:before, #inbox .msg .from:before {
     margin-right: 3px; }
 
 a.sent:before {
@@ -320,8 +320,13 @@ tr.msg .content {
   tr.msg .content .date, tr.msg .content .to, tr.msg .content .from {
     margin: 5px 0;
     padding: 0 5px; }
+  tr.msg .content .from {
+    margin: -5px 0 0; }
   tr.msg .content .to {
     color: #999; }
+  tr.msg .content nav {
+    display: block;
+    margin: 10px 0 5px; }
   tr.msg .content .message {
     font-family: monospace;
     white-space: pre-wrap;
