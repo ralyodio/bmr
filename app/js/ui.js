@@ -7,7 +7,8 @@ _.extend(ui, {
     },
 
     timers: {
-        msg: null
+        msg: null,
+        inbox: null
     },
 
     $body: null,

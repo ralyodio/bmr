@@ -122,7 +122,7 @@ app.create('inbox', {
             });
         });
 
-        $tbody.append(ui.tpl('inboxMessages', { messages: messages }));
+        $tbody.html(ui.tpl('inboxMessages', { messages: messages }));
 
         //initialize events for the table
         ui.markAll($table);

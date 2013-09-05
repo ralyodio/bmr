@@ -65,15 +65,19 @@ body {
 }
 
 #modal {
+  $easing: cubic-bezier(0.39, 0.575, 0.565, 1);
+  $bgColor: #fff;
+
   position: fixed;
   top: 50%;
   left: 50%;
   width: 80%;
   max-height: 90%;
   margin: auto auto auto -40%;
-  background: #fff;
+  background: $bgColor;
   box-sizing: border-box;
   border-radius: 5px;
+  transition: top 1s $easing, left 1s $easing;
 
   &.minimized {
     left: 0;
@@ -112,7 +116,7 @@ body {
     border-bottom: 1px solid #eee;
     padding: 0 20px;
     position: relative;
-    background: #fff;
+    background: $bgColor;
     border-radius: 5px 5px 0 0;
 
     h2 {
@@ -137,6 +141,7 @@ body {
     border-top: 1px solid #eee;
     padding: 0 20px;
     text-align: right;
+    background: $bgColor;
   }
 
   section {
@@ -144,6 +149,7 @@ body {
     min-height: 100px;
     overflow-y: auto;
     box-sizing: border-box;
+    background: $bgColor;
 
     &:empty:before {
       @extend .empty;

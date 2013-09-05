@@ -55,9 +55,10 @@ body {
   width: 80%;
   max-height: 90%;
   margin: auto auto auto -40%;
-  background: #fff;
+  background: white;
   box-sizing: border-box;
-  border-radius: 5px; }
+  border-radius: 5px;
+  transition: top 1s cubic-bezier(0.39, 0.575, 0.565, 1), left 1s cubic-bezier(0.39, 0.575, 0.565, 1); }
   #modal.minimized {
     left: 0;
     top: 0;
@@ -85,7 +86,7 @@ body {
     border-bottom: 1px solid #eee;
     padding: 0 20px;
     position: relative;
-    background: #fff;
+    background: white;
     border-radius: 5px 5px 0 0; }
     #modal header h2 {
       margin: 0; }
@@ -101,12 +102,14 @@ body {
     line-height: 50px;
     border-top: 1px solid #eee;
     padding: 0 20px;
-    text-align: right; }
+    text-align: right;
+    background: white; }
   #modal section {
     padding: 10px 20px;
     min-height: 100px;
     overflow-y: auto;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    background: white; }
 
 .hide {
   display: none; }
