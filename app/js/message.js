@@ -21,19 +21,28 @@ app.create('message', {
             , renderHtml: renderHtml
         }));
 
-        $content.find('.message').contents().filter(function() {
-                return this.nodeType === 3;
-        }).each(function(i, txt){
-            var $txt = $(txt);
-
-            $txt.replaceWith(
-                $txt.text().replace(/(BM-[123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ]{32,34})/g, '<a href="#" class="address" data-address="$1">$1</a>')
-            );
-        });
+        this.parseMessage($content.find('.message'));
 
         $content.removeClass('loading');
         $row.data('isopen', true);
         $row.removeClass('unread');
+    },
+
+    parseMessage: function($message){
+        $message.contents().filter(function() {
+            return this.nodeType === 3;
+        }).each(function(i, txt){
+            var $txt = $(txt)
+                , text = $txt.text();
+
+            //BM- addressses
+            text = text.replace(/(BM-[123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ]{32,34})/g, '<a href="#" class="address" data-address="$1">$1</a>');
+
+            //links
+            text = text.replace(/(http[s]{0,1}:\/\/\S+)/g, '<a href="$1" class="ext" target="_blank">$1</a>');
+
+            $txt.replaceWith(text);
+        });
     },
 
     hideMsg: function(id){

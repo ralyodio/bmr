@@ -39,6 +39,8 @@ app.create('sent', {
                 var isSentMessage = true;
 
                 app.message.renderHtml(id, isSentMessage);
+            } else if ( $el.is('a.ext') ) {
+                ui.win($el.attr('href'));
             }
         }.bind(this));
     },

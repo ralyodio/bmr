@@ -367,6 +367,17 @@ _.extend(ui, {
         return new Spinner(defaults).spin($target.get(0));
     },
 
+    win: function(url){
+        var gui = require('nw.gui');
+
+        // Create a new window and get it
+        return gui.Window.open(url, {
+            position: 'center',
+            width: 800,
+            height: 600
+        });
+    },
+
     tpl: function(name, data){
         return Handlebars.templates[name](data);
     },
