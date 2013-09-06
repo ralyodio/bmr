@@ -21,6 +21,16 @@ app.create('message', {
             , renderHtml: renderHtml
         }));
 
+        $content.find('.message').contents().filter(function() {
+                return this.nodeType === 3;
+        }).each(function(i, txt){
+            var $txt = $(txt);
+
+            $txt.replaceWith(
+                $txt.text().replace(/(BM-[123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ]{32,34})/g, '<a href="#" class="address" data-address="$1">$1</a>')
+            );
+        });
+
         $content.removeClass('loading');
         $row.data('isopen', true);
         $row.removeClass('unread');

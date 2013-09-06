@@ -39,9 +39,9 @@ app.create('inbox', {
                 app.message.hideMsg(id);
             } else if ( $el.is('a.reply') ) {
                 this.showReply(id); //should be moved to app.message?
-            } else if ( $el.is('.from') ) {
+            } else if ( $el.is('.from') || $el.is('.address') ) {
                 (function(){
-                    var id = $el.attr('data-from');
+                    var id = $el.attr('data-address');
 
                     c.log('address', id);
                     app.compose.init(id);

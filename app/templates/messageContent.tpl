@@ -6,8 +6,8 @@
     {{else}}
         <p class="date">{{msg.receivedTime}}</p>
     {{/if}}
-    <p data-from="{{msg.fromAddress}}" class="from">From: {{msg.fromAddress}}</p>
-    <p data-to="{{msg.toAddress}}" class="to">To: {{msg.toAddress}}</p>
+    <p data-address="{{msg.fromAddress}}" class="from">From: {{msg.fromAddress}}</p>
+    <p data-address="{{msg.toAddress}}" class="to">To: {{msg.toAddress}}</p>
     <nav>
         {{#if isSentMessage}}
             <!-- <a href="#" class="add-address">Add to address book</a> -->

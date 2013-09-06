@@ -305,11 +305,11 @@ function program13(depth0,data) {
     + "</h3>\n    ";
   stack2 = helpers['if'].call(depth0, depth0.isSentMessage, {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n    <p data-from=\""
+  buffer += "\n    <p data-address=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" class=\"from\">From: "
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</p>\n    <p data-to=\""
+    + "</p>\n    <p data-address=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.toAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" class=\"to\">To: "
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.toAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

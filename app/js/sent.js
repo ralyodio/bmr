@@ -74,11 +74,11 @@ app.create('sent', {
         $tbody.append(ui.tpl('sentMessages', { messages: messages }));
 
         //wire up events here for rows here
-        $tbody.on('click.sent', 'tr .to', function(e){
+        $tbody.on('click.sent', 'tr .to, tr .address', function(e){
             e.preventDefault();
 
             var $address = $(e.currentTarget)
-                , id = $address.attr('data-to');
+                , id = $address.attr('data-address');
 
             c.log('address', id);
             app.compose.init(id);
