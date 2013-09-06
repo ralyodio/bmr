@@ -28,36 +28,31 @@ app.create('subscriptions', {
 
         c.log('subscriptions', subscriptions);
 
-        if ( refresh ) {
-            $tbody.empty();
-        }
-
-        $tbody.append(ui.tpl('subscriptionsList', { subscriptions: subscriptions }));
+        $tbody.html(ui.tpl('subscriptionsList', { subscriptions: subscriptions }));
 
         //initialize events for the table
         if ( !refresh ) {
             ui.sortTable($table);
+            ui.markAll($table);
+            ui.shiftCheck.init($table);
+            ui.checkItem($table);
+
+            //stub: wire up events here for address rows here
+            $tbody.on('click.subscriptions', 'tr .address', function(e){
+                //this might need to use sendBroadcast instead of sendMessage
+                e.preventDefault();
+
+                var $address = $(e.currentTarget)
+                    , id = $address.text();
+
+                c.log('address', id);
+                app.compose.init(id);
+            });
+
+            $total.text(subscriptions.length);
+            ui.$content.append(ui.$pg);
+            ui.$pg.fadeIn();
         }
-
-        ui.markAll($table);
-        ui.shiftCheck.init($table);
-        ui.checkItem($table);
-
-        //stub: wire up events here for address rows here
-        $tbody.on('click.subscriptions', 'tr .address', function(e){
-            //this might need to use sendBroadcast instead of sendMessage
-            e.preventDefault();
-
-            var $address = $(e.currentTarget)
-                , id = $address.text();
-
-            c.log('address', id);
-            app.compose.init(id);
-        });
-
-        $total.text(subscriptions.length);
-        ui.$content.append(ui.$pg);
-        ui.$pg.fadeIn();
     },
 
     actionItem: function (e) {
