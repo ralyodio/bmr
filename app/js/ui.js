@@ -303,11 +303,28 @@ _.extend(ui, {
             , includeField = $include.prop('checked')
             , $rows = this.$pg.find('tbody tr');
 
+        //add :meta filters, like :unread, :read
+
         $.each($rows, function(i, row){
             var $row = $(row)
                 , field = $row.find('.'+$include.val()).text().toLowerCase()
                 , subject = $row.find('.subject').text().toLowerCase()
-                , hasMatch = includeField ? subject.indexOf(val) > -1 || field.indexOf(val) > -1 : subject.indexOf(val) > -1;
+                , hasMatch = true;
+
+            // meta filters
+            if ( val.indexOf(':') === 0 ) {
+                if ( val === ':unread' ) {
+                    hasMatch = $row.hasClass('unread');
+                } else if ( val === ':read' ) {
+                    hasMatch = !$row.hasClass('unread');
+                }
+            } else {
+                if ( includeField ) {
+                    hasMatch = subject.indexOf(val) > -1 || field.indexOf(val) > -1;
+                } else {
+                    hasMatch = subject.indexOf(val) > -1;
+                }
+            }
 
             $row[( hasMatch ? 'show' : 'hide' )]();
         });
@@ -380,6 +397,11 @@ _.extend(ui, {
 
     tpl: function(name, data){
         return Handlebars.templates[name](data);
+    },
+
+    textSelect: function(){
+        //http://jsfiddle.net/qY7gE/
+        $(document)
     },
 
     create: function(namespace, object){

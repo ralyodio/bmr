@@ -320,10 +320,6 @@ tr.msg .content {
   tr.msg .content .date, tr.msg .content .to, tr.msg .content .from {
     margin: 5px 0;
     padding: 0 5px; }
-  tr.msg .content .from {
-    margin: -5px 0 0; }
-  tr.msg .content .to {
-    color: #999; }
   tr.msg .content nav {
     display: block;
     margin: 10px 0 5px; }
@@ -334,6 +330,16 @@ tr.msg .content {
   tr.msg .content [contenteditable]:focus {
     font-weight: normal;
     text-decoration: none; }
+
+#inbox .msg .from {
+  margin: -5px 0 0; }
+#inbox .msg .to {
+  color: #999; }
+
+#sent .msg .to {
+  margin: -5px 0 0; }
+#sent .msg .from {
+  color: #999; }
 
 .message {
   font-family: monospace;

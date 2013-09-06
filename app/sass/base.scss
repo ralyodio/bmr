@@ -447,14 +447,6 @@ tr.msg {
       padding: 0 5px;
     }
 
-    .from {
-      margin: -5px 0 0;
-    }
-
-    .to {
-      color: #999;
-    }
-
     nav {
       display: block;
       margin: 10px 0 5px;
@@ -470,6 +462,26 @@ tr.msg {
       font-weight: normal;
       text-decoration: none;
     }
+  }
+}
+
+#inbox .msg {
+  .from {
+    margin: -5px 0 0;
+  }
+
+  .to {
+    color: #999;
+  }
+}
+
+#sent .msg {
+  .to {
+    margin: -5px 0 0;
+  }
+
+  .from {
+    color: #999;
   }
 }
 
