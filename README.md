@@ -40,6 +40,8 @@ If you want to run PyMessage in Daemon mode without the PyQT client starting, ad
 
 To run Bmr, you first need to [download node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
 
+Until I release an official package, you will need node.js installed on your system to run the 'npm install' command. You can download it from http://nodejs.org
+
 To install Bmr, you need to clone the git repository:
 
     git clone https://github.com/chovy/bmr.git
