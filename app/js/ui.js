@@ -309,14 +309,29 @@ _.extend(ui, {
             var $row = $(row)
                 , field = $row.find('.'+$include.val()).text().toLowerCase()
                 , subject = $row.find('.subject').text().toLowerCase()
+                , toMatch
+                , re
+                , metaField
                 , hasMatch = true;
 
-            // meta filters
+            // meta filters, :read, :unread, :from, :to
             if ( val.indexOf(':') === 0 ) {
                 if ( val === ':unread' ) {
                     hasMatch = $row.hasClass('unread');
                 } else if ( val === ':read' ) {
                     hasMatch = !$row.hasClass('unread');
+                } else if ( /^:from ./.test(val) ) {
+                    toMatch = val.substr(val.indexOf(' ')+1, val.length).toLowerCase();
+                    metaField = $row.find('.from').attr('data-from').toLowerCase();
+                    re = new RegExp(toMatch);
+
+                    hasMatch = re.test(metaField);
+                } else if ( /^:to ./.test(val) ) {
+                    toMatch = val.substr(val.indexOf(' ')+1, val.length).toLowerCase();
+                    metaField = $row.find('.to').attr('data-to').toLowerCase();
+                    re = new RegExp(toMatch);
+
+                    hasMatch = re.test(metaField);
                 }
             } else {
                 if ( includeField ) {
