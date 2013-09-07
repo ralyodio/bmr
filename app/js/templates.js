@@ -179,7 +179,7 @@ function program1(depth0,data) {
   if (stack1 = helpers.to) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.to; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"><span class=\"to nowrap\" data-to=\"";
+    + "\"><span class=\"to nowrap\" data-address=\"";
   if (stack1 = helpers.to) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.to; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -232,6 +232,10 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   buffer += "<tr class=\"msg\" data-msgid=\"";
   if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" data-ack=\"";
+  if (stack1 = helpers.ackData) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.ackData; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "\">\n    <td colspan=\"";
   if (stack1 = helpers.colCount) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
@@ -374,9 +378,13 @@ function program1(depth0,data) {
   if (stack1 = helpers.status) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.status; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
+    + "\" data-ack=\"";
+  if (stack1 = helpers.ack) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.ack; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
     + "\">\n    <td class=\"mark-item\"><input type=\"checkbox\" name=\"mark\" value=\"";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (stack1 = helpers.ack) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.ack; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "\"></td>\n    <td data-sort=\"";
   if (stack1 = helpers.from) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
@@ -394,7 +402,7 @@ function program1(depth0,data) {
   if (stack1 = helpers.to) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.to; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"><span class=\"to nowrap\" data-to=\"";
+    + "\"><span class=\"to nowrap\" data-address=\"";
   if (stack1 = helpers.to) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.to; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)

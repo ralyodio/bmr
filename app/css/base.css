@@ -265,7 +265,7 @@ td {
   border: 1px solid #ddd; }
   td .mark-item {
     text-align: center; }
-  td span[data-to], td span[data-from] {
+  td span[data-to], td span[data-from], td span[data-address] {
     max-width: 100px;
     overflow: hidden;
     display: block; }

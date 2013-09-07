@@ -1,17 +1,22 @@
 app.create('message', {
-    preShowMsg: function(id){
+    preShowMsg: function(id, isSentMessage){
         c.log('app.message.preShowMsg', id);
 
-        var $row = ui.$pg.find('tbody tr[data-id='+id+']')
+        var attr = isSentMessage ? 'data-ack='+id : 'data-id='+id
+            , $row = ui.$pg.find('tbody tr['+attr+']')
             , colCount = $row.find('td').length;
 
-        $row.after(ui.tpl('message', { id: id, colCount: colCount }));
+        $row.after(ui.tpl('message', {
+            id: id,
+            colCount: colCount
+        }));
     },
 
     showMsg: function(msg, isSentMessage, renderHtml){
         c.log('app.message.showMsg', msg);
 
-        var $row = ui.$pg.find('tbody tr[data-id='+msg.msgid+']')
+        var attr = isSentMessage ? 'data-ack='+msg.ackData : 'data-id='+msg.msgid
+            , $row =  ui.$pg.find('tbody tr['+attr+']')
             , $msg = $row.next('.msg')
             , $content = $msg.find('.content');
 
@@ -38,17 +43,22 @@ app.create('message', {
             //BM- addressses
             text = text.replace(/(BM-[123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ]{32,34})/g, '<a href="#" class="address" data-address="$1">$1</a>');
 
-            //links
-            text = text.replace(/(http[s]{0,1}:\/\/\S+)/g, '<a href="$1" class="ext" target="_blank">$1</a>');
+            //make urls links
+            text = URI.withinString(text, function(url) {
+                return '<a href="'+url+'" class="ext">'+url+'</a>';
+            });
+
+//            text = text.replace(/(http[s]{0,1}:\/\/\S+)/g, '<a href="$1" class="ext" target="_blank">$1</a>');
 
             $txt.replaceWith(text);
         });
     },
 
-    hideMsg: function(id){
+    hideMsg: function(id, isSentMessage){
         c.log('app.message.hideMsg', id);
 
-        var $row = ui.$pg.find('tbody tr[data-id='+id+']');
+        var attr = isSentMessage ? 'data-ack='+id : 'data-id='+id
+            , $row = ui.$pg.find('tbody tr['+attr+']');
 
         $row.data('isopen', false);
         $row.next('.msg').remove();
@@ -58,7 +68,7 @@ app.create('message', {
         c.log('app.message.readMessage: isSentMessage', isSentMessage);
 
         //can't open messages that haven't been sent yet
-        var subjects = isSentMessage ? 'tr[data-status=ackreceived] .subject' : 'tr .subject';
+        var subjects = isSentMessage ? 'tr .subject' : 'tr .subject';
 
         $table.on('click.message', subjects, function (e) {
             e.preventDefault();
@@ -66,19 +76,19 @@ app.create('message', {
             var $subject = $(e.currentTarget)
                 , $row = $subject.parents('tr')
                 , isOpen = !!$row.data('isopen')
-                , id = $row.attr('data-id');
+                , id = isSentMessage ? $row.attr('data-ack') : $row.attr('data-id');
 
             c.log('app.message.readMsg', id);
 
             if ( isOpen ) {
-                this.hideMsg(id);
+                this.hideMsg(id, isSentMessage);
                 return;
             }
 
-            this.preShowMsg(id);
+            this.preShowMsg(id, isSentMessage);
 
             if ( isSentMessage ) {
-                api.getSentMessage(id, function(msg){
+                api.getSentMessageByAck(id, function(msg){
                     this.showMsg(msg, isSentMessage);
                 }.bind(this));
             } else {
@@ -94,11 +104,11 @@ app.create('message', {
 
         var renderHtml = true;
 
-        this.hideMsg(id);
-        this.preShowMsg(id);
+        this.hideMsg(id, isSentMessage);
+        this.preShowMsg(id, isSentMessage);
 
         if ( isSentMessage ) {
-            api.getSentMessage(id, function(msg){
+            api.getSentMessageByAck(id, function(msg){
                 this.showMsg(msg, isSentMessage, renderHtml);
             }.bind(this));
         } else {

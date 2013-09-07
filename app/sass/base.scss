@@ -357,7 +357,8 @@ td {
     text-align: center;
   }
 
-  span[data-to], span[data-from] {
+  //TODO data-to and data-from should be deprecated infavor of data-address
+  span[data-to], span[data-from], span[data-address] {
     max-width: 100px;
     overflow: hidden;
     display: block;

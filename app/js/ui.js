@@ -173,39 +173,6 @@ _.extend(ui, {
             }.bind(this));
         },
 
-        initOld: function ($table) {
-            c.log('shiftCheck.init');
-
-            var $cbs = $table.find('tbody td:first-child [type=checkbox]');
-
-            this.reset();
-
-            $cbs.on('click.ui', function (e) {
-                var start = null
-                    , end = null
-                    , _this = e.currentTarget
-                    , $_cbs = $table.find('tbody td:first-child [type=checkbox]') //get the re-ordered list
-                    , $checked;
-
-                if (!this.lastChecked) {
-                    this.lastChecked = _this;
-                    return;
-                }
-
-                if (e.shiftKey) {
-                    start = $_cbs.index(_this);
-                    end = $_cbs.index(this.lastChecked);
-
-                    //grab the boxes to auto-check
-                    $checked = $_cbs.slice(Math.min(start, end), Math.max(start, end) + 1);
-                    $checked.prop('checked', this.lastChecked.checked);
-                    $checked.parents('tr')[( this.lastChecked.checked ? 'addClass' : 'removeClass' )]('highlight');
-                }
-
-                this.lastChecked = _this;
-            }.bind(this));
-        },
-
         reset: function () {
             this.lastChecked = null;
         }
@@ -214,18 +181,6 @@ _.extend(ui, {
     checkItem: function ($table) {
         $table.find('tbody').on('click.ui', 'td:first-child [type=checkbox]', function (e) {
             var $cb = $(e.currentTarget)
-                , $row = $cb.parents('tr')
-                , isChecked = $cb.is(':checked');
-
-            $row[( isChecked ? 'addClass' : 'removeClass' )]('highlight');
-        }.bind(this));
-    },
-
-    checkItemOld: function ($table) {
-        var $cbs = $table.find('tbody td:first-child [type=checkbox]');
-
-        $cbs.on('click.ui', function (e) {
-            var $cb = $(e.target)
                 , $row = $cb.parents('tr')
                 , isChecked = $cb.is(':checked');
 
@@ -287,9 +242,7 @@ _.extend(ui, {
     filter: function(){
         this.$pg.find('#filter-value').on('input.ui', this.filterInput.bind(this));
         this.$pg.find('#filter button[type=reset]').on('click.ui', this.resetFilter.bind(this));
-        this.$pg.find('#filter #include').on('click.ui', function(e){
-            this.filterInput.call(this);
-        }.bind(this));
+        this.$pg.find('#filter #include').on('click.ui', this.filterInput.bind(this));
     },
 
     resetFilter: function(e){
@@ -321,6 +274,7 @@ _.extend(ui, {
                 } else if ( val === ':read' ) {
                     hasMatch = !$row.hasClass('unread');
                 } else if ( /^:from ./.test(val) ) {
+                    //TODO data-from should be replaced with data-address everywhere
                     toMatch = val.substr(val.indexOf(' ')+1, val.length).toLowerCase();
                     metaField = $row.find('.from').attr('data-from').toLowerCase();
                     re = new RegExp(toMatch);
@@ -328,7 +282,7 @@ _.extend(ui, {
                     hasMatch = re.test(metaField);
                 } else if ( /^:to ./.test(val) ) {
                     toMatch = val.substr(val.indexOf(' ')+1, val.length).toLowerCase();
-                    metaField = $row.find('.to').attr('data-to').toLowerCase();
+                    metaField = $row.find('.to').attr('data-address').toLowerCase();
                     re = new RegExp(toMatch);
 
                     hasMatch = re.test(metaField);
@@ -415,8 +369,8 @@ _.extend(ui, {
     },
 
     textSelect: function(){
+        //TODO copy to clipboard using nw-win
         //http://jsfiddle.net/qY7gE/
-        $(document)
     },
 
     create: function(namespace, object){

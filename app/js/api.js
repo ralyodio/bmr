@@ -68,12 +68,33 @@ _.extend(api, {
         }
     },
 
+    getSentMessageByAck: function(ack, cb){
+        c.log('api.getSentMessageByAck: ', ack);
+        try {
+            this.conn.messages.sent.singleByAck(ack, cb);
+        } catch (err) {
+            c.error(err);
+        }
+    },
+
     moveToTrash: function (id, cb) {
         c.log('api.moveToTrash: ', id);
 
         try {
             this.conn.messages.inbox.moveToTrash(id, function(msg){
                 cb(id, msg);
+            });
+        } catch (err) {
+            c.error(err);
+        }
+    },
+
+    moveSentToTrashByAck: function (ack, cb) {
+        c.log('api.moveSentToTrashByAck: ', ack);
+
+        try {
+            this.conn.messages.sent.moveToTrashByAck(ack, function(msg){
+                cb(ack, msg);
             });
         } catch (err) {
             c.error(err);

@@ -24,20 +24,19 @@ app.create('sent', {
             e.preventDefault();
 
             var $el = $(e.target) //clicked element
+                , isSentMessage = true
                 , $row = $(e.currentTarget)
-                , id = $row.attr('data-msgid'); //msg.msgid
+                , id = $row.attr('data-msgid'); //this is actually ackData
 
             //handle msg actions
             if ( $el.is('a.trash') ) {
                 c.log('trash sent msg');
-                api.moveToTrash(id, this.moveToTrash);
+                api.moveSentToTrashByAck(id, this.moveToTrash);
 
             } else if ( $el.is('a.close') ) {
                 c.log('close msg');
-                app.message.hideMsg(id);
+                app.message.hideMsg(id, isSentMessage);
             } else if ( $el.is('a.render-html') ) {
-                var isSentMessage = true;
-
                 app.message.renderHtml(id, isSentMessage);
             } else if ( $el.is('a.ext') ) {
                 ui.win($el.attr('href'));
@@ -47,6 +46,7 @@ app.create('sent', {
 
     showSent: function (msgs) {
         var messages = []
+            , isSentMessage = true
             , $table = ui.$pg.find('table')
             , $total = ui.$header.find('a.sent .total')
             , $tbody = $table.find("tbody");
@@ -63,6 +63,7 @@ app.create('sent', {
 
             messages.push({
                 time: time
+                , ack: item.ackData
                 , subject: item.subject
                 , timeSortable: moment(time).unix()
                 , timeReadable: moment(time).fromNow()
@@ -76,6 +77,7 @@ app.create('sent', {
         $tbody.append(ui.tpl('sentMessages', { messages: messages }));
 
         //wire up events here for rows here
+        //bring up compose modal when clicking an address
         $tbody.on('click.sent', 'tr .to, tr .address', function(e){
             e.preventDefault();
 
@@ -86,13 +88,13 @@ app.create('sent', {
             app.compose.init(id);
         });
 
-
         //initialize events for the table
+        // TODO move to ui.table.init($table)
         ui.markAll($table);
         ui.shiftCheck.init($table);
         ui.sortTable($table);
         ui.checkItem($table);
-        app.message.readMsg($table, true);
+        app.message.readMsg($table, isSentMessage);
 
         $total.text(msgs.length);
         ui.$content.append(ui.$pg);
@@ -102,7 +104,7 @@ app.create('sent', {
     moveToTrash: function (id, msg) {
         //should be refactored to app.message (inbox.js too)
         var $table = ui.$pg.find('table')
-            , $row = $table.find('tbody tr[data-id=' + id + ']')
+            , $row = $table.find('tbody tr[data-ack=' + id + ']')
             , $openMsg = $row.next('.msg');
 
         ui.ok(msg);
@@ -136,7 +138,7 @@ app.create('sent', {
             $.each($checked, function (i, cb) {
                 var id = cb.value;
 
-                api.moveToTrash(id, this.moveToTrash);
+                api.moveSentToTrashByAck(id, this.moveToTrash);
             }.bind(this));
         }
     },
