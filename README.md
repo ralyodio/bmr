@@ -102,3 +102,7 @@ Subscriptions list:
 Filter inbox using the meta filter ":unread":
 
 ![Filter](/screenshots/filter-unread.png)
+
+Optionally render HTML in messages:
+
+![Render HTML](/screenshots/render-html.png)
