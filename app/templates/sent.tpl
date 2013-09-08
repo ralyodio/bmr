@@ -10,7 +10,6 @@
             <form id="filter">
                 <label for="filter-value">Filter</label>
                 <input type="text" name="filter-value" id="filter-value">
-                <label><input type="checkbox" name="include" id="include" value="to"> include to</label>
                 <button type="reset">Clear</button>
             </form>
         </caption>

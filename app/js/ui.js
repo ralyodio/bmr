@@ -256,14 +256,11 @@ _.extend(ui, {
 
     filterInput: function(e){
         var val = this.$pg.find('#filter-value').val().toLowerCase()
-            , $include = this.$pg.find('#include')
-            , includeField = $include.prop('checked')
             , $rows = this.$pg.find('tbody tr');
 
         //add :meta filters - :unread, :read, :to, :from
         $.each($rows, function(i, row){
             var $row = $(row)
-                , field = $row.find('.'+$include.val()).text().toLowerCase()
                 , subject = $row.find('.subject').text().toLowerCase()
                 , toMatch
                 , re
@@ -291,11 +288,7 @@ _.extend(ui, {
                     hasMatch = re.test(metaField);
                 }
             } else {
-                if ( includeField ) {
-                    hasMatch = subject.indexOf(val) > -1 || field.indexOf(val) > -1;
-                } else {
-                    hasMatch = subject.indexOf(val) > -1;
-                }
+                hasMatch = subject.indexOf(val) > -1;
             }
 
             $row[( hasMatch ? 'removeClass' : 'addClass' )]('hide');
