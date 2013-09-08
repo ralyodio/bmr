@@ -14,20 +14,22 @@ ui.create('modal', {
         opts = _.extend(defaults, opts);
 
         this.$overlay = $('#overlay');
-        this.$el = $('<div id="modal" />');
-        this.parent.$modal = this.$el;
 
-
-        this.hide(); //close existing
+        //close existing
+        if ( this.parent.$modal ) this.hide();
 
         //close when overlay clicked
         this.$overlay.one('click.ui.modal', this.hide.bind(this));
-        this.$overlay.show();
+        this.$overlay.removeClass('hide');
 
-        //add content
-        this.$el.append('<header><h2>'+opts.header+'</h2><div class="icons"><a href="#" class="maximize hide">Maxmimize</a><a href="#" class="minimize">Minimize</a><a href="#" class="close">Close</a></div></header>');
-        this.$el.append('<section>'+ content + '</section>');
-        this.$el.append('<footer><button class="btn-primary">'+opts.primaryButton+'</button></footer>');
+        this.$el = $(ui.tpl('modal', {
+            header: opts.header
+            , primaryButton: opts.primaryButton
+        }));
+
+        this.$el.find('section').html(content);
+
+        this.parent.$modal = this.$el;
 
         //cache
         this.$header = this.$el.find('> header');
@@ -45,6 +47,7 @@ ui.create('modal', {
         this.$footer.on('click.ui.modal', '.btn-primary', function(e){
             e.preventDefault();
 
+            //all primary buttons get a spinner
             var spin
                 , $btn = $(e.target)
                 , $spin = $('<em class="spin btn">&nbsp;</em>');
@@ -65,14 +68,14 @@ ui.create('modal', {
         if ( e ) e.preventDefault();
 
         this.$el.addClass('minimized');
-        this.$overlay.hide();
+        this.$overlay.addClass('hide');
     },
 
     maximize: function(e){
         if ( e ) e.preventDefault();
 
         this.$el.removeClass('minimized');
-        this.$overlay.show();
+        this.$overlay.removeClass('hide');
     },
 
     resize: function(){
@@ -94,7 +97,7 @@ ui.create('modal', {
         this.$footer = null;
         this.$header = null;
 
-        this.$overlay.hide();
+        this.$overlay.addClass('hide');
         $(window).off('.ui.modal');
         $(document).add('*').off('.ui.modal');
     }

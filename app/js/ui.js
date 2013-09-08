@@ -240,14 +240,18 @@ _.extend(ui, {
     },
 
     filter: function(){
+        c.log('ui.filter');
         this.$pg.find('#filter-value').on('input.ui', this.filterInput.bind(this));
         this.$pg.find('#filter button[type=reset]').on('click.ui', this.resetFilter.bind(this));
         this.$pg.find('#filter #include').on('click.ui', this.filterInput.bind(this));
     },
 
     resetFilter: function(e){
-        this.$pg.find('tbody tr').show();
-        this.$header.find('a.'+this.ns+' .total').text(this.$pg.find('tbody tr:visible').length);
+        var $tbody = this.$pg.find('tbody')
+            , total = $tbody.find('tr').length;
+
+        $tbody.find('tr').removeClass('hide');
+        this.$header.find('a.'+this.ns+' .total').text(total);
     },
 
     filterInput: function(e){
@@ -256,8 +260,7 @@ _.extend(ui, {
             , includeField = $include.prop('checked')
             , $rows = this.$pg.find('tbody tr');
 
-        //add :meta filters, like :unread, :read
-
+        //add :meta filters - :unread, :read, :to, :from
         $.each($rows, function(i, row){
             var $row = $(row)
                 , field = $row.find('.'+$include.val()).text().toLowerCase()
@@ -295,7 +298,7 @@ _.extend(ui, {
                 }
             }
 
-            $row[( hasMatch ? 'show' : 'hide' )]();
+            $row[( hasMatch ? 'removeClass' : 'addClass' )]('hide');
         });
 
         this.$header.find('a.'+this.ns+' .total').text(this.$pg.find('tbody tr:visible').length);

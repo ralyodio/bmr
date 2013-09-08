@@ -329,6 +329,23 @@ function program13(depth0,data) {
   buffer += "\n</div>";
   return buffer;
   });
+templates['modal'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<div id=\"modal\">\n    <header>\n        <h2>";
+  if (stack1 = helpers.header) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.header; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</h2>\n        <div class=\"icons\">\n            <a href=\"#\" class=\"maximize hide\">Maxmimize</a>\n            <a href=\"#\" class=\"minimize\">Minimize</a>\n            <a href=\"#\" class=\"close\">Close</a>\n        </div>\n    </header>\n    <section></section>\n    <footer>\n        <button class=\"btn-primary\">";
+  if (stack1 = helpers.primaryButton) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.primaryButton; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</button>\n    </footer>\n</div>";
+  return buffer;
+  });
 templates['reply'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
