@@ -68,3 +68,37 @@ Or run both at once:
 
 Bmr has been tested with MacOS 10.8.4 so far, but these steps should work for Linux too.
 If anyone can get this to work on Windows, let me know the steps and I'll add them here. Once the app stabilizes and basic functionality is working I will build packages to download and install for each platform (linux, mac, windows).
+
+
+### Tips
+
+In the search filter fields on Inbox and Sent box you can type the following meta filters to search specific fields:
+
+    :unread
+    :read
+    :to <bm-address-partial>
+    :from <bm-address-partial>
+    <subject-partial>
+
+
+### Screenshots
+
+Compose a new message:
+
+![Compose](/screenshots/compose.png)
+
+Read a new message:
+
+![Read](/screenshots/read-message.png)
+
+Reply to a message:
+
+![Reply](/screenshots/reply.png)
+
+Subscriptions list:
+
+![Subscriptions](/screenshots/subscriptions.png)
+
+Filter inbox using the meta filter ":unread":
+
+![Filter](/screenshots/filter-unread.png)

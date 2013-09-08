@@ -353,6 +353,12 @@ _.extend(ui, {
         return new Spinner(defaults).spin($target.get(0));
     },
 
+    help: function(name){
+        //TODO show user interface help
+        //lookup template by name
+        //display tooltip next to trigger element in UI
+    },
+
     win: function(url){
         var gui = require('nw.gui');
 
