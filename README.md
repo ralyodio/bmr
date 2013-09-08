@@ -9,14 +9,14 @@ Bmr is in active development, however there is no official package release yet. 
 
 ### Installation
 
-#### Bitmessage PyMessage (server)
+#### Bitmessage PyBitmessage (server)
 
-You must already have the Bitmessage [PyMessage](https://github.com/Bitmessage/PyBitmessage) server API running locally with api enabled (see the instructions for [installation](https://bitmessage.org/wiki/Compiling_instructions)).
+You must already have the Bitmessage [PyBitmessage](https://github.com/Bitmessage/PyBitmessage) server API running locally with api enabled (see the instructions for [installation](https://bitmessage.org/wiki/Compiling_instructions)).
 
 Find your `keys.dat` file:
 
     # Linux
-    ~/.config/PyMessage/keys.dat
+    ~/.config/PyBitmessage/keys.dat
 
     # Mac
     ~/Library/Application Support/PyBitmessage/keys.dat
@@ -34,13 +34,13 @@ Add the following lines to the bottom of the `[bitmessagesettings]` section:
     apiusername = edward
     apipassword = 5n0wd3n
 
-If you want to run PyMessage in Daemon mode without the PyQT client starting, add `daemon = true` to `[bitmessagesettings]`.
+If you want to run PyBitmessage in Daemon mode without the PyQT client starting, add `daemon = true` to `[bitmessagesettings]`.
 
 #### Bmr (client -- this app)
 
 To run Bmr, you first need to [download node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
 
-Until I release an official package, you will need node.js installed on your system to run the 'npm install' command. You can download it from http://nodejs.org
+Until I release an official package, you will need node.js installed on your system to run the 'npm install' command. You can download it from http://nodejs.org or install with [brew](http://brew.sh).
 
 To install Bmr, you need to clone the git repository:
 
@@ -66,9 +66,9 @@ Or run both at once:
 
     ./build && ./start
 
-Bmr has been tested with MacOS 10.8.4 so far, but these steps should work for Linux too.
-If anyone can get this to work on Windows, let me know the steps and I'll add them here. Once the app stabilizes and basic functionality is working I will build packages to download and install for each platform (linux, mac, windows).
+Bmr has been tested with MacOS 10.8.4, but these steps should work for Linux too.
 
+If anyone can get this to work on Windows, let me know the steps and I'll add them here. Once the app stabilizes and basic functionality is working I will build packages to download and install for each platform (linux, mac, windows).
 
 ### Tips
 
