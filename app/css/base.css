@@ -42,8 +42,6 @@ body {
   height: 100%;
   top: 0;
   left: 0; }
-  #overlay.hide {
-    display: none; }
 
 #content:empty {
   position: relative;
@@ -303,9 +301,6 @@ tbody tr:nth-child(even):not(.msg) {
 
 tbody tr.highlight {
   background: #eef !important; }
-
-tr.hide {
-  display: none; }
 
 tr.unread {
   font-weight: bold; }

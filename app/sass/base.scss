@@ -52,10 +52,6 @@ body {
   height: 100%;
   top: 0;
   left: 0;
-
-  &.hide {
-    display: none;
-  }
 }
 
 #content:empty {
@@ -419,9 +415,6 @@ tbody tr.highlight {
   background: #eef !important;
 }
 
-tr.hide {
-  display: none;
-}
 
 tr.unread {
   font-weight: bold;
