@@ -119,6 +119,14 @@ _.extend(api, {
         this.conn.addresses.createRandom(label, cb); //returns address id
     },
 
+    createDeterministicAddress: function (opts, cb) {
+        c.log('api.createDeterministicAddress: ', opts);
+
+        var passphrase = opts.passphrase;
+
+        this.conn.addresses.createDeterministic(passphrase, cb); //returns address id
+    },
+
     listSubscriptions: function(cb, refresh){
         try {
             this.conn.subscriptions.list(function(subscriptions){

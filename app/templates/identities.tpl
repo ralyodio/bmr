@@ -4,6 +4,7 @@
             <form id="identities-action">
                 <select id="identities-select-action">
                     <option value="create-address">Create address</option>
+                    <option value="create-deterministic">Create deterministic address</option>
                     <!-- not supported by API yet
                     <option value="enable-address">Enable address</option>
                     <option value="disable-address">Disable address</option>
@@ -14,6 +15,23 @@
                     <div>
                         <p><label>Address label: <input type="text" name="label"></label></p>
                         <p><label><input type="checkbox" name="eighteenByteRipe"> Do extra work for shorter address (18-byte RIPE)</label></p>
+                    </div>
+                    <div>
+                        <p><label>Total difficulty: <input type="text" class="small" name="totalDifficulty" value="1.0" maxlength="3"></label></p>
+                        <p><label>Small message difficulty: <input class="small" type="text" name="smallMessageDifficulty" value="1.0"></label></p>
+                    </div>
+                </fieldset>
+                <fieldset id="create-deterministic" class="clearfix hide">
+                    <div>
+                        <p>
+                            <label>Address passphrase: <input type="text" name="passphrase"></label>
+                        </p>
+                        <p>
+                            <label>Number of addresses: <input type="text" name="number" size="1" value="1"></label>
+                        </p>
+                        <p>
+                            <label><input type="checkbox" name="eighteenByteRipe"> Do extra work for shorter address (18-byte RIPE)</label>
+                        </p>
                     </div>
                     <div>
                         <p><label>Total difficulty: <input type="text" class="small" name="totalDifficulty" value="1.0" maxlength="3"></label></p>

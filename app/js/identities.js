@@ -35,11 +35,10 @@ app.create('identities', {
         //initialize events for the table
         if ( !refresh ) {
             ui.sortTable($table);
+            ui.markAll($table);
+            ui.shiftCheck.init($table);
+            ui.checkItem($table);
         }
-
-        ui.markAll($table);
-        ui.shiftCheck.init($table);
-        ui.checkItem($table);
 
         //call to wire up events here for address rows
 
@@ -79,6 +78,7 @@ app.create('identities', {
                 , opts = {};
 
             opts.label = f.label.value;
+            //unused
             opts.totalDifficulty = f.totalDifficulty.value;
             opts.smallMessageDifficulty = f.smallMessageDifficulty.value;
             opts.eighteenByteRipe = f.eighteenByteRipe.checked;
@@ -95,6 +95,31 @@ app.create('identities', {
                 }.bind(this));
             } else {
                 ui.err("Please specify a label for your address");
+                $form.find('input[name=label]').parents('label').addClass('error');
+            }
+        } else if ( action === 'create-deterministic' ) {
+            var f = $form.get(0)
+                , opts = {};
+
+            opts.passphrase = f.passphrase.value;
+            //unused
+            opts.number = f.number.value;
+            opts.totalDifficulty = f.totalDifficulty.value;
+            opts.smallMessageDifficulty = f.smallMessageDifficulty.value;
+            opts.eighteenByteRipe = f.eighteenByteRipe.checked;
+
+            c.log('form: ', f, opts);
+
+            if ( opts.passphrase && opts.passphrase.length ) {
+                api.createDeterministicAddress(opts, function(address){
+                    var refresh = true;
+
+                    ui.ok('Deterministic address ' + address + ' has been created');
+                    api.listAddresses(this.showIdentities, refresh);
+                    ui.resetForm($form);
+                }.bind(this));
+            } else {
+                ui.err("Please specify a passphrase for your deterministic address");
                 $form.find('input[name=label]').parents('label').addClass('error');
             }
         }

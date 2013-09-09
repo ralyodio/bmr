@@ -116,17 +116,6 @@ body {
 h1 {
   margin-bottom: 0; }
 
-/*
-button {
-  display: inline-block;
-  border: 1px solid #ccc;
-  background: #eee;
-  color: #000;
-  border-radius: 3px;
-  padding: 3px 10px;
-  margin: 0 0 0 10px;
-}
-*/
 .nowrap {
   white-space: nowrap; }
 
@@ -137,6 +126,9 @@ button {
 a {
   text-decoration: none;
   margin-right: 5px; }
+
+.msg a {
+  margin: 0; }
 
 nav a {
   padding: 3px 7px; }
@@ -404,9 +396,9 @@ form#login {
   form#login button[type=submit] {
     float: right; }
 
-fieldset#create-address > div {
+fieldset#create-address > div, fieldset#create-deterministic > div {
   float: left;
   width: 50%;
   box-sizing: border-box; }
-  fieldset#create-address > div input[type=text] {
+  fieldset#create-address > div input[type=text], fieldset#create-deterministic > div input[type=text] {
     margin-left: 5px; }
