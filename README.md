@@ -80,6 +80,10 @@ In the search filter fields on Inbox and Sent box you can type the following met
     :from <bm-address-partial>
     <subject-partial>
 
+Join the "Bmr" channel:
+
+    Passphrase: Bmr
+    Address: BM-2DBdJhNWQAFmVw8Hjk4fL6Cs6dvUdr5Ftf
 
 ### Screenshots
 
