@@ -8,7 +8,7 @@
   .clearfix:after {
     clear: both; }
 
-.empty, #content:empty:before, #modal section:empty:before, tbody:empty:before, tr.msg .content.loading:empty:before {
+.empty, #content:empty:before, #modal section:empty:before, tbody.loading:empty:before, tr.msg .content.loading:empty:before {
   content: 'Loading...';
   color: #666;
   position: absolute;

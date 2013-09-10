@@ -23,6 +23,7 @@ app.create('compose', {
             modal.$section.html(form);
             modal.resize();
             modal.$section.find('textarea.message').focus();
+            modal.$section.find('textarea.message').on('click.ui.modal', ui.tabKey);
 
             //update the address shown
             modal.$section.find('#compose-from').on('change.ui.modal', function(e){

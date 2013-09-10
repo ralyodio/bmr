@@ -118,6 +118,16 @@ app.create('message', {
         }
     },
 
+    reverseThread: function(id, isSentMessage){
+        var $msg = ui.$pg.find('tr[data-msgid='+id+'].msg .message')
+            , delim = '\n------------------------------------------------------\n'
+            , msg = $msg.text().split(delim).reverse().join(delim);
+
+        $msg.html(msg);
+
+        this.parseMessage($msg);
+    },
+
     destroy: function(){
         c.log('app.message.destroy');
 
