@@ -18,6 +18,7 @@
         {{#unless renderHtml}}
             <a href="#" class="render-html">Show HTML</a>
         {{/unless}}
+        <a href="#" class="reverse">Reverse thread</a>
     </nav>
     {{#if renderHtml}}
         <section class="message">{{{msg.message}}}</section>

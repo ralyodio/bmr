@@ -395,7 +395,7 @@ tbody {
 /*
 TODO add class .loading to tbody
 */
-tbody:empty:before {
+tbody.loading:empty:before {
   @extend .empty;
 }
 

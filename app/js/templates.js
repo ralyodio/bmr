@@ -191,11 +191,10 @@ function program1(depth0,data) {
   if (stack1 = helpers.subject) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.subject; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"><span class=\"subject wrap\">";
-  if (stack1 = helpers.subject) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.subject; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "</span></td>\n    <td class=\"nowrap\" data-sort=\"";
+    + "\">\n    ";
+  stack1 = helpers['if'].call(depth0, depth0.subject, {hash:{},inverse:self.program(4, program4, data),fn:self.program(2, program2, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    </td>\n    <td class=\"nowrap\" data-sort=\"";
   if (stack1 = helpers.timeSortable) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.timeSortable; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -209,6 +208,22 @@ function program1(depth0,data) {
   buffer += escapeExpression(stack1)
     + "</span></td>\n</tr>\n";
   return buffer;
+  }
+function program2(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n        <span class=\"subject wrap\">";
+  if (stack1 = helpers.subject) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.subject; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span>\n    ";
+  return buffer;
+  }
+
+function program4(depth0,data) {
+  
+  
+  return "\n        <span class=\"subject wrap\">--</span>\n    ";
   }
 
   stack1 = helpers.each.call(depth0, depth0.messages, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
@@ -323,7 +338,7 @@ function program13(depth0,data) {
   buffer += "\n        <a href=\"#\" class=\"trash\">Trash</a>\n        ";
   stack2 = helpers.unless.call(depth0, depth0.renderHtml, {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n    </nav>\n    ";
+  buffer += "\n        <a href=\"#\" class=\"reverse\">Reverse thread</a>\n    </nav>\n    ";
   stack2 = helpers['if'].call(depth0, depth0.renderHtml, {hash:{},inverse:self.program(13, program13, data),fn:self.program(11, program11, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n</div>";

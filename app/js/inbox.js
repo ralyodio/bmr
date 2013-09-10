@@ -26,6 +26,7 @@ app.create('inbox', {
             e.preventDefault();
 
             var $el = $(e.target) //clicked element
+                , isSentMessage = false
                 , $row = $(e.currentTarget)
                 , id = $row.attr('data-msgid'); //msg.msgid
 
@@ -33,7 +34,6 @@ app.create('inbox', {
             if ( $el.is('a.trash') ) {
                 c.log('trash msg');
                 api.moveToTrash(id, this.moveToTrash.bind(this));
-
             } else if ( $el.is('a.close') ) {
                 c.log('close msg');
                 app.message.hideMsg(id);
@@ -47,11 +47,11 @@ app.create('inbox', {
                     app.compose.init(id);
                 })();
             } else if ( $el.is('a.render-html') ) {
-                var isSentMessage = false;
-
                 app.message.renderHtml(id, isSentMessage);
             } else if ( $el.is('a.ext') ) {
                 ui.win($el.attr('href'));
+            } else if ( $el.is('a.reverse') ) {
+                app.message.reverseThread(id, isSentMessage);
             }
         }.bind(this));
     },
@@ -78,6 +78,7 @@ app.create('inbox', {
                 modal.$section.html(form);
                 modal.resize();
                 modal.$section.find('textarea.message').focus();
+                modal.$section.find('textarea.message').on('click.ui.modal', ui.tabKey);
 
                 //update the address shown
                 modal.$section.find('#reply-from').on('change.ui.modal', function(e){
@@ -143,38 +144,7 @@ app.create('inbox', {
     },
 
     showInbox: function (msgs) {
-        var messages = [] //template data
-            , $table = ui.$pg.find('table')
-            , $total = ui.$header.find('a.inbox .total')
-            , $tbody = $table.find("tbody");
-
-        //msgs = msgs.slice(0, 10);
-
-        //default to most recent first
-        //msgs = ui.sortByDateAttr(msgs, 'receivedTime');
-
-        //save the time of the most recent message for long polling new messages
-        //this.lastReceivedTime = msgs[0].receivedTime;
-
-        /*
-        //prepare data for template
-        msgs.forEach(function (item) {
-            var time = item.receivedTime;
-
-            messages.push({
-                time: time
-                , subject: item.subject
-                , timeSortable: moment(time).unix()
-                , timeReadable: moment(time).fromNow()
-                , from: item.fromAddress
-                , to: item.toAddress
-                , id: item.msgid
-                , class: item.read ? '' : 'unread'
-            });
-        });
-        */
-
-        //$tbody.html(ui.tpl('inboxMessages', { messages: this.getMessagesData(msgs) }));
+        var $table = ui.$pg.find('table');
 
         this.showMessages(msgs);
 
@@ -185,7 +155,6 @@ app.create('inbox', {
         ui.checkItem($table);
         app.message.readMsg($table, false);
 
-        //$total.text(msgs.length);
         ui.$content.append(ui.$pg);
         ui.$pg.fadeIn();
     },

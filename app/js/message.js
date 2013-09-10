@@ -48,8 +48,6 @@ app.create('message', {
                 return '<a href="'+url+'" class="ext">'+url+'</a>';
             });
 
-//            text = text.replace(/(http[s]{0,1}:\/\/\S+)/g, '<a href="$1" class="ext" target="_blank">$1</a>');
-
             $txt.replaceWith(text);
         });
     },
@@ -116,6 +114,16 @@ app.create('message', {
                 this.showMsg(msg, isSentMessage, renderHtml);
             }.bind(this));
         }
+    },
+
+    reverseThread: function(id, isSentMessage){
+        var $msg = ui.$pg.find('tr[data-msgid='+id+'].msg .message')
+            , delim = '\n------------------------------------------------------\n'
+            , msg = $msg.text().split(delim).reverse().join(delim);
+
+        $msg.html(msg);
+
+        this.parseMessage($msg);
     },
 
     destroy: function(){

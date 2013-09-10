@@ -229,8 +229,13 @@ _.extend(ui, {
     },
 
     resetForm: function($form){
+        var $fieldsets = $form.find('fieldset');
+
         this.clearFormErrors($form);
         $form[0].reset();
+
+        $fieldsets.hide();
+        $fieldsets.first().slideDown();
     },
 
     clearFormErrors: function($form){
@@ -373,6 +378,35 @@ _.extend(ui, {
     textSelect: function(){
         //TODO copy to clipboard using nw-win
         //http://jsfiddle.net/qY7gE/
+    },
+
+    tabKey: function(e){
+        //selection does not work
+        var $textarea = $(e.currentTarget);
+
+        $textarea.on('keydown.ui.modal', function(e) {
+            c.log('keydown', e);
+
+            if(e.keyCode === 9) { // tab was pressed
+                // prevent the focus lose
+                e.preventDefault();
+
+                // get caret position/selection
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+
+                var $this = $(this);
+                var value = $this.val();
+
+                // set textarea value to: text before caret + tab + text after caret
+                $this.val(value.substring(0, start)
+                    + "\t"
+                    + value.substring(end));
+
+                // put caret at right position again (add one for the tab)
+                this.selectionStart = this.selectionEnd = start + 1;
+            }
+        });
     },
 
     create: function(namespace, object){
