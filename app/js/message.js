@@ -48,8 +48,6 @@ app.create('message', {
                 return '<a href="'+url+'" class="ext">'+url+'</a>';
             });
 
-//            text = text.replace(/(http[s]{0,1}:\/\/\S+)/g, '<a href="$1" class="ext" target="_blank">$1</a>');
-
             $txt.replaceWith(text);
         });
     },

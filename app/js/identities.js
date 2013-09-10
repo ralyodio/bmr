@@ -114,7 +114,12 @@ app.create('identities', {
                 api.createDeterministicAddress(opts, function(address){
                     var refresh = true;
 
-                    ui.ok('Deterministic address ' + address + ' has been created');
+                    if ( !address ) {
+                        ui.err('You already created that address');
+                    } else {
+                        ui.ok('Deterministic address ' + address + ' has been created');
+                    }
+
                     api.listAddresses(this.showIdentities, refresh);
                     ui.resetForm($form);
                 }.bind(this));

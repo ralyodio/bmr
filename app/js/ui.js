@@ -229,8 +229,13 @@ _.extend(ui, {
     },
 
     resetForm: function($form){
+        var $fieldsets = $form.find('fieldset');
+
         this.clearFormErrors($form);
         $form[0].reset();
+
+        $fieldsets.hide();
+        $fieldsets.first().slideDown();
     },
 
     clearFormErrors: function($form){
