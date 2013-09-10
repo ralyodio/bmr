@@ -22,7 +22,7 @@ Find your `keys.dat` file:
     ~/Library/Application Support/PyBitmessage/keys.dat
 
     # Windows
-    # not sure where keys.dat is
+    C:\Users\[Username]\AppData\Roaming\PyBitmessage\keys.dat
 
 Add the following lines to the bottom of the `[bitmessagesettings]` section:
 
