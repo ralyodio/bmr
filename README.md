@@ -38,6 +38,8 @@ If you want to run PyBitmessage in Daemon mode without the PyQT client starting,
 
 #### Bmr (client -- this app)
 
+##### Running from source
+
 To run Bmr, you first need to [download node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
 
 Until I release an official package, you will need node.js installed on your system to run the 'npm install' command. You can download it from http://nodejs.org or install with [brew](http://brew.sh).
