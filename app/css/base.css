@@ -154,6 +154,10 @@ a.inbox:before {
   -webkit-transform: rotate(180deg);
   margin-left: 5px; }
 
+a.contacts:before {
+  content: '☎';
+  font-size: 13px; }
+
 a.compose:before, .address:before, #sent .to:before, #inbox .msg .from:before {
   content: '✉';
   font-size: 24px;
