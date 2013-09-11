@@ -21,6 +21,55 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + "\"></p>\n        <p><label for=\"compose-subject\">Subject</label> <input type=\"text\" name=\"subject\" id=\"compose-subject\"></p>\n        <textarea name=\"message\" class=\"message\" id=\"compose-body\"></textarea>\n    </fieldset>\n</form>";
   return buffer;
   });
+templates['contacts'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<section id=\"contacts\">\n    <table>\n        <caption>\n            <form id=\"contacts-action\">\n                <select id=\"contacts-select-action\">\n                    <option value=\"add-contact\">Add contact</option>\n                    <option value=\"delete-contact\">Delete contact</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n                <fieldset id=\"add-contact\" class=\"clearfix\">\n                    <p><label>Contact label: <input type=\"text\" name=\"label\"></label></p>\n                    <p><label>Contact address: <input type=\"text\" name=\"address\"></label></p>\n                </fieldset>\n            </form>\n        </caption>\n        <thead>\n            <tr>\n                <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n                <th>Label</th>\n                <th>Address</th>\n            </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  });
+templates['contactsList'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n    <tr data-address=\"";
+  if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n        <td class=\"mark-item\"><input type=\"checkbox\" name=\"mark\" value=\"";
+  if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"></td>\n        <td data-sort=\"";
+  if (stack1 = helpers.label) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.label; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span class=\"nowrap label\">";
+  if (stack1 = helpers.label) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.label; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n        <td data-sort=\"";
+  if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"><span class=\"nowrap address\">";
+  if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</span></td>\n    </tr>\n";
+  return buffer;
+  }
+
+  stack1 = helpers.each.call(depth0, depth0.contacts, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n";
+  return buffer;
+  });
 templates['fromOptions'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};

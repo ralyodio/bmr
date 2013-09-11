@@ -145,6 +145,20 @@ _.extend(api, {
         this.conn.subscriptions.unsubscribe(address, cb); //returns string with status
     },
 
+    listContacts: function(cb, refresh){
+        this.conn.addressbook.list(function(contacts){
+            cb(contacts, refresh);
+        });
+    },
+
+    addContact: function(address, label, cb){
+        this.conn.addressbook.addEntry(address, label, cb);
+    },
+
+    deleteContact: function(address, cb){
+        this.conn.addressbook.deleteEntry(address, cb);
+    },
+
     destroy: function(){
         this.conn = null;
         ui.err('Disconnected from server');

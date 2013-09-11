@@ -261,7 +261,7 @@ a.minimize:before {
   }
 }
 
-#inbox, #sent, #identities, #subscriptions {
+#inbox, #sent, #identities, #subscriptions, #contacts {
   display: none;
 }
 
@@ -395,8 +395,9 @@ tbody {
 /*
 TODO add class .loading to tbody
 */
-tbody.loading:empty:before {
+tbody:empty:before {
   @extend .empty;
+  content: "No results";
 }
 
 tbody tr:nth-child(even):not(.msg) {
@@ -406,7 +407,6 @@ tbody tr:nth-child(even):not(.msg) {
 tbody tr.highlight {
   background: #eef !important;
 }
-
 
 tr.unread {
   font-weight: bold;
@@ -541,7 +541,7 @@ fieldset {
   width: 50%;
 }
 
-#subscriptions input[type=text] {
+#subscriptions input[type=text], #contacts input[type=text] {
   min-width: 200px;
 }
 

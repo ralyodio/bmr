@@ -8,7 +8,7 @@
   .clearfix:after {
     clear: both; }
 
-.empty, #content:empty:before, #modal section:empty:before, tbody.loading:empty:before, tr.msg .content.loading:empty:before {
+.empty, #content:empty:before, #modal section:empty:before, tbody:empty:before, tr.msg .content.loading:empty:before {
   content: 'Loading...';
   color: #666;
   position: absolute;
@@ -192,7 +192,7 @@ a.minimize:before {
   #logo small {
     font-weight: normal; }
 
-#inbox, #sent, #identities, #subscriptions {
+#inbox, #sent, #identities, #subscriptions, #contacts {
   display: none; }
 
 #msg {
@@ -288,6 +288,9 @@ tbody {
 /*
 TODO add class .loading to tbody
 */
+tbody:empty:before {
+  content: "No results"; }
+
 tbody tr:nth-child(even):not(.msg) {
   background-color: #f5f6f6; }
 
@@ -374,7 +377,7 @@ fieldset {
 #login fieldset input:not([type=radio]):not([type=checkbox]), #identities input[name=label] {
   width: 50%; }
 
-#subscriptions input[type=text] {
+#subscriptions input[type=text], #contacts input[type=text] {
   min-width: 200px; }
 
 input[type=text], input[type=password], textarea {
