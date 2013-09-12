@@ -18,7 +18,8 @@ app.create('message', {
         var attr = isSentMessage ? 'data-ack='+msg.ackData : 'data-id='+msg.msgid
             , $row =  ui.$pg.find('tbody tr['+attr+']')
             , $msg = $row.next('.msg')
-            , $content = $msg.find('.content');
+            , $content = $msg.find('.content')
+            , $message;
 
         $content.html(ui.tpl('messageContent', {
             msg: msg
@@ -29,6 +30,13 @@ app.create('message', {
         this.parseMessage($content.find('.message'));
 
         $content.removeClass('loading');
+        $message = $content.find('.message');
+
+        //hide maximize button if not needed
+        if ( $message.prop('scrollHeight') <= parseInt($message.css('maxHeight')) ) {
+            $content.find('.maximize').addClass('hide');
+        }
+
         $row.data('isopen', true);
         $row.removeClass('unread');
     },
@@ -47,7 +55,14 @@ app.create('message', {
 
             //make URLs links
             text = URI.withinString(text, function(url) {
-                return '<a href="'+url+'" class="ext">'+url+'</a>';
+                var label = url;
+
+                //make a valid url if we have a domain only
+                if ( !/^\w+\:\/\//.test(url) ) {
+                    url = 'http://'+url;
+                }
+
+                return '<a href="'+url+'" class="ext">'+label+'</a>';
             });
 
             $txt.replaceWith(text);
