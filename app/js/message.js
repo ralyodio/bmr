@@ -33,8 +33,8 @@ app.create('message', {
         $message = $content.find('.message');
 
         //hide maximize button if not needed
-        if ( $message.prop('scrollHeight') <= parseInt($message.css('maxHeight')) ) {
-            $content.find('.maximize').addClass('hide');
+        if ( $message.prop('scrollHeight') <= 325 ) { //max-height of .minimize class
+            $content.find('.minimize').addClass('hide');
         }
 
         $row.data('isopen', true);
@@ -57,8 +57,13 @@ app.create('message', {
             text = URI.withinString(text, function(url) {
                 var label = url;
 
+                //data urls are very long and can be ignored.
+                if ( /^data:/.test(url) ) {
+                    return url.substring(0, 500)+'...';
+                }
+
                 //make a valid url if we have a domain only
-                if ( !/^\w+\:\/\//.test(url) ) {
+                if ( !/^\w+:/.test(url) ) {
                     url = 'http://'+url;
                 }
 
@@ -143,7 +148,7 @@ app.create('message', {
     maximize: function($row){
         var $nav = $row.find('.message-container nav.icons');
 
-        $row.find('.message').addClass('maximize');
+        $row.find('.message').removeClass('minimize');
         $nav.find('.maximize').addClass('hide');
         $nav.find('.minimize').removeClass('hide');
     },
@@ -151,7 +156,7 @@ app.create('message', {
     minimize: function($row){
         var $nav = $row.find('.message-container nav.icons');
 
-        $row.find('.message').removeClass('maximize');
+        $row.find('.message').addClass('minimize');
         $nav.find('.maximize').removeClass('hide');
         $nav.find('.minimize').addClass('hide');
     },

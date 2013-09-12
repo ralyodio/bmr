@@ -456,12 +456,10 @@ tr.msg {
       white-space: pre-wrap;
       padding: 10px;
       word-break: break-word;
-      max-height: 325px;
-      overflow-y: auto;
 
-      &.maximize {
-        max-height: none;
-        overflow-y: visible;
+      &.minimize {
+        max-height: 325px;
+        overflow-y: auto;
       }
     }
 

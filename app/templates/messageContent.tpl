@@ -1,7 +1,7 @@
 <div class="message-container">
     <nav class="icons">
-        <a href="#" class="minimize hide">Minimize</a>
-        <a href="#" class="maximize">Maximize</a>
+        <a href="#" class="minimize">Minimize</a>
+        <a href="#" class="maximize hide">Maximize</a>
         <a href="#" class="close">Close</a>
     </nav>
     <h3 class="subject">{{msg.subject}}</h3>

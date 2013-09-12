@@ -252,9 +252,15 @@ _.extend(ui, {
 
     filter: function(){
         c.log('ui.filter');
-        this.$pg.find('#filter-value').on('input.ui', this.filterInput.bind(this));
-        this.$pg.find('#filter button[type=reset]').on('click.ui', this.resetFilter.bind(this));
-        this.$pg.find('#filter #include').on('click.ui', this.filterInput.bind(this));
+
+        var $filter = this.$pg.find('#filter');
+
+        $filter.find('#filter-value').on('keyup.ui', this.filterInput.bind(this));
+        $filter.find('button[type=reset]').on('click.ui', this.resetFilter.bind(this));
+        $filter.find('#include').on('click.ui', this.filterInput.bind(this));
+        $filter.on('submit.ui', function(e){
+            e.preventDefault();
+        });
     },
 
     resetFilter: function(e){

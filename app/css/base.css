@@ -326,12 +326,10 @@ tr.msg .content {
     font-family: monospace;
     white-space: pre-wrap;
     padding: 10px;
-    word-break: break-word;
-    max-height: 325px;
-    overflow-y: auto; }
-    tr.msg .content .message.maximize {
-      max-height: none;
-      overflow-y: visible; }
+    word-break: break-word; }
+    tr.msg .content .message.minimize {
+      max-height: 325px;
+      overflow-y: auto; }
   tr.msg .content [contenteditable]:focus {
     font-weight: normal;
     text-decoration: none; }
