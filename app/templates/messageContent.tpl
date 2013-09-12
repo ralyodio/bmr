@@ -1,5 +1,9 @@
 <div class="message-container">
-    <a href="#" class="close">Close</a>
+    <nav class="icons">
+        <a href="#" class="minimize hide">Minimize</a>
+        <a href="#" class="maximize">Maximize</a>
+        <a href="#" class="close">Close</a>
+    </nav>
     <h3 class="subject">{{msg.subject}}</h3>
     {{#if isSentMessage}}
         <p class="date">{{msg.lastActionTime}}</p>

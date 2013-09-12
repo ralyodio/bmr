@@ -36,6 +36,10 @@ app.create('sent', {
             } else if ( $el.is('a.close') ) {
                 c.log('close msg');
                 app.message.hideMsg(id, isSentMessage);
+            } else if ( $el.is('a.maximize') ) {
+                app.message.maximize($row);
+            } else if ( $el.is('a.minimize') ) {
+                app.message.minimize($row);
             } else if ( $el.is('a.render-html') ) {
                 app.message.renderHtml(id, isSentMessage);
             } else if ( $el.is('a.ext') ) {

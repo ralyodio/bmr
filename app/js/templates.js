@@ -216,7 +216,7 @@ function program1(depth0,data) {
   if (stack1 = helpers.from) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.from; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"><span class=\"from nowrap\" data-from=\"";
+    + "\"><span class=\"from nowrap\" data-address=\"";
   if (stack1 = helpers.from) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.from; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -376,7 +376,7 @@ function program13(depth0,data) {
   return buffer;
   }
 
-  buffer += "<div class=\"message-container\">\n    <a href=\"#\" class=\"close\">Close</a>\n    <h3 class=\"subject\">"
+  buffer += "<div class=\"message-container\">\n    <nav class=\"icons\">\n        <a href=\"#\" class=\"minimize hide\">Minimize</a>\n        <a href=\"#\" class=\"maximize\">Maximize</a>\n        <a href=\"#\" class=\"close\">Close</a>\n    </nav>\n    <h3 class=\"subject\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.subject)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h3>\n    ";
   stack2 = helpers['if'].call(depth0, depth0.isSentMessage, {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});

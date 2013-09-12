@@ -429,7 +429,7 @@ tr.msg {
       }
     }
 
-    .close {
+    nav.icons {
       position: absolute;
       top: 0;
       right: 0;
@@ -454,6 +454,14 @@ tr.msg {
       font-family: monospace;
       white-space: pre-wrap;
       padding: 10px;
+      word-break: break-word;
+      max-height: 325px;
+      overflow-y: auto;
+
+      &.maximize {
+        max-height: none;
+        overflow-y: visible;
+      }
     }
 
     [contenteditable]:focus {

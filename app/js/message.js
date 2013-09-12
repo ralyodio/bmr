@@ -38,12 +38,14 @@ app.create('message', {
             return this.nodeType === 3;
         }).each(function(i, txt){
             var $txt = $(txt)
-                , text = $txt.text();
+                , text = txt.nodeValue;
 
-            //BM- addressses
+            text = _.escape(text);
+
+            //Bitmessage addressses
             text = text.replace(/(BM-[123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ]{32,34})/g, '<a href="#" class="address" data-address="$1">$1</a>');
 
-            //make urls links
+            //make URLs links
             text = URI.withinString(text, function(url) {
                 return '<a href="'+url+'" class="ext">'+url+'</a>';
             });
@@ -121,9 +123,25 @@ app.create('message', {
             , delim = '\n\n------------------------------------------------------\n'
             , msg = $msg.text().split(delim).reverse().join(delim);
 
-        $msg.html(msg);
+        $msg.text(msg);
 
         this.parseMessage($msg);
+    },
+
+    maximize: function($row){
+        var $nav = $row.find('.message-container nav.icons');
+
+        $row.find('.message').addClass('maximize');
+        $nav.find('.maximize').addClass('hide');
+        $nav.find('.minimize').removeClass('hide');
+    },
+
+    minimize: function($row){
+        var $nav = $row.find('.message-container nav.icons');
+
+        $row.find('.message').removeClass('maximize');
+        $nav.find('.maximize').removeClass('hide');
+        $nav.find('.minimize').addClass('hide');
     },
 
     destroy: function(){

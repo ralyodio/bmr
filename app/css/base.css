@@ -308,7 +308,7 @@ tr.msg .content {
   position: relative; }
   tr.msg .content.loading {
     min-height: 50px; }
-  tr.msg .content .close {
+  tr.msg .content nav.icons {
     position: absolute;
     top: 0;
     right: 0; }
@@ -324,7 +324,13 @@ tr.msg .content {
   tr.msg .content .message {
     font-family: monospace;
     white-space: pre-wrap;
-    padding: 10px; }
+    padding: 10px;
+    word-break: break-word;
+    max-height: 325px;
+    overflow-y: auto; }
+    tr.msg .content .message.maximize {
+      max-height: none;
+      overflow-y: visible; }
   tr.msg .content [contenteditable]:focus {
     font-weight: normal;
     text-decoration: none; }

@@ -1,18 +1,19 @@
 {
-    "name": "bmr",
-    "description": "Bmr - the Bitmessage reader",
-    "version": "0.0.1",
-    "main": "app://bmr/index.html#login",
-    "author": "chovy",
-    "dependencies": {
-        "bitmessage-node": "chovy/bitmessage-node"
-    },
-    "window": {
-        "title": "Bmr - the Bitmessage reader",
-        "icon": "/img/logo.png",
-        "toolbar": true,
-        "width": 800,
-        "height": 600
-    },
-    "node-remote": "<local>"
+  "name": "bmr",
+  "description": "Bmr - the Bitmessage reader",
+  "version": "0.0.1",
+  "main": "app://bmr/index.html#login",
+  "author": "chovy",
+  "dependencies": {
+    "bitmessage-node": "chovy/bitmessage-node",
+    "filesize": "~1.10.0"
+  },
+  "window": {
+    "title": "Bmr - the Bitmessage reader",
+    "icon": "/img/logo.png",
+    "toolbar": true,
+    "width": 800,
+    "height": 600
+  },
+  "node-remote": "<local>"
 }

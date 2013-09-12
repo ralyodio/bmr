@@ -25,11 +25,9 @@ _.extend(app, {
     },
 
     size: function(string) {
-        var bytes = this.bytes(string)
-            , sizes = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB']
-            , e = Math.floor(Math.log(bytes) / Math.log(1024));
+        var fs = require('filesize');
 
-        return (bytes / Math.pow(1024, e)).toFixed(2) + " " + sizes[e];
+        return fs(this.bytes(string), true);
     },
 
     bytes: function(string){

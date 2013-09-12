@@ -213,6 +213,12 @@ _.extend(ui, {
                 aVal = $a.attr('data-sort').toLowerCase();
                 bVal = $b.attr('data-sort').toLowerCase();
 
+                //when numbers convert to integer
+                if ( /^\d+$/.test(aVal) && /^\d+$/.test(bVal) ) {
+                    aVal = parseInt(aVal);
+                    bVal = parseInt(bVal);
+                }
+
                 if (dir === 'desc') {
                     return aVal < bVal ? 1 : ( aVal > bVal ? -1 : 0);
                 }
@@ -223,7 +229,7 @@ _.extend(ui, {
             $th.removeClass('asc desc');
             $th.siblings().removeClass('asc desc');
             $th.addClass(dir);
-            $tbody.append($rows); //existing rows get re-ordered w/o loosing events when .append()
+            $tbody.html($rows); //existing rows get re-ordered w/o loosing events when .append()
             this.shiftCheck.reset();
         }.bind(this));
     },
