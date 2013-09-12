@@ -313,6 +313,7 @@ tr.msg .content {
     top: 0;
     right: 0; }
   tr.msg .content .subject {
+    cursor: default;
     text-decoration: underline;
     padding: 5px; }
   tr.msg .content .date, tr.msg .content .to, tr.msg .content .from {

@@ -67,10 +67,7 @@ app.create('message', {
     readMsg: function ($table, isSentMessage) {
         c.log('app.message.readMessage: isSentMessage', isSentMessage);
 
-        //can't open messages that haven't been sent yet
-        var subjects = isSentMessage ? 'tr .subject' : 'tr .subject';
-
-        $table.on('click.message', subjects, function (e) {
+        $table.on('click.message', 'tr:not(.msg) .subject', function (e) {
             e.preventDefault();
 
             var $subject = $(e.currentTarget)
