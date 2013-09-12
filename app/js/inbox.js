@@ -137,6 +137,8 @@ app.create('inbox', {
                 , to: item.toAddress
                 , id: item.msgid
                 , class: item.read ? '' : 'unread'
+                , bytes: app.bytes(item.message)
+                , size: app.size(item.message)
             });
         });
 

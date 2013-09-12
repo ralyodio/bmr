@@ -24,6 +24,18 @@ _.extend(app, {
         _.extend(app[namespace], base);
     },
 
+    size: function(string) {
+        var bytes = this.bytes(string)
+            , sizes = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB']
+            , e = Math.floor(Math.log(bytes) / Math.log(1024));
+
+        return (bytes / Math.pow(1024, e)).toFixed(2) + " " + sizes[e];
+    },
+
+    bytes: function(string){
+        return Buffer.byteLength(string, 'utf8');
+    },
+
     destroy: function(){
         c.log('app.destroy');
     }

@@ -22,6 +22,7 @@
             <th>To</th>
             <th>Subject</th>
             <th class="date">Date</th>
+            <th>Size</th>
         </tr>
         </thead>
         <tbody></tbody>
