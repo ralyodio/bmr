@@ -27,7 +27,7 @@ app.create('message', {
             , renderHtml: renderHtml
         }));
 
-        this.parseMessage($content.find('.message'));
+        this.parseMessage($content.find('.message'), renderHtml);
 
         $content.removeClass('loading');
         $message = $content.find('.message');
@@ -41,37 +41,34 @@ app.create('message', {
         $row.removeClass('unread');
     },
 
-    parseMessage: function($message){
-        $message.contents().filter(function() {
-            return this.nodeType === 3;
-        }).each(function(i, txt){
-            var $txt = $(txt)
-                , text = txt.nodeValue;
+    parseMessage: function($message, renderHtml){
+        var URI = require('URIjs')
+            , text = renderHtml ? $message.html() : $message.text();
 
+        if ( !renderHtml ) {
             text = _.escape(text);
+        }
 
-            //Bitmessage addressses
-            text = text.replace(/(BM-[123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ]{32,34})/g, '<a href="#" class="address" data-address="$1">$1</a>');
+        text = URI.withinString(text, function(url){
+            var label = url;
 
-            //make URLs links
-            text = URI.withinString(text, function(url) {
-                var label = url;
+            //data urls are very long and can be ignored.
+            if ( /^data:/.test(url) ) {
+                return !renderHtml ? url.substring(0, 500)+'...' : url;
+            }
 
-                //data urls are very long and can be ignored.
-                if ( /^data:/.test(url) ) {
-                    return url.substring(0, 500)+'...';
-                }
+            //make a valid url if we have a domain only
+            if ( !/^\w+:/.test(url) ) {
+                url = 'http://'+url;
+            }
 
-                //make a valid url if we have a domain only
-                if ( !/^\w+:/.test(url) ) {
-                    url = 'http://'+url;
-                }
-
-                return '<a href="'+url+'" class="ext">'+label+'</a>';
-            });
-
-            $txt.replaceWith(text);
+            return '<a href="'+url+'" class="ext">'+label+'</a>';
         });
+
+        //Bitmessage addressses
+        text = text.replace(/(BM-[123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ]{32,34})/g, '<a href="#" class="address" data-address="$1">$1</a>');
+
+        $message.html(text);
     },
 
     hideMsg: function(id, isSentMessage){
@@ -138,11 +135,9 @@ app.create('message', {
     reverseThread: function(id, isSentMessage){
         var $msg = ui.$pg.find('tr[data-msgid='+id+'].msg .message')
             , delim = '\n\n------------------------------------------------------\n'
-            , msg = $msg.text().split(delim).reverse().join(delim);
+            , msg = $msg.html().split(delim).reverse().join(delim);
 
-        $msg.text(msg);
-
-        this.parseMessage($msg);
+        $msg.html(msg);
     },
 
     maximize: function($row){

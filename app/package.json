@@ -6,7 +6,8 @@
   "author": "chovy",
   "dependencies": {
     "bitmessage-node": "chovy/bitmessage-node",
-    "filesize": "~1.10.0"
+    "filesize": "~1.10.0",
+    "URIjs": "~1.11.2"
   },
   "window": {
     "title": "Bmr - the Bitmessage reader",
