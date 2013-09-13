@@ -79,7 +79,7 @@ In the search filter fields on Inbox and Sent box you can type the following met
     <subject-partial>
 
 On tables, you can multi select ranges of items by holding the "shift" key, then checking another box a few rows down.
-You can also hold the "cmd" (mac) key and click the "select all" checkbox to reverse the selection.
+You can also hold the "cmd" (mac), "ctrl" (win/linux) key and click the "select all" checkbox to invert the selection.
 
 Join the "Bmr" channel:
 
