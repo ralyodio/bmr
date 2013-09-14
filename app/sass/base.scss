@@ -271,6 +271,7 @@ a.minimize:before {
 }
 
 #msg {
+  display: none;
   position: fixed;
   z-index: 10;
   top: 0;
@@ -494,6 +495,10 @@ tr.msg {
   font-family: monospace;
   white-space: pre-wrap;
   padding: 10px;
+
+  img {
+    max-width: 90%;
+  }
 }
 
 #reply, #compose {

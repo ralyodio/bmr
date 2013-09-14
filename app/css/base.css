@@ -200,6 +200,7 @@ a.minimize:before {
   display: none; }
 
 #msg {
+  display: none;
   position: fixed;
   z-index: 10;
   top: 0;
@@ -348,6 +349,8 @@ tr.msg .content {
   font-family: monospace;
   white-space: pre-wrap;
   padding: 10px; }
+  .message img {
+    max-width: 90%; }
 
 #reply label, #compose label {
   min-width: 10%; }

@@ -98,14 +98,14 @@ _.extend(ui, {
             $msg.stop().css('opacity', 1);
         }
 
-        $msg.addClass(type).html(m).fadeTo(250, 1);
+        $msg.show().addClass(type).html(m).fadeTo(250, 1);
         this.hideMsg();
     },
 
     hideMsg: function () {
         this.timers.msg = setTimeout(function () {
             $("#msg").fadeTo(600, 0, function () {
-                $(this).removeClass('ok err').html('');
+                $(this).removeClass('ok err').html('').hide();
             });
         }, 3000);
     },
