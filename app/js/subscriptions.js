@@ -10,6 +10,7 @@ app.create('subscriptions', {
 
         ui.init(this.ns);
 
+        ui.partial('filter');
         ui.$pg = $(ui.tpl('subscriptions', {}));
         ui.$header.show();
         ui.$header.find('a.subscriptions').addClass('active').siblings().removeClass('active');
@@ -19,6 +20,7 @@ app.create('subscriptions', {
         //events
         ui.$pg.find('#subscriptions-action').on('submit.subscriptions', this.actionItem.bind(this));
         ui.$pg.find('#subscriptions-select-action').on('change.subscriptions', ui.showActionFields);
+        ui.filter('.address, .label');
     },
 
     showSubscriptions: function (subscriptions, refresh) {

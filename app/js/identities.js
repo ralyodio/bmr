@@ -9,6 +9,7 @@ app.create('identities', {
         ui.init(this.ns);
         c.log('app.identities.init');
 
+        ui.partial('filter');
         ui.$pg = $(ui.tpl('identities', {}));
         ui.$header.show();
         ui.$header.find('a.identities').addClass('active').siblings().removeClass('active');
@@ -17,6 +18,7 @@ app.create('identities', {
 
         ui.$pg.find('#identities-action').on('submit.identities', this.actionItem.bind(this));
         ui.$pg.find('#identities-select-action').on('change.identities', ui.showActionFields);
+        ui.filter('.address, .label');
     },
 
     showIdentities: function (identities, refresh) {
@@ -51,6 +53,8 @@ app.create('identities', {
         e.preventDefault();
 
         var $form = $(e.target)
+            , f
+            , opts
             , action = $form.find('option:selected').val()
             , $table = ui.$pg.find('table')
             , $checked = $table.find('tbody td:first-child [type=checkbox]:checked');
@@ -74,8 +78,8 @@ app.create('identities', {
             }.bind(this));
 
         } else if ( action === 'create-address' ) {
-            var f = $form.get(0)
-                , opts = {};
+            f = $form.get(0)
+            opts = {};
 
             opts.label = f.label.value;
             //unused
@@ -98,8 +102,8 @@ app.create('identities', {
                 $form.find('input[name=label]').parents('label').addClass('error');
             }
         } else if ( action === 'create-deterministic' ) {
-            var f = $form.get(0)
-                , opts = {};
+            f = $form.get(0)
+            opts = {};
 
             opts.passphrase = f.passphrase.value;
             //unused

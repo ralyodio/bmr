@@ -1,7 +1,7 @@
 <section id="subscriptions">
     <table>
         <caption>
-            <form id="subscriptions-action">
+            <form id="subscriptions-action" class="action">
                 <select id="subscriptions-select-action">
                     <option value="add-subscription">Add subscription</option>
                     <option value="delete-subscription">Delete subscription</option>
@@ -12,6 +12,7 @@
                     <p><label>Subscription address: <input type="text" name="address"></label></p>
                 </fieldset>
             </form>
+            {{> filter}}
         </caption>
         <thead>
         <tr>

@@ -11,6 +11,7 @@ app.create('inbox', {
         ui.init(this.ns);
         c.log('app.inbox.init');
 
+        ui.partial('filter');
         ui.$pg = $(ui.tpl('inbox', {}));
         ui.$header.show();
         ui.$header.find('a.inbox').addClass('active').siblings().removeClass('active');

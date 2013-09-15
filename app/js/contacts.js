@@ -10,6 +10,7 @@ app.create('contacts', {
 
         ui.init(this.ns);
 
+        ui.partial('filter');
         ui.$pg = $(ui.tpl('contacts', {}));
         ui.$header.show();
         ui.$header.find('a.contacts').addClass('active').siblings().removeClass('active');
@@ -19,6 +20,7 @@ app.create('contacts', {
         //events
         ui.$pg.find('#contacts-action').on('submit.contacts', this.actionItem.bind(this));
         ui.$pg.find('#contacts-select-action').on('change.contacts', ui.showActionFields);
+        ui.filter('.address, .label');
     },
 
     showContacts: function (contacts, refresh) {

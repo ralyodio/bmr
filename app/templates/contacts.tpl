@@ -1,7 +1,7 @@
 <section id="contacts">
     <table>
         <caption>
-            <form id="contacts-action">
+            <form id="contacts-action" class="action">
                 <select id="contacts-select-action">
                     <option value="add-contact">Add contact</option>
                     <option value="delete-contact">Delete contact</option>
@@ -12,6 +12,7 @@
                     <p><label>Contact address: <input type="text" name="address"></label></p>
                 </fieldset>
             </form>
+            {{> filter}}
         </caption>
         <thead>
             <tr>

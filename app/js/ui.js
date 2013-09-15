@@ -249,14 +249,15 @@ _.extend(ui, {
         $labels.removeClass('error');
     },
 
-    filter: function(){
+    filter: function(toFilter){
         c.log('ui.filter');
 
         var $filter = this.$pg.find('#filter');
 
-        $filter.find('#filter-value').on('keyup.ui', this.filterInput.bind(this));
+        $filter.find('#filter-value').on('keyup.ui', function(e){
+            this.filterInput(e, toFilter);
+        }.bind(this));
         $filter.find('button[type=reset]').on('click.ui', this.resetFilter.bind(this));
-        $filter.find('#include').on('click.ui', this.filterInput.bind(this));
         $filter.on('submit.ui', function(e){
             e.preventDefault();
         });
@@ -270,18 +271,23 @@ _.extend(ui, {
         this.$header.find('a.'+this.ns+' .total').text(total);
     },
 
-    filterInput: function(e){
+    filterInput: function(e, toFilter){
         var val = this.$pg.find('#filter-value').val().toLowerCase()
             , $rows = this.$pg.find('tbody tr');
+
+        toFilter = toFilter || '.subject';
 
         //add :meta filters - :unread, :read, :to, :from
         $.each($rows, function(i, row){
             var $row = $(row)
-                , subject = $row.find('.subject').text().toLowerCase()
+                , subject = $row.find(toFilter).text().toLowerCase()
                 , toMatch
                 , re
                 , metaField
                 , hasMatch = true;
+
+            c.log('filter subject', subject);
+            c.log('filter test value', val);
 
             // meta filters, :read, :unread, :from, :to
             if ( val.indexOf(':') === 0 ) {
@@ -297,6 +303,7 @@ _.extend(ui, {
 
                     hasMatch = re.test(metaField);
                 } else if ( /^:to ./.test(val) ) {
+                    //TODO data-to should be replaced with data-address everywhere
                     toMatch = val.substr(val.indexOf(' ')+1, val.length).toLowerCase();
                     metaField = $row.find('.to').attr('data-address').toLowerCase();
                     re = new RegExp(toMatch);
@@ -384,6 +391,12 @@ _.extend(ui, {
 
     tpl: function(name, data){
         return Handlebars.templates[name](data);
+    },
+
+    partial: function(name){
+        var html = Handlebars.templates[name];
+
+        Handlebars.registerPartial(name, html);
     },
 
     textSelect: function(){

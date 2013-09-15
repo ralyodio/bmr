@@ -23,11 +23,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   });
 templates['contacts'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
+  var buffer = "", stack1, self=this;
 
 
-  return "<section id=\"contacts\">\n    <table>\n        <caption>\n            <form id=\"contacts-action\">\n                <select id=\"contacts-select-action\">\n                    <option value=\"add-contact\">Add contact</option>\n                    <option value=\"delete-contact\">Delete contact</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n                <fieldset id=\"add-contact\" class=\"clearfix\">\n                    <p><label>Contact label: <input type=\"text\" name=\"label\"></label></p>\n                    <p><label>Contact address: <input type=\"text\" name=\"address\"></label></p>\n                </fieldset>\n            </form>\n        </caption>\n        <thead>\n            <tr>\n                <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n                <th>Label</th>\n                <th>Address</th>\n            </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  buffer += "<section id=\"contacts\">\n    <table>\n        <caption>\n            <form id=\"contacts-action\" class=\"action\">\n                <select id=\"contacts-select-action\">\n                    <option value=\"add-contact\">Add contact</option>\n                    <option value=\"delete-contact\">Delete contact</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n                <fieldset id=\"add-contact\" class=\"clearfix\">\n                    <p><label>Contact label: <input type=\"text\" name=\"label\"></label></p>\n                    <p><label>Contact address: <input type=\"text\" name=\"address\"></label></p>\n                </fieldset>\n            </form>\n            ";
+  stack1 = self.invokePartial(partials.filter, 'filter', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n        </caption>\n        <thead>\n            <tr>\n                <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n                <th>Label</th>\n                <th>Address</th>\n            </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  return buffer;
   });
 templates['contactsList'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -69,6 +73,14 @@ function program1(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n";
   return buffer;
+  });
+templates['filter'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<form id=\"filter\">\n    <label for=\"filter-value\">Filter</label>\n    <input type=\"text\" name=\"filter-value\" id=\"filter-value\">\n    <button type=\"reset\">Clear</button>\n</form>";
   });
 templates['fromOptions'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -121,11 +133,15 @@ function program4(depth0,data) {
   });
 templates['identities'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
+  var buffer = "", stack1, self=this;
 
 
-  return "<section id=\"identities\">\n    <table>\n        <caption>\n            <form id=\"identities-action\">\n                <select id=\"identities-select-action\">\n                    <option value=\"create-address\">Create address</option>\n                    <option value=\"create-deterministic\">Create deterministic address</option>\n                    <!-- not supported by API yet\n                    <option value=\"enable-address\">Enable address</option>\n                    <option value=\"disable-address\">Disable address</option>\n                    -->\n                </select>\n                <button type=\"submit\">Apply</button>\n                <fieldset id=\"create-address\" class=\"clearfix\">\n                    <div>\n                        <p><label>Address label: <input type=\"text\" name=\"label\"></label></p>\n                        <p><label><input type=\"checkbox\" name=\"eighteenByteRipe\"> Do extra work for shorter address (18-byte RIPE)</label></p>\n                    </div>\n                    <div>\n                        <p><label>Total difficulty: <input type=\"text\" class=\"small\" name=\"totalDifficulty\" value=\"1.0\" maxlength=\"3\"></label></p>\n                        <p><label>Small message difficulty: <input class=\"small\" type=\"text\" name=\"smallMessageDifficulty\" value=\"1.0\"></label></p>\n                    </div>\n                </fieldset>\n                <fieldset id=\"create-deterministic\" class=\"clearfix hide\">\n                    <div>\n                        <p>\n                            <label>Address passphrase: <input type=\"text\" name=\"passphrase\"></label>\n                        </p>\n                        <p>\n                            <label>Number of addresses: <input type=\"text\" name=\"number\" size=\"1\" value=\"1\"></label>\n                        </p>\n                        <p>\n                            <label><input type=\"checkbox\" name=\"eighteenByteRipe\"> Do extra work for shorter address (18-byte RIPE)</label>\n                        </p>\n                    </div>\n                    <div>\n                        <p><label>Total difficulty: <input type=\"text\" class=\"small\" name=\"totalDifficulty\" value=\"1.0\" maxlength=\"3\"></label></p>\n                        <p><label>Small message difficulty: <input class=\"small\" type=\"text\" name=\"smallMessageDifficulty\" value=\"1.0\"></label></p>\n                    </div>\n                </fieldset>\n                <!--\n                <fieldset id=\"enable-address\" class=\"hide\">\n                    enable\n                </fieldset>\n                <fieldset id=\"disable-address\" class=\"hide\">\n                    disable\n                </fieldset>\n                -->\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>Label</th>\n            <th>Address</th>\n            <th>Enabled</th>\n            <th>Stream</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  buffer += "<section id=\"identities\">\n    <table>\n        <caption>\n            <form id=\"identities-action\">\n                <select id=\"identities-select-action\">\n                    <option value=\"create-address\">Create address</option>\n                    <option value=\"create-deterministic\">Create deterministic address</option>\n                    <!-- not supported by API yet\n                    <option value=\"enable-address\">Enable address</option>\n                    <option value=\"disable-address\">Disable address</option>\n                    -->\n                </select>\n                <button type=\"submit\">Apply</button>\n                <fieldset id=\"create-address\" class=\"clearfix\">\n                    <div>\n                        <p><label>Address label: <input type=\"text\" name=\"label\"></label></p>\n                        <p><label><input type=\"checkbox\" name=\"eighteenByteRipe\"> Do extra work for shorter address (18-byte RIPE)</label></p>\n                    </div>\n                    <div>\n                        <p><label>Total difficulty: <input type=\"text\" class=\"small\" name=\"totalDifficulty\" value=\"1.0\" maxlength=\"3\"></label></p>\n                        <p><label>Small message difficulty: <input class=\"small\" type=\"text\" name=\"smallMessageDifficulty\" value=\"1.0\"></label></p>\n                    </div>\n                </fieldset>\n                <fieldset id=\"create-deterministic\" class=\"clearfix hide\">\n                    <div>\n                        <p>\n                            <label>Address passphrase: <input type=\"text\" name=\"passphrase\"></label>\n                        </p>\n                        <p>\n                            <label>Number of addresses: <input type=\"text\" name=\"number\" size=\"1\" value=\"1\"></label>\n                        </p>\n                        <p>\n                            <label><input type=\"checkbox\" name=\"eighteenByteRipe\"> Do extra work for shorter address (18-byte RIPE)</label>\n                        </p>\n                    </div>\n                    <div>\n                        <p><label>Total difficulty: <input type=\"text\" class=\"small\" name=\"totalDifficulty\" value=\"1.0\" maxlength=\"3\"></label></p>\n                        <p><label>Small message difficulty: <input class=\"small\" type=\"text\" name=\"smallMessageDifficulty\" value=\"1.0\"></label></p>\n                    </div>\n                </fieldset>\n                <!--\n                <fieldset id=\"enable-address\" class=\"hide\">\n                    enable\n                </fieldset>\n                <fieldset id=\"disable-address\" class=\"hide\">\n                    disable\n                </fieldset>\n                -->\n            </form>\n            ";
+  stack1 = self.invokePartial(partials.filter, 'filter', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>Label</th>\n            <th>Address</th>\n            <th>Enabled</th>\n            <th>Stream</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  return buffer;
   });
 templates['identitiesList'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -147,7 +163,7 @@ function program1(depth0,data) {
   if (stack1 = helpers.label) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.label; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"><span class=\"nowrap\">";
+    + "\"><span class=\"nowrap label\">";
   if (stack1 = helpers.label) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.label; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -155,7 +171,7 @@ function program1(depth0,data) {
   if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"><span class=\"nowrap\">";
+    + "\"><span class=\"nowrap address\">";
   if (stack1 = helpers.address) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.address; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -186,11 +202,15 @@ function program1(depth0,data) {
   });
 templates['inbox'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
+  var buffer = "", stack1, self=this;
 
 
-  return "<section id=\"inbox\">\n    <table>\n        <caption class=\"clearfix\">\n            <form id=\"inbox-action\">\n                <select>\n                    <option value=\"trash\">Move to trash</option>\n                    <option value=\"read\">Mark as read</option>\n                    <option value=\"unread\">Mark as unread</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n            </form>\n            <form id=\"filter\">\n                <label for=\"filter-value\">Filter</label>\n                <input type=\"text\" name=\"filter-value\" id=\"filter-value\">\n                <button type=\"reset\">Clear</button>\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>From</th>\n            <th>To</th>\n            <th>Subject</th>\n            <th class=\"date\">Date</th>\n            <th>Size</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  buffer += "<section id=\"inbox\">\n    <table>\n        <caption class=\"clearfix\">\n            <form id=\"inbox-action\">\n                <select>\n                    <option value=\"trash\">Move to trash</option>\n                    <option value=\"read\">Mark as read</option>\n                    <option value=\"unread\">Mark as unread</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n            </form>\n            ";
+  stack1 = self.invokePartial(partials.filter, 'filter', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>From</th>\n            <th>To</th>\n            <th>Subject</th>\n            <th class=\"date\">Date</th>\n            <th>Size</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  return buffer;
   });
 templates['inboxMessages'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -445,11 +465,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   });
 templates['sent'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
+  var buffer = "", stack1, self=this;
 
 
-  return "<section id=\"sent\">\n    <table>\n        <caption>\n            <form id=\"sent-action\">\n                <select>\n                    <option value=\"trash\">Move to trash</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n            </form>\n            <form id=\"filter\">\n                <label for=\"filter-value\">Filter</label>\n                <input type=\"text\" name=\"filter-value\" id=\"filter-value\">\n                <button type=\"reset\">Clear</button>\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>From</th>\n            <th>To</th>\n            <th>Subject</th>\n            <th class=\"status\">Status</th>\n            <th class=\"date\">Last</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  buffer += "<section id=\"sent\">\n    <table>\n        <caption>\n            <form id=\"sent-action\">\n                <select>\n                    <option value=\"trash\">Move to trash</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n            </form>\n            ";
+  stack1 = self.invokePartial(partials.filter, 'filter', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>From</th>\n            <th>To</th>\n            <th>Subject</th>\n            <th class=\"status\">Status</th>\n            <th class=\"date\">Last</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  return buffer;
   });
 templates['sentMessages'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -556,11 +580,15 @@ function program4(depth0,data) {
   });
 templates['subscriptions'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
+  var buffer = "", stack1, self=this;
 
 
-  return "<section id=\"subscriptions\">\n    <table>\n        <caption>\n            <form id=\"subscriptions-action\">\n                <select id=\"subscriptions-select-action\">\n                    <option value=\"add-subscription\">Add subscription</option>\n                    <option value=\"delete-subscription\">Delete subscription</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n                <fieldset id=\"add-subscription\" class=\"clearfix\">\n                    <p><label>Subscription label: <input type=\"text\" name=\"label\"></label></p>\n                    <p><label>Subscription address: <input type=\"text\" name=\"address\"></label></p>\n                </fieldset>\n            </form>\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>Label</th>\n            <th>Address</th>\n            <th>Enabled</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  buffer += "<section id=\"subscriptions\">\n    <table>\n        <caption>\n            <form id=\"subscriptions-action\" class=\"action\">\n                <select id=\"subscriptions-select-action\">\n                    <option value=\"add-subscription\">Add subscription</option>\n                    <option value=\"delete-subscription\">Delete subscription</option>\n                </select>\n                <button type=\"submit\">Apply</button>\n                <fieldset id=\"add-subscription\" class=\"clearfix\">\n                    <p><label>Subscription label: <input type=\"text\" name=\"label\"></label></p>\n                    <p><label>Subscription address: <input type=\"text\" name=\"address\"></label></p>\n                </fieldset>\n            </form>\n            ";
+  stack1 = self.invokePartial(partials.filter, 'filter', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n        </caption>\n        <thead>\n        <tr>\n            <th class=\"no-sort\"><input type=\"checkbox\" name=\"mark-all\"></th>\n            <th>Label</th>\n            <th>Address</th>\n            <th>Enabled</th>\n        </tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n</section>";
+  return buffer;
   });
 templates['subscriptionsList'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];

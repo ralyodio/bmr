@@ -47,6 +47,7 @@
                 </fieldset>
                 -->
             </form>
+            {{> filter}}
         </caption>
         <thead>
         <tr>

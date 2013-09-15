@@ -35,6 +35,71 @@ body {
   margin: 35px auto;
   color: #000; }
 
+#content:empty {
+  position: relative;
+  min-height: 100px; }
+
+.hide {
+  display: none; }
+
+h1 {
+  margin-bottom: 0; }
+
+.nowrap {
+  white-space: nowrap; }
+
+.wrap {
+  word-wrap: break-word;
+  word-break: break-all; }
+
+#logo {
+  font-weight: bold;
+  font-size: 26px;
+  margin: 0 auto 10px;
+  text-align: left;
+  background: url(/img/logo.png) no-repeat 0 0;
+  padding-left: 140px;
+  height: 95px;
+  line-height: 95px;
+  width: 315px; }
+  #logo small {
+    font-weight: normal; }
+
+#inbox, #sent, #identities, #subscriptions, #contacts {
+  display: none; }
+
+#msg {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid transparent;
+  padding: 10px 20px;
+  border-radius: 0;
+  margin-bottom: 15px;
+  min-height: 10px;
+  line-height: 10px;
+  text-align: center; }
+  #msg.err {
+    border-color: #c00;
+    color: #900;
+    background-color: #edd; }
+    #msg.err:before {
+      content: '⚠';
+      margin-right: 5px; }
+  #msg.ok {
+    border-color: #0c0;
+    color: #090;
+    background-color: #ded; }
+    #msg.ok:before {
+      content: '✓';
+      margin-right: 5px; }
+
+body.login {
+  max-width: 75%; }
+
 #overlay {
   position: fixed;
   background: rgba(0, 0, 0, 0.6);
@@ -42,10 +107,6 @@ body {
   height: 100%;
   top: 0;
   left: 0; }
-
-#content:empty {
-  position: relative;
-  min-height: 100px; }
 
 #modal {
   position: fixed;
@@ -110,19 +171,6 @@ body {
     box-sizing: border-box;
     background: white; }
 
-.hide {
-  display: none; }
-
-h1 {
-  margin-bottom: 0; }
-
-.nowrap {
-  white-space: nowrap; }
-
-.wrap {
-  word-wrap: break-word;
-  word-break: break-all; }
-
 a {
   text-decoration: none;
   margin-right: 5px; }
@@ -183,66 +231,6 @@ a.minimize:before {
   font-size: 18px;
   content: '⊝'; }
 
-#logo {
-  font-weight: bold;
-  font-size: 26px;
-  margin: 0 auto 10px;
-  text-align: left;
-  background: url(/img/logo.png) no-repeat 0 0;
-  padding-left: 140px;
-  height: 95px;
-  line-height: 95px;
-  width: 315px; }
-  #logo small {
-    font-weight: normal; }
-
-#inbox, #sent, #identities, #subscriptions, #contacts {
-  display: none; }
-
-#msg {
-  display: none;
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  right: 0;
-  border-bottom: 1px solid transparent;
-  padding: 10px 20px;
-  border-radius: 0;
-  margin-bottom: 15px;
-  min-height: 10px;
-  line-height: 10px;
-  text-align: center; }
-  #msg.err {
-    border-color: #c00;
-    color: #900;
-    background-color: #edd; }
-    #msg.err:before {
-      content: '⚠';
-      margin-right: 5px; }
-  #msg.ok {
-    border-color: #0c0;
-    color: #090;
-    background-color: #ded; }
-    #msg.ok:before {
-      content: '✓';
-      margin-right: 5px; }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0; }
-
-caption {
-  text-align: left;
-  padding: 5px 0;
-  position: relative; }
-
-#filter {
-  position: absolute;
-  top: 0;
-  right: 0; }
-
 header nav:nth-child(1) {
   float: left; }
 header nav:nth-child(2) {
@@ -255,6 +243,16 @@ header nav:nth-child(2) {
 
 .total:after {
   content: ')'; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+caption {
+  text-align: left;
+  padding: 5px 0;
+  position: relative; }
 
 td {
   padding: 5px 10px;
@@ -338,6 +336,61 @@ tr.msg .content {
     font-weight: normal;
     text-decoration: none; }
 
+#filter {
+  position: absolute;
+  top: 0;
+  right: 0; }
+  #filter input[type=text] {
+    width: 120px; }
+
+form {
+  margin: 10px auto; }
+
+label {
+  display: inline-block; }
+
+label.error {
+  color: #900; }
+  label.error input[type=text] {
+    border: 1px solid #900; }
+
+fieldset {
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  border-radius: 5px; }
+
+#login fieldset input:not([type=radio]):not([type=checkbox]), #identities input[name=label] {
+  width: 50%; }
+
+#subscriptions .action input[type=text], #contacts .action input[type=text] {
+  min-width: 200px; }
+
+input[type=text], input[type=password], textarea {
+  border: 1px solid #ccc;
+  padding: 3px 5px;
+  border-radius: 3px; }
+
+input.small {
+  width: 3em; }
+
+form#login {
+  max-width: 70%;
+  margin: 0 auto; }
+  form#login label {
+    min-width: 25%; }
+  form#login button[type=submit] {
+    float: right; }
+  form#login .remember {
+    text-align: right;
+    margin-right: 90px; }
+
+fieldset#create-address > div, fieldset#create-deterministic > div {
+  float: left;
+  width: 50%;
+  box-sizing: border-box; }
+  fieldset#create-address > div input[type=text], fieldset#create-deterministic > div input[type=text] {
+    margin-left: 5px; }
+
 #inbox .msg .from {
   margin: -5px 0 0; }
 #inbox .msg .to {
@@ -372,54 +425,3 @@ tr.msg .content {
   color: #000; }
 #sent tr.msg .from {
   color: #999; }
-
-form {
-  margin: 10px auto; }
-
-label {
-  display: inline-block; }
-
-label.error {
-  color: #900; }
-  label.error input[type=text] {
-    border: 1px solid #900; }
-
-fieldset {
-  border: 1px solid #ddd;
-  margin: 10px 0;
-  border-radius: 5px; }
-
-#login fieldset input:not([type=radio]):not([type=checkbox]), #identities input[name=label] {
-  width: 50%; }
-
-#subscriptions input[type=text], #contacts input[type=text] {
-  min-width: 200px; }
-
-input[type=text], input[type=password], textarea {
-  border: 1px solid #ccc;
-  padding: 3px 5px;
-  border-radius: 3px; }
-
-input.small {
-  width: 3em; }
-
-body.login {
-  max-width: 75%; }
-
-form#login {
-  max-width: 70%;
-  margin: 0 auto; }
-  form#login label {
-    min-width: 25%; }
-  form#login button[type=submit] {
-    float: right; }
-  form#login .remember {
-    text-align: right;
-    margin-right: 90px; }
-
-fieldset#create-address > div, fieldset#create-deterministic > div {
-  float: left;
-  width: 50%;
-  box-sizing: border-box; }
-  fieldset#create-address > div input[type=text], fieldset#create-deterministic > div input[type=text] {
-    margin-left: 5px; }

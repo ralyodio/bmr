@@ -9,6 +9,7 @@ app.create('sent', {
         ui.init(this.ns);
         c.log('app.sent.init');
 
+        ui.partial('filter');
         ui.$pg = $(ui.tpl('sent', {}));
         ui.$header.show();
         ui.$header.find('a.sent').addClass('active').siblings().removeClass('active');

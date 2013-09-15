@@ -1,0 +1,61 @@
+#inbox .msg {
+  .from {
+    margin: -5px 0 0;
+  }
+
+  .to {
+    color: #999;
+  }
+}
+
+#sent .msg {
+  .to {
+    margin: -5px 0 0;
+  }
+
+  .from {
+    color: #999;
+  }
+}
+
+.message {
+  font-family: monospace;
+  white-space: pre-wrap;
+  padding: 10px;
+
+  img {
+    max-width: 90%;
+  }
+}
+
+#reply, #compose {
+  label {
+    min-width: 10%;
+  }
+
+  input[type=text] {
+    width: 50%;
+    box-sizing: border-box;
+
+    &[name=subject] {
+      width: 89%;
+    }
+  }
+
+  .message {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 150px;
+    display: block;
+  }
+}
+
+#sent tr.msg {
+  .to {
+    color: #000;
+  }
+  .from {
+    color: #999;
+  }
+}
+

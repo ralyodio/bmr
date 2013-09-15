@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+#filter {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  input[type=text] {
+    width: 120px;
+  }
+}
+
+form {
+  margin: 10px auto;
+}
+
+label {
+  display: inline-block;
+}
+
+label.error {
+  color: #900;
+
+  input[type=text] {
+    border: 1px solid #900;
+  }
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+#login fieldset input:not([type=radio]):not([type=checkbox]), #identities input[name=label] {
+  width: 50%;
+}
+
+#subscriptions .action input[type=text], #contacts .action input[type=text] {
+  min-width: 200px;
+}
+
+input[type=text], input[type=password], textarea {
+  border: 1px solid #ccc;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+
+input.small {
+  width: 3em;
+}
+
+form#login {
+  max-width: 70%;
+  margin: 0 auto;
+
+  label {
+    min-width: 25%;
+  }
+
+  button[type=submit] {
+    float: right;
+  }
+
+  .remember {
+    text-align: right;
+    margin-right: 90px;
+  }
+}
+
+fieldset#create-address > div, fieldset#create-deterministic > div {
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+
+  input[type=text] {
+    margin-left: 5px;
+  }
+}
