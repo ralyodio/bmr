@@ -40,13 +40,22 @@ app.create('identities', {
             ui.markAll($table);
             ui.shiftCheck.init($table);
             ui.checkItem($table);
+
+            //call to wire up events here for address rows
+            $tbody.on('click.identities', 'tr .address', function(e){
+                e.preventDefault();
+
+                var $address = $(e.currentTarget)
+                    , id = $address.text();
+
+                c.log('address', id);
+                app.compose.init(id);
+            });
+
+            $total.text(identities.length);
+            ui.$content.append(ui.$pg);
+            ui.$pg.fadeIn();
         }
-
-        //call to wire up events here for address rows
-
-        $total.text(identities.length);
-        ui.$content.append(ui.$pg);
-        ui.$pg.fadeIn();
     },
 
     actionItem: function (e) {
