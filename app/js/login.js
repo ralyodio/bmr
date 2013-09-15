@@ -21,10 +21,12 @@ app.create('login', {
         data.pass = $form.find('input[name=pass]').val();
         data.host = $form.find('input[name=host]').val();
         data.port = $form.find('input[name=port]').val();
+        data.remember = $form.find('input[name=remember]').prop('checked');
 
         api.init(data, function(){
             ui.init();
-            ui.ok('Successfully connected to API');
+
+            ui.ok('Trying to connect to API');
             //move to app.hideLogin
             ui.$pg.hide({
                 duration: 0,

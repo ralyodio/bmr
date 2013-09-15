@@ -259,6 +259,8 @@ header nav:nth-child(2) {
 td {
   padding: 5px 10px;
   border: 1px solid #ddd; }
+  td.right {
+    text-align: right; }
   td .mark-item {
     text-align: center; }
   td span[data-to], td span[data-from], td span[data-address] {
@@ -327,7 +329,8 @@ tr.msg .content {
     font-family: monospace;
     white-space: pre-wrap;
     padding: 10px;
-    word-break: break-word; }
+    word-break: break-word;
+    font-size: 13px; }
     tr.msg .content .message.minimize {
       max-height: 325px;
       overflow-y: auto; }
@@ -410,6 +413,9 @@ form#login {
     min-width: 25%; }
   form#login button[type=submit] {
     float: right; }
+  form#login .remember {
+    text-align: right;
+    margin-right: 90px; }
 
 fieldset#create-address > div, fieldset#create-deterministic > div {
   float: left;

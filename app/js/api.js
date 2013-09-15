@@ -13,6 +13,18 @@ _.extend(api, {
         this.auth(data, cb);
     },
 
+    getConnection: function(){
+        if ( this.conn ) return this.conn;
+
+        var data = JSON.parse(localStorage.getItem('auth'));
+
+        if ( data ) {
+            this.auth(data);
+        }
+
+        return this.conn;
+    },
+
     getMessage: function (id, cb, read) {
         c.log('api.getMessage', id, read);
 
@@ -36,9 +48,16 @@ _.extend(api, {
 
         try {
             this.conn = require('bitmessage-node')(data.host, data.port, data.user, data.pass);
-            cb();
+
+            //remember credentials
+            if ( data.remember ) {
+                localStorage.setItem('auth', JSON.stringify(data));
+            } else {
+                localStorage.removeItem('auth');
+            }
+
+            if ( cb )  cb();
         } catch (err) {
-            ui.err('Could not connect to API');
             c.error(err);
         }
     },
@@ -161,6 +180,8 @@ _.extend(api, {
 
     destroy: function(){
         this.conn = null;
+        localStorage.removeItem('auth');
+
         ui.err('Disconnected from server');
         c.log('Disconnected');
     }

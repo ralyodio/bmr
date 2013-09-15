@@ -11,6 +11,6 @@
     {{/if}}
     </td>
     <td class="nowrap" data-sort="{{timeSortable}}"><span title="{{time}}">{{timeReadable}}</span></td>
-    <td class="nowrap" data-sort="{{bytes}}"><span class="size">{{size}}</span></td>
+    <td class="nowrap right" data-sort="{{bytes}}"><span class="size">{{size}}</span></td>
 </tr>
 {{/each}}

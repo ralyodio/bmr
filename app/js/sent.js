@@ -1,6 +1,6 @@
 app.create('sent', {
     init: function () {
-        if (!api.conn) {
+        if (!api.getConnection()) {
             c.log('No connection.');
             ui.navigateTo(null, 'logout');
             return;
@@ -57,7 +57,7 @@ app.create('sent', {
             , $total = ui.$header.find('a.sent .total')
             , $tbody = $table.find("tbody");
 
-        c.log(msgs);
+        //c.log(msgs);
         //msgs = msgs.slice(0, 10);
 
         //default to most recent first

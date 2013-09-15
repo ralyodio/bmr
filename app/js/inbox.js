@@ -2,7 +2,7 @@ app.create('inbox', {
     lastReceivedTime: null,
 
     init: function () {
-        if (!api.conn) {
+        if (!api.getConnection()) {
             c.log('No connection.');
             ui.navigateTo(null, 'logout');
             return;

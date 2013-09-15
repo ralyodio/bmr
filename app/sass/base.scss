@@ -350,6 +350,10 @@ td {
   padding: 5px 10px;
   border: 1px solid #ddd;
 
+  &.right {
+    text-align: right;
+  }
+
   .mark-item {
     text-align: center;
   }
@@ -457,6 +461,7 @@ tr.msg {
       white-space: pre-wrap;
       padding: 10px;
       word-break: break-word;
+      font-size: 13px;
 
       &.minimize {
         max-height: 325px;
@@ -587,6 +592,11 @@ form#login {
 
   button[type=submit] {
     float: right;
+  }
+
+  .remember {
+    text-align: right;
+    margin-right: 90px;
   }
 }
 

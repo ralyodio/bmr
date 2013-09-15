@@ -19,18 +19,20 @@ app.create('message', {
             , $row =  ui.$pg.find('tbody tr['+attr+']')
             , $msg = $row.next('.msg')
             , $content = $msg.find('.content')
+            , $messageHtml
             , $message;
 
-        $content.html(ui.tpl('messageContent', {
+        $messageHtml = $(ui.tpl('messageContent', {
             msg: msg
             , isSentMessage: isSentMessage
             , renderHtml: renderHtml
         }));
 
-        this.parseMessage($content.find('.message'), renderHtml);
+        $message = $messageHtml.find('.message');
+        $message.html(this.parseMessage($message.html(), renderHtml));
 
+        $content.html($messageHtml);
         $content.removeClass('loading');
-        $message = $content.find('.message');
 
         //hide maximize button if not needed
         if ( $message.prop('scrollHeight') <= 325 ) { //max-height of .minimize class
@@ -41,15 +43,64 @@ app.create('message', {
         $row.removeClass('unread');
     },
 
-    parseMessage: function($message, renderHtml){
-        var URI = require('URIjs')
-            , text = renderHtml ? $message.html() : $message.text();
+    sanitize: function(html){
+        function stripTag(html, tag){
+            var div, els, i;
 
-        if ( !renderHtml ) {
-            text = _.escape(text);
+            div = document.createElement('div');
+            div.innerHTML = html;
+            els = div.getElementsByTagName(tag);
+            i = els.length;
+
+            while (i--) {
+                els[i].parentNode.removeChild(els[i]);
+            }
+
+            return div.innerHTML;
         }
 
-        text = URI.withinString(text, function(url){
+        function trimAttributes(node, allowedAttrs) {
+            $.each(node.attributes, function() {
+                var attrName = this.name;
+
+                if ($.inArray(attrName, allowedAttrs) == -1) {
+                    $(node).removeAttr(attrName)
+                }
+            });
+        }
+
+        function clean(html, whitelist) {
+            whitelist = whitelist || {'font': ['color'], 'strong': [], 'b': [], 'i': [] };
+
+            var $el = $('<div>'+html+'</div>');
+
+            $el.find('*').each(function() {
+                var allowedAttrs = whitelist[this.nodeName.toLowerCase()];
+                if(!allowedAttrs) {
+                    $(this).remove();
+                } else {
+                    trimAttributes(this, allowedAttrs);
+                }
+            });
+
+            return $el.html();
+        }
+
+        html = stripTag(html, 'script');
+        html = clean(html, { img: ['src'] });
+
+        return html;
+    },
+
+    parseMessage: function(html, renderHtml){
+        var URI = require('URIjs');
+
+        //!renderHtml is already escaped by hbs and considered safe
+        if ( renderHtml ) {
+            html = this.sanitize(html);
+        }
+
+        html = URI.withinString(html, function(url){
             var label = url;
 
             //data urls are very long and can be ignored.
@@ -66,9 +117,12 @@ app.create('message', {
         });
 
         //Bitmessage addressses
-        text = text.replace(/(BM-[123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ]{32,34})/g, '<a href="#" class="address" data-address="$1">$1</a>');
+        html = html.replace(
+            /(BM-[123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ]{32,34})/g,
+            '<a href="#" class="address" data-address="$1">$1</a>'
+        );
 
-        $message.html(text);
+        return html;
     },
 
     hideMsg: function(id, isSentMessage){

@@ -22,7 +22,6 @@ _.extend(ui, {
 
     init: function (ns) {
         this.logger();
-
         c.log('ui.init');
 
         this.ns = ns;
@@ -98,7 +97,7 @@ _.extend(ui, {
             $msg.stop().css('opacity', 1);
         }
 
-        $msg.show().addClass(type).html(m).fadeTo(250, 1);
+        $msg.removeClass('ok err').show().addClass(type).html(m).fadeTo(250, 1);
         this.hideMsg();
     },
 
