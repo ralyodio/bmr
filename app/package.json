@@ -16,5 +16,10 @@
     "width": 800,
     "height": 600
   },
-  "node-remote": "<local>"
+  "node-remote": "<local>",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-concat": "~0.3.0"
+  }
 }
