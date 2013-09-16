@@ -272,6 +272,14 @@ td {
     td .subject:hover {
       text-decoration: underline; }
 
+#identities td span.address, #subscriptions td span.address, #contacts td span.address {
+  margin-top: -4px;
+  display: block; }
+
+#sent td span.to {
+  margin-top: -4px;
+  display: block; }
+
 th {
   border: 1px solid #666;
   font-weight: bold;

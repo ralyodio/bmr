@@ -70,13 +70,30 @@ app.create('inbox', {
 
         api.getMessage(id, function(msg){
             api.listAddresses(function(identities){
-                identities[0].selected = true; //pre-select the first address in menu
+                //pre-select the first address in menu
+                var selectedId = identities[0].address;
+                identities[0].selected = true;
+
+                _.map(identities, function(ident){
+                    if ( ident.label === 'unused API address' ) {
+                        ident.label = '[chan]';
+                    }
+
+                    if ( ident.address === msg.fromAddress || ident.address === msg.toAddress ) {
+                        //its a channel identity, default to selected
+                        delete identities[0].selected;
+                        ident.selected = true;
+                        selectedId = ident.address;
+                    }
+
+                    ident.label = ident.label + ' ' + ident.address.substring(3, 10);
+                });
 
                 var options = ui.tpl('fromOptions', { identities: identities });
                 var form = ui.tpl('reply', {
                     msg: msg,
                     options: options,
-                    selectedId: identities[0].address
+                    selectedId: selectedId
                 });
 
                 //populate the modal

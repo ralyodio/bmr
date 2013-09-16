@@ -42,6 +42,23 @@ td {
   }
 }
 
+//fixes display offset for unicode .address character.
+#identities, #subscriptions, #contacts {
+  td {
+    span.address {
+      @include table-address;
+    }
+  }
+}
+
+#sent {
+  td {
+    span.to {
+      @include table-address;
+    }
+  }
+}
+
 th {
   border: 1px solid #666;
   font-weight: bold;

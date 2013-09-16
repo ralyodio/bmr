@@ -10,13 +10,23 @@ app.create('compose', {
         modal.$el.on('hide.ui.modal', this.destroy.bind(this));
 
         api.listAddresses(function(identities){
-            identities[0].selected = true; //pre-select the first address in menu
+            //pre-select the first address in menu
+            var selectedId = identities[0].address;
+            identities[0].selected = true;
+
+            _.map(identities, function(ident){
+                if ( ident.label === 'unused API address' ) {
+                    ident.label = '[chan]';
+                }
+
+                ident.label = ident.label + ' ' + ident.address.substring(3, 10);
+            });
 
             var options = ui.tpl('fromOptions', { identities: identities });
             var form = ui.tpl('compose', {
                 toAddress: id
                 , options: options
-                , selectedId: identities[0].address
+                , selectedId: selectedId
             });
 
             //populate the modal

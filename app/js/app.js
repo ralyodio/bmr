@@ -2,13 +2,17 @@ var app = window.app || {};
 
 //application-specific methods
 _.extend(app, {
+    uncaught: true,
+
     init: function(){
         c.log('app.init');
 
-        process.on('uncaughtException', function(err) {
-            c.log("Uncaught exception!", err);
-            ui.err('Woops, there was an error: ' + err.code);
-        });
+        if ( this.uncaught ) {
+            process.on('uncaughtException', function(err) {
+                c.log("Uncaught exception!", err);
+                ui.err('Woops, there was an error: ' + err.code);
+            });
+        }
     },
 
     //@deprecated infavor of ui.logger()
