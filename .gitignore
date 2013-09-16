@@ -2,3 +2,4 @@
 .DS_Store
 node_modules
 node-webkit.app
+atlassian-ide-plugin.xml
