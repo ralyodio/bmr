@@ -19,6 +19,13 @@ app.create('compose', {
                     ident.label = '[chan]';
                 }
 
+                if ( ident.address === id ) {
+                    //its a channel identity, default to selected
+                    delete identities[0].selected;
+                    ident.selected = true;
+                    selectedId = ident.address;
+                }
+
                 ident.label = ident.label + ' ' + ident.address.substring(3, 10);
             });
 

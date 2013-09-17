@@ -70,7 +70,9 @@ app.create('message', {
         }
 
         function clean(html, whitelist) {
-            whitelist = whitelist || {'font': ['color'], 'strong': [], 'b': [], 'i': [] };
+            var tags = {'font': ['color'], 'strong': [], 'b': [], 'i': [], img: ['src'], ol: [], ul: [], li: [], h1: [], h2: [], h3: [], h4: [], h5: [], h6: [], code: [], blockquote: [], pre: [], table: ['border', 'cellpadding', 'cellspacing'], caption: [], tr: [], th: ['colspan', 'rowspan'], td: ['colspan', 'rowspan'], em: [], strong: [], sub: [], sup: [], p: [], br: [] };
+
+            whitelist = _.extend(tags, whitelist);
 
             var $el = $('<div>'+html+'</div>');
 
@@ -87,7 +89,7 @@ app.create('message', {
         }
 
         html = stripTag(html, 'script');
-        html = clean(html, { img: ['src'] });
+        html = clean(html);
 
         return html;
     },
