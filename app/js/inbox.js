@@ -89,11 +89,11 @@ app.create('inbox', {
                     ident.label = ident.label + ' ' + ident.address.substring(3, 10);
                 });
 
-                var options = ui.tpl('fromOptions', { identities: identities });
+                ui.partial('from');
                 var form = ui.tpl('reply', {
-                    msg: msg,
-                    options: options,
-                    selectedId: selectedId
+                    msg: msg
+                    , selectedId: selectedId
+                    , identities: identities
                 });
 
                 //populate the modal
@@ -103,8 +103,8 @@ app.create('inbox', {
                 modal.$section.find('textarea.message').on('click.ui.modal', ui.tabKey);
 
                 //update the address shown
-                modal.$section.find('#reply-from').on('change.ui.modal', function(e){
-                    modal.$section.find("#reply-id").text(this.value);
+                modal.$section.find('#from').on('change.ui.modal', function(e){
+                    modal.$section.find("#from-id").text(this.value);
                 });
 
                 //handle modal primary button click

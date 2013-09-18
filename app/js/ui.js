@@ -396,7 +396,7 @@ _.extend(ui, {
     partial: function(name){
         var html = Handlebars.templates[name];
 
-        Handlebars.registerPartial(name, html);
+        return Handlebars.registerPartial(name, html);
     },
 
     textSelect: function(){

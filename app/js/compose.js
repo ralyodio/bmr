@@ -29,11 +29,11 @@ app.create('compose', {
                 ident.label = ident.label + ' ' + ident.address.substring(3, 10);
             });
 
-            var options = ui.tpl('fromOptions', { identities: identities });
+            ui.partial('from');
             var form = ui.tpl('compose', {
                 toAddress: id
-                , options: options
                 , selectedId: selectedId
+                , identities: identities
             });
 
             //populate the modal
@@ -43,8 +43,8 @@ app.create('compose', {
             modal.$section.find('textarea.message').on('click.ui.modal', ui.tabKey);
 
             //update the address shown
-            modal.$section.find('#compose-from').on('change.ui.modal', function(e){
-                modal.$section.find("#compose-id").text(this.value);
+            modal.$section.find('#from').on('change.ui.modal', function(e){
+                modal.$section.find("#from-id").text(this.value);
             });
 
             //handle modal primary button click
