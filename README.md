@@ -86,7 +86,7 @@ Join the "Bmr" channel:
     Passphrase: Bmr
     Address: BM-2DBdJhNWQAFmVw8Hjk4fL6Cs6dvUdr5Ftf
 
-### Security using the Bitmessage API remotely
+### Securely using the Bitmessage API remotely
 
 It is insecure to use a remote Bitmessage API directly, as all XMLRPC API calls go over the web using http in cleartext.
 That means when your Inbox is downloaded, or when you send a message, the content goes out over the web in plain text (unencrypted).
