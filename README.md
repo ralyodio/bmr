@@ -91,15 +91,15 @@ Join the "Bmr" channel:
 It is insecure to use a remote Bitmessage API directly, as all XMLRPC API calls go over the web using http in cleartext.
 That means when your Inbox is downloaded, or when you send a message, the content goes out over the web in plain text (unencrypted).
 
-To protect against this, it is better to open an SSH tunnel to the host your PyBitmessage API/server are running on. You can forward a local port on your remote port to a destination port (typically 8442) on the server (you only need to open up port 8444 in your firewall on the server to transmit to and from the Bitmessage peers).
+To protect against this, it is better to open an SSH tunnel to the host your PyBitmessage API/server are running on. You can forward a local port on your computer to a destination port (typically 8442) on the server (you only need to open up port 8444 in your firewall on the server to transmit to and from the Bitmessage peers, you do not need to open up port 8442, as the tunnel will handle this).
 
  This command will forward port 9800 locally to port 8442 on the server, using SSH as a tunnel (typically port 22) to your Bitmessage server host:
 
     ssh -N -L 9800:localhost:8442 <remote-server-hostname>
 
-When you login to Bmr locally, just use `localhost` as the hostname and port `9800`. This will encrypt all communication to the API using SSH.
+When you login to Bmr locally, just use `localhost` as the hostname and port `9800`. This will encrypt all communication to the API using SSH before it leaves your computer.
 
-By doing this, you are effectively tunneling the API calls directly on the server over SSH. So they are not going out over the web using http.
+By doing this, you are effectively making the API calls directly on the server over SSH. So they are not going out over the web using http.
 
 ### Screenshots
 
