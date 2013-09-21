@@ -42,9 +42,6 @@ body {
 .hide {
   display: none; }
 
-h1 {
-  margin-bottom: 0; }
-
 .nowrap {
   white-space: nowrap; }
 
@@ -175,8 +172,13 @@ a {
   text-decoration: none;
   margin-right: 5px; }
 
+a.proxy {
+  margin-left: 5px; }
+
 .msg a {
   margin: 0; }
+  .msg a.proxy {
+    margin-left: 5px; }
 
 nav a {
   padding: 3px 7px; }
@@ -188,6 +190,17 @@ nav.tabs a.active {
 
 header nav:nth-child(2) a {
   padding: 0; }
+
+nav.secondary {
+  background: #eef;
+  border: 1px solid #ccf;
+  border-radius: 0 0 0 3px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 3px 7px; }
+  nav.secondary a {
+    margin-right: 0; }
 
 a[class]:before {
   margin-right: 5px; }
@@ -353,6 +366,11 @@ tr.msg .content {
 
 form {
   margin: 10px auto; }
+  form small {
+    color: #444;
+    font-size: 12px; }
+  form a {
+    margin-right: 0; }
 
 label {
   display: inline-block; }
@@ -365,7 +383,24 @@ label.error {
 fieldset {
   border: 1px solid #ddd;
   margin: 10px 0;
-  border-radius: 5px; }
+  border-radius: 5px;
+  position: relative;
+  padding: 0 15px; }
+  fieldset.has-legend {
+    padding: 15px 30px; }
+
+legend {
+  line-height: 20px;
+  box-sizing: border-box;
+  top: -15px;
+  left: 15px;
+  position: absolute;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin: 0;
+  border-radius: 5px;
+  background: #fff; }
 
 #login fieldset input:not([type=radio]):not([type=checkbox]), #identities input[name=label] {
   width: 50%; }
@@ -386,11 +421,12 @@ form#login {
   margin: 0 auto; }
   form#login label {
     min-width: 25%; }
-  form#login button[type=submit] {
-    float: right; }
   form#login .remember {
     text-align: right;
     margin-right: 90px; }
+
+form#login button[type=submit], #settings form button[type=submit] {
+  float: right; }
 
 fieldset#create-address > div, fieldset#create-deterministic > div {
   float: left;

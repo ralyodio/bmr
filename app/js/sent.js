@@ -44,7 +44,7 @@ app.create('sent', {
             } else if ( $el.is('a.render-html') ) {
                 app.message.renderHtml(id, isSentMessage);
             } else if ( $el.is('a.ext') ) {
-                ui.win($el.attr('href'));
+                //ui.win($el.attr('href'));
             } else if ( $el.is('a.reverse') ) {
                 app.message.reverseThread(id, isSentMessage);
             }

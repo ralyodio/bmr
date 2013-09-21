@@ -49,6 +49,13 @@ _.extend(ui, {
                 this.navigateTo(currPage, newPage);
             }
         }.bind(this));
+
+        ui.$body.on('click.ui', 'a.ext', function(e){
+            e.preventDefault();
+
+            var $el = $(e.currentTarget);
+            ui.win($el.attr('href'));
+        });
     },
 
     navigateTo: function (currPage, newPage) {
@@ -442,6 +449,24 @@ _.extend(ui, {
 
         _.extend(base, object, { ns: namespace }); //override base class with implementation
         _.extend(ui[namespace], base);
+    },
+
+    settings: function(key, value){
+        var settings = JSON.parse(localStorage.getItem('settings')) || {};
+
+        if ( _.isObject(key) || value ) {
+            if ( value ) {
+                settings[key] = value;
+            } else {
+                settings = key;
+            }
+
+            localStorage.setItem('settings', JSON.stringify(settings));
+        } else if ( key ) {
+            return settings[key];
+        } else {
+            return settings;
+        }
     },
 
     destroy: function(){

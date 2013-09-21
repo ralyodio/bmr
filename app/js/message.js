@@ -95,7 +95,8 @@ app.create('message', {
     },
 
     parseMessage: function(html, renderHtml){
-        var URI = require('URIjs');
+        var URI = require('URIjs')
+            , settings = ui.settings();
 
         //!renderHtml is already escaped by hbs and considered safe
         if ( renderHtml ) {
@@ -103,7 +104,8 @@ app.create('message', {
         }
 
         html = URI.withinString(html, function(url){
-            var label = url;
+            var label = url
+                , proxy_url = false;
 
             //data urls are very long and can be ignored.
             if ( /^data:/.test(url) ) {
@@ -115,7 +117,26 @@ app.create('message', {
                 url = 'http://'+url;
             }
 
-            return '<a href="'+url+'" class="ext">'+label+'</a>';
+            //make the proxy url if we are using one
+            if ( settings.proxy_urls ) {
+                if ( settings.proxy_urls === 'ixquick' ) {
+                    proxy_url = 'https://ixquick.com/?query='+url;
+                } else if ( settings.proxy_urls === 'anonymouse' ) {
+                    proxy_url = 'http://anonymouse.org/cgi-bin/anon-www.cgi/'+url;
+                } else if ( settings.proxy_urls === 'webproxynet' ) {
+                    proxy_url = 'http://webproxy.net/view?q='+url;
+                }
+            }
+
+            return (
+                '<a href="'+url+'" class="ext">'+label+'</a>' +
+
+                    (
+                        proxy_url ?
+                            '<a href="'+proxy_url+'" class="proxy ext">[proxy]</a>'
+                            : ''
+                    )
+            );
         });
 
         //Bitmessage addressses

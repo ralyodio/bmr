@@ -5,8 +5,16 @@ a {
   margin-right: 5px;
 }
 
+a.proxy {
+  margin-left: 5px;
+}
+
 .msg a {
   margin: 0;
+
+  &.proxy {
+    margin-left: 5px;
+  }
 }
 
 nav a {
@@ -21,6 +29,20 @@ nav.tabs a.active {
 
 header nav:nth-child(2) a {
   padding: 0;
+}
+
+nav.secondary {
+  background: #eef;
+  border: 1px solid #ccf;
+  border-radius: 0 0 0 3px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 3px 7px;
+
+  a {
+    margin-right: 0;
+  }
 }
 
 a[class]:before {

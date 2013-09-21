@@ -12,6 +12,15 @@
 
 form {
   margin: 10px auto;
+
+  small {
+    color: #444;
+    font-size: 12px;
+  }
+
+  a {
+    margin-right: 0;
+  }
 }
 
 label {
@@ -30,6 +39,26 @@ fieldset {
   border: 1px solid #ddd;
   margin: 10px 0;
   border-radius: 5px;
+  position: relative;
+  padding: 0 15px;
+
+  &.has-legend {
+    padding: 15px 30px;
+  }
+}
+
+legend {
+  line-height: 20px;
+  box-sizing: border-box;
+  top: -15px;
+  left: 15px;
+  position: absolute;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  font-size: 16px;
+  margin: 0;
+  border-radius: 5px;
+  background: #fff;
 }
 
 #login fieldset input:not([type=radio]):not([type=checkbox]), #identities input[name=label] {
@@ -58,13 +87,15 @@ form#login {
     min-width: 25%;
   }
 
-  button[type=submit] {
-    float: right;
-  }
-
   .remember {
     text-align: right;
     margin-right: 90px;
+  }
+}
+
+form#login, #settings form {
+  button[type=submit] {
+    float: right;
   }
 }
 

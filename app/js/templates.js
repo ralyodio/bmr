@@ -573,6 +573,74 @@ function program4(depth0,data) {
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   });
+templates['settings'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, self=this;
+
+function program1(depth0,data) {
+  
+  
+  return "\n                        <input type=\"radio\" name=\"proxy_urls\" value=\"ixquick\" checked>\n                    ";
+  }
+
+function program3(depth0,data) {
+  
+  
+  return "\n                        <input type=\"radio\" name=\"proxy_urls\" value=\"ixquick\">\n                    ";
+  }
+
+function program5(depth0,data) {
+  
+  
+  return "\n                        <input type=\"radio\" name=\"proxy_urls\" value=\"anonymouse\" checked>\n                    ";
+  }
+
+function program7(depth0,data) {
+  
+  
+  return "\n                        <input type=\"radio\" name=\"proxy_urls\" value=\"anonymouse\">\n                    ";
+  }
+
+function program9(depth0,data) {
+  
+  
+  return "\n                        <input type=\"radio\" name=\"proxy_urls\" value=\"webproxynet\" checked>\n                    ";
+  }
+
+function program11(depth0,data) {
+  
+  
+  return "\n                        <input type=\"radio\" name=\"proxy_urls\" value=\"webproxynet\">\n                    ";
+  }
+
+function program13(depth0,data) {
+  
+  
+  return "\n                        <input type=\"radio\" name=\"proxy_urls\" value=\"none\" checked>\n                    ";
+  }
+
+function program15(depth0,data) {
+  
+  
+  return "\n                        <input type=\"radio\" name=\"proxy_urls\" value=\"none\">\n                    ";
+  }
+
+  buffer += "<section id=\"settings\">\n    <h1>Settings</h1>\n    <form class=\"clearfix\">\n        <fieldset class=\"has-legend\">\n            <legend>Link proxy</legend>\n            <p>\n                <label>\n                    ";
+  stack1 = helpers['if'].call(depth0, depth0.proxy_urls_ixquick, {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n                    Show an <a href=\"https://ixquick.com\" class=\"ext\">IxQuick.com</a> proxy link next to URLs in messages\n                </label>\n            </p>\n            <p><small>IxQuick requires you click 'Search' and then 'proxy' from first result (if one is found)...but will hide your IP when viewing a site using their proxy (<a href=\"https://ixquick.com/eng/privacy-policy.html\" class=\"ext\">privacy policy</a>).</small></p>\n            <p>\n                <label>\n                    ";
+  stack1 = helpers['if'].call(depth0, depth0.proxy_urls_anonymouse, {hash:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n                    Show an <a href=\"http://anonymouse.org\" class=\"ext\">Anonymouse.org</a> proxy link next to URLs in messages\n                </label>\n            </p>\n            <p><small>Anonymouse shows an advertisement over the proxied page. They have been online since 1997 (<a href=\"http://anonymouse.org/privacy.html\" class=\"ext\">privacy policy</a>).</small></p>\n            <p>\n                <label>\n                    ";
+  stack1 = helpers['if'].call(depth0, depth0.proxy_urls_webproxynet, {hash:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n                    Show a <a href=\"http://webproxy.net/\" class=\"ext\">webproxy.net</a> proxy link next to URLs in messages\n                </label>\n            </p>\n            <p>\n                <label>\n                    ";
+  stack1 = helpers['if'].call(depth0, depth0.proxy_urls_none, {hash:{},inverse:self.program(15, program15, data),fn:self.program(13, program13, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n                    None - Don't show a proxy link, I don't care for or trust these services\n                </label>\n            </p>\n        </fieldset>\n\n        <button type=\"submit\">Save</button>\n    </form>\n</section>\n";
+  return buffer;
+  });
 templates['subscriptions'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
