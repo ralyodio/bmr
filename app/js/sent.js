@@ -11,7 +11,8 @@ app.create('sent', {
 
         ui.partial('filter');
         ui.$pg = $(ui.tpl('sent', {}));
-        ui.$header.show();
+        ui.$header.removeClass('hide');
+        ui.$nav.removeClass('hide');
         ui.$header.find('a.sent').addClass('active').siblings().removeClass('active');
 
         api.sentMessages(this.showSent.bind(this)); //needs spinner
@@ -155,10 +156,12 @@ app.create('sent', {
 
         app.message.destroy();
 
+        /*
         ui.destroy();
         $(document).add('*').off('.' + this.ns);
         ui.$pg.remove();
+        */
 
-        this.parent.destroy();
+        this.parent.destroy(this.ns);
     }
 });

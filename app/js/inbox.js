@@ -13,7 +13,8 @@ app.create('inbox', {
 
         ui.partial('filter');
         ui.$pg = $(ui.tpl('inbox', {}));
-        ui.$header.show();
+        ui.$header.removeClass('hide');
+        ui.$nav.removeClass('hide');
         ui.$header.find('a.inbox').addClass('active').siblings().removeClass('active');
 
         api.getInbox(this.showInbox.bind(this)); //needs spinner
@@ -224,7 +225,7 @@ app.create('inbox', {
         } else if ( action === 'read' || action === 'unread' ) {
             $.each($checked, function(i, cb){
                var id = cb.value
-                   , read = !!(action === 'read');
+                   , read = action === 'read';
 
                 api.getMessage(id, function(msg){
                     var $row = $table.find('tr[data-id='+id+']');
@@ -242,15 +243,14 @@ app.create('inbox', {
     },
 
     destroy: function () {
-        c.log('app.inbox.destroy');
+        c.log('app.login.destroy');
 
         app.message.destroy();
 
-        ui.destroy();
+        //ui.destroy();
+        //$(document).add('*').off('.' + this.ns);
+        //ui.$pg.remove();
 
-        $(document).add('*').off('.' + this.ns);
-        ui.$pg.remove();
-
-        this.parent.destroy();
+        this.parent.destroy(this.ns);
     }
 });

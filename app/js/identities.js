@@ -11,7 +11,8 @@ app.create('identities', {
 
         ui.partial('filter');
         ui.$pg = $(ui.tpl('identities', {}));
-        ui.$header.show();
+        ui.$header.removeClass('hide');
+        ui.$nav.removeClass('hide');
         ui.$header.find('a.identities').addClass('active').siblings().removeClass('active');
 
         api.listAddresses(this.showIdentities); //needs spinner
@@ -87,7 +88,7 @@ app.create('identities', {
             }.bind(this));
 
         } else if ( action === 'create-address' ) {
-            f = $form.get(0)
+            f = $form.get(0);
             opts = {};
 
             opts.label = f.label.value;
@@ -111,7 +112,7 @@ app.create('identities', {
                 $form.find('input[name=label]').parents('label').addClass('error');
             }
         } else if ( action === 'create-deterministic' ) {
-            f = $form.get(0)
+            f = $form.get(0);
             opts = {};
 
             opts.passphrase = f.passphrase.value;
@@ -146,10 +147,12 @@ app.create('identities', {
     destroy: function () {
         c.log('app.identities.destroy');
 
+        /*
         ui.destroy();
         $(document).add('*').off('.' + this.ns);
         ui.$pg.remove();
+        */
 
-        this.parent.destroy();
+        this.parent.destroy(this.ns);
     }
 });

@@ -1,5 +1,12 @@
 app.create('settings', {
     init: function(){
+        //TODO refactor to app.isAuth()
+        if (!api.getConnection()) {
+            c.log('No connection.');
+            ui.navigateTo(null, 'logout');
+            return;
+        }
+
         ui.init(this.ns);
         c.log('app.settings.init');
 
@@ -17,7 +24,8 @@ app.create('settings', {
         settings.proxy_urls_webproxynet = settings.proxy_urls === 'webproxynet';
         settings.proxy_urls_none = settings.proxy_urls === 'none';
 
-        ui.$header.show();
+        ui.$header.removeClass('hide');
+        ui.$nav.removeClass('hide');
         ui.$header.find('a').removeClass('active');
         ui.$pg = $(ui.tpl('settings', settings));
         ui.$content.append(ui.$pg);
@@ -53,10 +61,12 @@ app.create('settings', {
     destroy: function(){
         c.log('app.settings.destroy');
 
+        /*
         ui.destroy();
         ui.$pg.remove();
         $(document).add('*').off('.' + this.ns);
+        */
 
-        this.parent.destroy();
+        this.parent.destroy(this.ns);
     }
 });

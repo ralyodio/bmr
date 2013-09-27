@@ -47,7 +47,14 @@ _.extend(app, {
         return Buffer.byteLength(string, 'utf8');
     },
 
-    destroy: function(){
+    destroy: function(ns){
         c.log('app.destroy');
+
+        if ( ns ) {
+            c.log('app.destroy:ns', ns);
+            $(document).add('*').off('.' + ns);
+        }
+
+        ui.destroy();
     }
 });

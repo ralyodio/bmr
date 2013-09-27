@@ -5,7 +5,8 @@ app.create('login', {
 
         ui.$pg = $(ui.tpl('login', {}));
         ui.$content.append(ui.$pg);
-        ui.$header.hide();
+        ui.$header.addClass('hide');
+        ui.$nav.addClass('hide');
 
         //events
         ui.$pg.on('submit.login', this.login);
@@ -40,10 +41,10 @@ app.create('login', {
     destroy: function(){
         c.log('app.login.destroy');
 
-        ui.destroy();
-        ui.$pg.remove();
-        $(document).add('*').off('.' + this.ns);
+        //ui.destroy();
+        //ui.$pg.remove();
+        //$(document).add('*').off('.' + this.ns);
 
-        this.parent.destroy();
+        this.parent.destroy(this.ns);
     }
 });

@@ -16,6 +16,7 @@ _.extend(ui, {
     $content: null,
     $pg: null,
     $modal: null,
+    $nav: null,
     ns: null,
 
     dom: {},
@@ -27,10 +28,13 @@ _.extend(ui, {
         this.ns = ns;
         this.$body = $('body');
         this.$header = this.$body.find('> header');
+        this.$nav = this.$body.find('> nav.global');
         this.$content = this.$body.find('> #content');
 
         $(window).on('popstate.ui', function(e){
             //debugger;
+            c.log('e.state', e.state);
+
             var newPage = window.location.href.split('#')[1];
 
             c.log('popstate ', this.globals.currPage, newPage);
@@ -70,7 +74,12 @@ _.extend(ui, {
         if ( currPage ) {
             $body.removeClass(currPage);
             app[currPage].destroy();
+        } else {
+            //normally currPage.destroy() will call app.destroy() (above)
+            //but we don't have a currPage to destroy here
+            app.destroy();
         }
+
 
         $body.addClass(newPage);
 
@@ -463,6 +472,8 @@ _.extend(ui, {
             }
 
             localStorage.setItem('settings', JSON.stringify(settings));
+        } else if ( key === null ) {
+            localStorage.removeItem('settings');
         } else if ( key ) {
             return settings[key];
         } else {
@@ -471,13 +482,17 @@ _.extend(ui, {
     },
 
     destroy: function(){
+        c.log('ui.destroy');
         this.ns = null;
 
         $(window).off('.ui');
         $(document).add('*').off('.ui');
 
+        if ( this.$pg ) this.$pg.remove();
+
         if (this.globals.currPage === 'login') {
-            this.$header.hide();
+            this.$header.addClass('hide');
+            this.$nav.addClass('hide');
         }
     }
 });

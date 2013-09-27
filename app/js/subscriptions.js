@@ -12,7 +12,9 @@ app.create('subscriptions', {
 
         ui.partial('filter');
         ui.$pg = $(ui.tpl('subscriptions', {}));
-        ui.$header.show();
+        ui.$header.removeClass('hide');
+        ui.$nav.removeClass('hide');
+
         ui.$header.find('a.subscriptions').addClass('active').siblings().removeClass('active');
 
         api.listSubscriptions(this.showSubscriptions); //needs spinner
@@ -137,10 +139,12 @@ app.create('subscriptions', {
     destroy: function () {
         c.log('app.subscriptions.destroy');
 
+        /*
         ui.destroy();
         ui.$pg.remove();
         $(document).add('*').off('.' + this.ns);
+        */
 
-        this.parent.destroy();
+        this.parent.destroy(this.ns);
     }
 });
