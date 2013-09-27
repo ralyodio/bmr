@@ -75,7 +75,7 @@ _.extend(ui, {
 
         //close existing modal
         if ( this.$modal ) {
-            this.modal.hide();
+            this.modal.hide(); //ui.modal
         }
 
         app[newPage].init();
