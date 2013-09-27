@@ -1,0 +1,89 @@
+@charset "UTF-8";
+a {
+  text-decoration: none;
+  margin-right: 5px; }
+
+a.proxy {
+  margin-left: 5px; }
+
+.msg a {
+  margin: 0; }
+  .msg a.proxy {
+    margin-left: 5px; }
+
+nav a {
+  padding: 3px 7px; }
+
+nav.tabs a.active {
+  background: #eef;
+  border: 1px solid #ccf;
+  border-radius: 3px; }
+
+header nav:nth-child(2) a {
+  padding: 0; }
+
+nav.secondary {
+  background: #eef;
+  border: 1px solid #ccf;
+  border-radius: 0 0 0 3px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 3px 7px; }
+  nav.secondary a {
+    margin-right: 0; }
+
+a[class]:before {
+  margin-right: 5px; }
+
+a.refresh:before {
+  content: '↻'; }
+
+a.inbox:before {
+  content: '⇧';
+  display: inline-block;
+  position: relative;
+  -webkit-transform: rotate(180deg);
+  margin-left: 5px; }
+
+a.contacts:before {
+  content: '☎';
+  font-size: 13px; }
+
+a.compose:before, .address:before, #sent .to:before, #inbox .msg .from:before {
+  content: '✉';
+  font-size: 24px;
+  position: relative;
+  top: 4px; }
+
+.address, #sent .to, #inbox .msg .from {
+  cursor: pointer; }
+  .address:before, #sent .to:before, #inbox .msg .from:before {
+    margin-right: 3px; }
+
+a.sent:before {
+  content: '⇧'; }
+
+a.close:before {
+  content: 'ⓧ'; }
+
+a.maximize:before {
+  font-size: 18px;
+  content: '⦿'; }
+
+a.minimize:before {
+  font-size: 18px;
+  content: '⊝'; }
+
+header nav:nth-child(1) {
+  float: left; }
+header nav:nth-child(2) {
+  float: right;
+  position: relative;
+  top: 10px; }
+
+.total:before {
+  content: '('; }
+
+.total:after {
+  content: ')'; }
