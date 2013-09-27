@@ -29,7 +29,8 @@ _.extend(ui, {
         this.$header = this.$body.find('> header');
         this.$content = this.$body.find('> #content');
 
-        $(window).on('popstate.ui', function(){
+        $(window).on('popstate.ui', function(e){
+            //debugger;
             var newPage = window.location.href.split('#')[1];
 
             c.log('popstate ', this.globals.currPage, newPage);
