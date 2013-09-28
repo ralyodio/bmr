@@ -1,10 +1,6 @@
 app.create('subscriptions', {
     init: function () {
-        if (!api.getConnection()) {
-            c.log('No connection.');
-            ui.navigateTo(null, 'logout');
-            return;
-        }
+        if (!app.isAuth()) return;
 
         c.log('app.subscriptions.init');
 

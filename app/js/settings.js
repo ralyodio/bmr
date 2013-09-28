@@ -1,11 +1,6 @@
 app.create('settings', {
     init: function(){
-        //TODO refactor to app.isAuth()
-        if (!api.getConnection()) {
-            c.log('No connection.');
-            ui.navigateTo(null, 'logout');
-            return;
-        }
+        if (!app.isAuth()) return;
 
         ui.init(this.ns);
         c.log('app.settings.init');

@@ -2,11 +2,7 @@ app.create('inbox', {
     lastReceivedTime: null,
 
     init: function () {
-        if (!api.getConnection()) {
-            c.log('No connection.');
-            ui.navigateTo(null, 'logout');
-            return;
-        }
+        if (!app.isAuth()) return;
 
         ui.init(this.ns);
         c.log('app.inbox.init');

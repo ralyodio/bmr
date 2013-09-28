@@ -47,6 +47,20 @@ _.extend(app, {
         return Buffer.byteLength(string, 'utf8');
     },
 
+    isAuth: function(){
+        var isAuth = false;
+
+        if (api.getConnection()) {
+            c.log('authenticated...');
+            isAuth = true;
+        } else {
+            c.log('not authenticated.');
+            ui.navigateTo(null, 'logout');
+        }
+
+        return isAuth;
+    },
+
     destroy: function(ns){
         c.log('app.destroy');
 
