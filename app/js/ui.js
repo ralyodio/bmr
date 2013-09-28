@@ -338,22 +338,43 @@ _.extend(ui, {
     },
 
     settings: function(key, value){
-        var settings = JSON.parse(localStorage.getItem('settings')) || {};
+        var data = this.store.get('settings');
 
-        if ( _.isObject(key) || value ) {
+        //key can be an object to replace existing value, or a key+value pair to set an attribute
+        if ( _.isObject(key) || value || value === null ) {
+            //key, value pair
             if ( value ) {
-                settings[key] = value;
+                data[key] = value;
+            } else if ( value === null ) {
+                delete data[key];
             } else {
-                settings = key;
+                //replacement object
+                data = key;
             }
 
-            localStorage.setItem('settings', JSON.stringify(settings));
+            this.store.set('settings', data);
         } else if ( key === null ) {
-            localStorage.removeItem('settings');
+            this.store.remove('settings');
         } else if ( key ) {
-            return settings[key];
+            return data[key];
         } else {
-            return settings;
+            return data;
+        }
+    },
+
+    store: {
+        get: function(key){
+            return JSON.parse(localStorage.getItem(key)) || {};
+        },
+
+        set: function(key, value){
+            var data = _.isObject(value) ? JSON.stringify(value) : value;
+
+            localStorage.setItem(key, data);
+        },
+
+        remove: function(key){
+            localStorage.removeItem(key);
         }
     },
 

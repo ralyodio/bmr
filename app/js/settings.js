@@ -35,15 +35,6 @@ app.create('settings', {
         data.proxy_urls = $form.find('input[name=proxy_urls]:checked').val();
 
         ui.settings(data);
-
-        /*
-        for ( var key in data ) {
-            ui.settings(key, data[key]);
-        }
-        */
-
-        //localStorage.setItem('settings', JSON.stringify(data));
-
         ui.ok('Settings updated');
         ui.$pg.hide({
             duration: 0,
