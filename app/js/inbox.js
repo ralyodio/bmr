@@ -15,6 +15,11 @@ app.create('inbox', {
 
         api.getInbox(this.showInbox.bind(this)); //needs spinner
 
+        //start long polling for new messages
+        ui.timers.inbox = setInterval(function(){
+            api.getInbox(this.showMessages.bind(this));
+        }.bind(this), app.cfg('inbox.refresh'));
+
         //page events
         ui.$pg.find("#inbox-action").on('submit.inbox', this.actionItem.bind(this));
         ui.filter();
@@ -133,11 +138,20 @@ app.create('inbox', {
 
         msgs = ui.sortByDateAttr(msgs, 'receivedTime');
 
-        //save the time of the most recent message for long polling new messages
+        //if we are in a long poll, filter for new messages
+        if ( msgs && this.lastReceivedTime ) {
+            msgs = _.filter(msgs, function(m){
+                return moment(m.receivedTime).unix() > moment(this.lastReceivedTime).unix();
+            }.bind(this));
+        }
+
+        //save the time of the most recent message for long polling of new messages
         this.lastReceivedTime = msgs[0] ? msgs[0].receivedTime : this.lastReceivedTime;
 
-        $tbody.prepend(ui.tpl('inboxMessages', { messages: this.getMessagesData(msgs) }));
-        $total.text($tbody.find('tr').length);
+        if ( msgs.length ) {
+            $tbody.prepend(ui.tpl('inboxMessages', { messages: this.getMessagesData(msgs) }));
+            $total.text($tbody.find('tr').length);
+        }
     },
 
     getMessagesData: function(msgs){
@@ -238,6 +252,8 @@ app.create('inbox', {
         c.log('app.login.destroy');
 
         app.message.destroy();
+        this.lastReceivedTime = null;
+        clearTimeout(ui.timers.inbox);
 
         //ui.destroy();
         //$(document).add('*').off('.' + this.ns);

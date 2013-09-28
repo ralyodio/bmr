@@ -61,6 +61,21 @@ _.extend(app, {
         return isAuth;
     },
 
+    cfg: function(path){
+        function getByPath(obj, key) {
+            var keys = key.split('.');
+
+            //lookup object
+            _.each(keys, function(k){
+               obj = obj[k];
+            });
+
+            return obj;
+        }
+
+        return getByPath(this.config, path);
+    },
+
     destroy: function(ns){
         c.log('app.destroy');
 
