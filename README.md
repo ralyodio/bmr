@@ -93,6 +93,10 @@ By doing this, you are effectively making the API calls directly on the server o
 
 ### Screenshots
 
+Login to PyBitmessage server (use SSH tunnel for remote access):
+
+![Login](/screenshots/login.png)
+
 Compose a new message:
 
 ![Compose](/screenshots/compose.png)
