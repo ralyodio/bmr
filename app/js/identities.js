@@ -33,10 +33,7 @@ app.create('identities', {
 
         //initialize events for the table
         if ( !refresh ) {
-            ui.sortTable($table);
-            ui.markAll($table);
-            ui.shiftCheck.init($table);
-            ui.checkItem($table);
+            ui.table.init($table);
 
             //call to wire up events here for address rows
             $tbody.on('click.identities', 'tr .address', function(e){

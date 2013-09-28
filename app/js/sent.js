@@ -92,12 +92,7 @@ app.create('sent', {
             app.compose.init(id);
         });
 
-        //initialize events for the table
-        // TODO move to ui.table.init($table)
-        ui.markAll($table);
-        ui.shiftCheck.init($table);
-        ui.sortTable($table);
-        ui.checkItem($table);
+        ui.table.init($table);
         app.message.readMsg($table, isSentMessage);
 
         $total.text(msgs.length);

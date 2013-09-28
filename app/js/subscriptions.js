@@ -32,10 +32,7 @@ app.create('subscriptions', {
 
         //initialize events for the table
         if ( !refresh ) {
-            ui.sortTable($table);
-            ui.markAll($table);
-            ui.shiftCheck.init($table);
-            ui.checkItem($table);
+            ui.table.init($table);
 
             //stub: wire up events here for address rows here
             $tbody.on('click.subscriptions', 'tr .address', function(e){

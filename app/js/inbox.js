@@ -169,11 +169,7 @@ app.create('inbox', {
 
         this.showMessages(msgs);
 
-        //initialize events for the table
-        ui.markAll($table);
-        ui.shiftCheck.init($table);
-        ui.sortTable($table);
-        ui.checkItem($table);
+        ui.table.init($table);
         app.message.readMsg($table, false);
 
         ui.$content.append(ui.$pg);
