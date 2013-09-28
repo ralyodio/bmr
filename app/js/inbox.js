@@ -17,6 +17,7 @@ app.create('inbox', {
 
         //start long polling for new messages
         ui.timers.inbox = setInterval(function(){
+            ui.$header.find('a.inbox').addClass('pre anim');
             api.getInbox(this.showMessages.bind(this));
         }.bind(this), app.cfg('inbox.refresh'));
 
@@ -145,10 +146,14 @@ app.create('inbox', {
             }.bind(this));
         }
 
+        c.log(msgs);
         //save the time of the most recent message for long polling of new messages
         this.lastReceivedTime = msgs[0] ? msgs[0].receivedTime : this.lastReceivedTime;
 
+        ui.$header.find('a.inbox').removeClass('pre anim');
+
         if ( msgs.length ) {
+
             $tbody.prepend(ui.tpl('inboxMessages', { messages: this.getMessagesData(msgs) }));
             $total.text($tbody.find('tr').length);
         }

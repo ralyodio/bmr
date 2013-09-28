@@ -53,12 +53,22 @@ a.refresh:before {
   content: '↻';
 }
 
-a.inbox:before {
-  content: '⇧';
-  display: inline-block;
-  position: relative;
-  -webkit-transform: rotate(180deg);
-  margin-left: 5px;
+a.inbox {
+  &:before {
+    content: '⇧';
+    display: inline-block;
+    position: relative;
+    -webkit-transform: rotate(180deg);
+    margin-left: 5px;
+  }
+
+  &.pre:before {
+    transition: -webkit-transform 1s;
+  }
+
+  &.anim:before {
+    -webkit-transform: rotate(540deg);
+  }
 }
 
 a.contacts:before {

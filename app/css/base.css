@@ -214,6 +214,10 @@ a.inbox:before {
   position: relative;
   -webkit-transform: rotate(180deg);
   margin-left: 5px; }
+a.inbox.pre:before {
+  transition: -webkit-transform 1s; }
+a.inbox.anim:before {
+  -webkit-transform: rotate(540deg); }
 
 a.contacts:before {
   content: '☎';
