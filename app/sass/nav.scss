@@ -62,11 +62,8 @@ a.inbox {
     margin-left: 5px;
   }
 
-  &.pre:before {
-    transition: -webkit-transform 1s;
-  }
-
   &.anim:before {
+    transition: -webkit-transform 1s;
     -webkit-transform: rotate(540deg);
   }
 }
