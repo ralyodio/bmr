@@ -91,7 +91,7 @@ You can also hold the "cmd" (mac), "ctrl" (win/linux) key and click the "select 
 Join the "Bmr" channel:
 
     Passphrase: Bmr
-    Address: BM-2DBdJhNWQAFmVw8Hjk4fL6Cs6dvUdr5Ftf
+    Address: BM-2cXEHofo7LieKNGNmAPypDUej9BRQvuFYS
 
 On the settings page you can defined a optional proxy service to pass links through that appear in the message body.
 
