@@ -3,9 +3,11 @@
 
 Bmr, pronounced "beamer", is a Bitmessage client written in [node.js](http://nodejs.org) using the [node-webkit](https://github.com/rogerwang/node-webkit/) desktop application framework. It is a self-contained Bitmessage client for reading messages that you can run on your desktop and connect to your Bitmessage server.
 
-### Official Distributions
+Bmr is available for Linux, Mac and Windows desktops.
 
-Bmr is in active development: [Bmr-v0.0.1-alpha](https://github.com/chovy/bmr/releases/tag/0.0.1)
+### Official Releases
+
+Bmr is in active development: [Bmr-v0.0.1-alpha](https://github.com/chovy/bmr/releases/tag/0.0.1) is the current release version.
 
 Download, unzip and double-click on "Bmr" app.
 
@@ -14,7 +16,9 @@ Download, unzip and double-click on "Bmr" app.
 * [Mac](https://github.com/chovy/bmr/releases/download/0.0.1/Bmr-v0.0.1-alpha-mac.zip)
 * [Windows](https://github.com/chovy/bmr/releases/download/0.0.1/Bmr-v0.0.1-alpha-win.zip)
 
-Please help improve Bmr by filing any bugs, this is alpha software.
+It is advised you *always use an SSH tunnel to your Bitmessage server* when running Bmr remotely (see security section below).
+
+Please help improve Bmr by filing any bugs, as this is alpha software.
 
 ### Installation
 
@@ -49,7 +53,7 @@ If you want to run PyBitmessage in Daemon mode without the PyQT client starting,
 
 #### Official release
 
-Download the latests [Bmr releases](https://github.com/chovy/bmr/releases).
+Download the latest [Bmr release](https://github.com/chovy/bmr/releases) for your platform (Win, Linux, Mac).
 
 ##### Running from source (development)
 
