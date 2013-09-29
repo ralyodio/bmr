@@ -70,7 +70,9 @@ app.create('message', {
         }
 
         function clean(html, whitelist) {
-            var tags = {'font': ['color'], 'strong': [], 'b': [], 'i': [], img: ['src'], ol: [], ul: [], li: [], h1: [], h2: [], h3: [], h4: [], h5: [], h6: [], code: [], blockquote: [], pre: [], table: ['border', 'cellpadding', 'cellspacing'], caption: [], tr: [], th: ['colspan', 'rowspan'], td: ['colspan', 'rowspan'], em: [], strong: [], sub: [], sup: [], p: [], br: [] };
+            var tags = {'font': ['color'], 'strong': [], 'b': [], 'i': [], img: ['src'], ol: [], ul: [], li: [], h1: [], h2: [], h3: [], h4: [], h5: [], h6: [], code: [], blockquote: [], pre: [], table: ['border', 'cellpadding', 'cellspacing'], caption: [], tr: [], th: ['colspan', 'rowspan'], td: ['colspan', 'rowspan'], em: [], strong: [], sub: [], sup: [], p: [], br: [], audio: ['src', 'controls'] };
+
+            //<audio src="audio.mp3" controls></audio>
 
             whitelist = _.extend(tags, whitelist);
 

@@ -18,12 +18,12 @@ app.create('sent', {
         ui.filter();
 
         //handle click events on open messages
-        ui.$pg.find('table').on('click.sent', 'tr.msg', function (e) {
+        ui.$pg.find('table').on('click.sent', 'tr.msg header', function (e) {
             e.preventDefault();
 
             var $el = $(e.target) //clicked element
                 , isSentMessage = true
-                , $row = $(e.currentTarget)
+                , $row = $(e.currentTarget).parents('tr.msg')
                 , id = $row.attr('data-msgid'); //this is actually ackData
 
             //handle msg actions

@@ -344,37 +344,37 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <p class=\"date\">"
+  buffer += "\n            <p class=\"date\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.lastActionTime)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</p>\n    ";
+    + "</p>\n        ";
   return buffer;
   }
 
 function program3(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <p class=\"date\">"
+  buffer += "\n            <p class=\"date\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.receivedTime)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</p>\n    ";
+    + "</p>\n        ";
   return buffer;
   }
 
 function program5(depth0,data) {
   
   
-  return "\n            <!-- <a href=\"#\" class=\"add-address\">Add to address book</a> -->\n        ";
+  return "\n                <!-- <a href=\"#\" class=\"add-address\">Add to address book</a> -->\n            ";
   }
 
 function program7(depth0,data) {
   
   
-  return "\n            <a href=\"#\" class=\"reply\">Reply</a>\n        ";
+  return "\n                <a href=\"#\" class=\"reply\">Reply</a>\n            ";
   }
 
 function program9(depth0,data) {
   
   
-  return "\n            <a href=\"#\" class=\"render-html\">Show HTML</a>\n        ";
+  return "\n                <a href=\"#\" class=\"render-html\">Show HTML</a>\n            ";
   }
 
 function program11(depth0,data) {
@@ -396,26 +396,26 @@ function program13(depth0,data) {
   return buffer;
   }
 
-  buffer += "<div class=\"message-container\">\n    <nav class=\"icons\">\n        <a href=\"#\" class=\"minimize\">Minimize</a>\n        <a href=\"#\" class=\"maximize hide\">Maximize</a>\n        <a href=\"#\" class=\"close\">Close</a>\n    </nav>\n    <h3 class=\"subject\">"
+  buffer += "<div class=\"message-container\">\n    <header>\n        <nav class=\"icons\">\n            <a href=\"#\" class=\"minimize\">Minimize</a>\n            <a href=\"#\" class=\"maximize hide\">Maximize</a>\n            <a href=\"#\" class=\"close\">Close</a>\n        </nav>\n        <h3 class=\"subject\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.subject)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</h3>\n    ";
+    + "</h3>\n        ";
   stack2 = helpers['if'].call(depth0, depth0.isSentMessage, {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n    <p data-address=\""
+  buffer += "\n        <p data-address=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" class=\"from\">From: "
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</p>\n    <p data-address=\""
+    + "</p>\n        <p data-address=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.toAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" class=\"to\">To: "
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.toAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</p>\n    <nav>\n        ";
+    + "</p>\n        <nav>\n            ";
   stack2 = helpers['if'].call(depth0, depth0.isSentMessage, {hash:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        <a href=\"#\" class=\"trash\">Trash</a>\n        ";
+  buffer += "\n            <a href=\"#\" class=\"trash\">Trash</a>\n            ";
   stack2 = helpers.unless.call(depth0, depth0.renderHtml, {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        <a href=\"#\" class=\"reverse\">Reverse thread</a>\n    </nav>\n    ";
+  buffer += "\n            <a href=\"#\" class=\"reverse\">Reverse thread</a>\n        </nav>\n    </header>\n    ";
   stack2 = helpers['if'].call(depth0, depth0.renderHtml, {hash:{},inverse:self.program(13, program13, data),fn:self.program(11, program11, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n</div>";

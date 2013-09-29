@@ -26,12 +26,12 @@ app.create('inbox', {
         ui.filter();
 
         //handle click events on currently opened messages
-        ui.$pg.find("table").on('click.inbox', 'tr.msg', function (e) {
+        ui.$pg.find("table").on('click.inbox', 'tr.msg header', function (e) {
             e.preventDefault();
 
             var $el = $(e.target) //clicked element
                 , isSentMessage = false
-                , $row = $(e.currentTarget)
+                , $row = $(e.currentTarget).parents('tr.msg')
                 , id = $row.attr('data-msgid'); //msg.msgid
 
             //handle msg actions

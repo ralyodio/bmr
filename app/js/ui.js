@@ -41,7 +41,7 @@ _.extend(ui, {
             this.navigateTo(this.globals.currPage, newPage);
         }.bind(this));
 
-        $(document.body).on('click.ui', 'header nav a[href]', function (e) {
+        $(document.body).on('click.ui', '> header nav a[href]', function (e) {
             e.preventDefault();
 
             var type = $(e.target).attr('data-type')
