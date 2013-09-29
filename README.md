@@ -16,7 +16,7 @@ Download, unzip and double-click on "Bmr" app.
 * [Mac](https://github.com/chovy/bmr/releases/download/0.0.1/Bmr-v0.0.1-alpha-mac.zip)
 * [Windows](https://github.com/chovy/bmr/releases/download/0.0.1/Bmr-v0.0.1-alpha-win.zip)
 
-It is advised you *always use an SSH tunnel to your Bitmessage server* when running Bmr remotely (see security section below).
+It is advised you **always use an SSH tunnel to your Bitmessage server** when running Bmr remotely (see security section below).
 
 Please help improve Bmr by filing any bugs, as this is alpha software.
 
@@ -51,11 +51,11 @@ If you want to run PyBitmessage in Daemon mode without the PyQT client starting,
 
 #### Bmr (client -- this app)
 
-#### Official release
+##### Official release
 
 Download the latest [Bmr release](https://github.com/chovy/bmr/releases) for your platform (Win, Linux, Mac).
 
-##### Running from source (development)
+##### Optionally running from source (development only)
 
 To run Bmr from source (to track development inbetween releases), you first need to [download node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
 
