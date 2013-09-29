@@ -18,7 +18,7 @@ Download, unzip and double-click on "Bmr" app.
 
 It is advised you **always use an SSH tunnel to your Bitmessage server** when running Bmr remotely (see security section below).
 
-Please help improve Bmr by filing any bugs, as this is alpha software.
+Please help improve Bmr by filing bugs, as this is alpha software.
 
 ### Installation
 
