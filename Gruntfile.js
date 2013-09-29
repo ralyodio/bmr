@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
-
+    //TODO: move ./app/node-webkit.app out of the directory before building
+    //TODO: create a ./src directory for building from.
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),

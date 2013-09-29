@@ -3,13 +3,22 @@
 
 Bmr, pronounced "beamer", is a Bitmessage client written in [node.js](http://nodejs.org) using the [node-webkit](https://github.com/rogerwang/node-webkit/) desktop application framework. It is a self-contained Bitmessage client for reading messages that you can run on your desktop and connect to your Bitmessage server.
 
-### Development Status
+### Official Distributions
 
-Bmr is in active development, however there is no official package release yet. Feel free to download, build and take a look as it progresses.
+Bmr is in active development: [Bmr-v0.0.1-alpha](https://github.com/chovy/bmr/releases/tag/0.0.1)
+
+Download, unzip and double-click on "Bmr" app.
+
+* [Linux-32](https://github.com/chovy/bmr/releases/download/0.0.1/Bmr-v0.0.1-alpha-linux32.tgz)
+* [Linux-64](https://github.com/chovy/bmr/releases/download/0.0.1/Bmr-v0.0.1-alpha-linux64.tgz)
+* [Mac](https://github.com/chovy/bmr/releases/download/0.0.1/Bmr-v0.0.1-alpha-mac.zip)
+* [Windows](https://github.com/chovy/bmr/releases/download/0.0.1/Bmr-v0.0.1-alpha-win.zip)
+
+Please help improve Bmr by filing any bugs, this is alpha software.
 
 ### Installation
 
-#### Bitmessage PyBitmessage (server)
+#### Bitmessage PyBitmessage (server - required)
 
 You must already have the Bitmessage [PyBitmessage](https://github.com/Bitmessage/PyBitmessage) server API running locally with api enabled (see the instructions for [installation](https://bitmessage.org/wiki/Compiling_instructions)).
 
@@ -38,11 +47,15 @@ If you want to run PyBitmessage in Daemon mode without the PyQT client starting,
 
 #### Bmr (client -- this app)
 
-##### Running from source
+#### Official release
 
-To run Bmr, you first need to [download node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
+Download the latests [Bmr releases](https://github.com/chovy/bmr/releases).
 
-Until I release an official package, you will need node.js installed on your system to run the 'npm install' command. You can download it from http://nodejs.org or install with [brew](http://brew.sh).
+##### Running from source (development)
+
+To run Bmr from source (to track development inbetween releases), you first need to [download node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
+
+You will need node.js installed on your system to run the 'npm install' command. You can download it from http://nodejs.org or install with [brew](http://brew.sh).
 
 To install Bmr, you need to clone the git repository:
 
@@ -50,13 +63,13 @@ To install Bmr, you need to clone the git repository:
     cd ./bmr/app
     npm install
 
-Once you download the `node-webkit` binary, just copy that into the `./bmr/app` directory and then double-click it to launch Bmr.
+Once you download the `node-webkit` binary, just copy it into the `./bmr/app` directory and then double-click it to launch Bmr.
 
 To update the code just type `git pull`.
 
 Bmr has been tested with MacOS 10.8.4, but these steps should work for Linux too.
 
-If anyone can get this to work on Windows, let me know the steps and I'll add them here. Once the app stabilizes and basic functionality is working I will build packages to download and install for each platform (linux, mac, windows).
+If anyone can get this to work on Windows, let me know the steps and I'll add them here.
 
 ### Tips
 
@@ -76,12 +89,14 @@ Join the "Bmr" channel:
     Passphrase: Bmr
     Address: BM-2DBdJhNWQAFmVw8Hjk4fL6Cs6dvUdr5Ftf
 
+On the settings page you can defined a optional proxy service to pass links through that appear in the message body.
+
 ### Securely using the Bitmessage API remotely
 
 It is insecure to use a remote Bitmessage API directly, as all XMLRPC API calls go over the web using http in cleartext.
 That means when your Inbox is downloaded, or when you send a message, the content goes out over the web in plain text (unencrypted).
 
-To protect against this, it is better to open an SSH tunnel to the host your PyBitmessage API/server is running on. You can forward a local port on your computer to a destination port (typically 8442) on the server (you only need to open up port 8444 in your firewall on the server to transmit to and from the Bitmessage peers, you do not need to open up port 8442 for the API, as the tunnel will connect locally to it on the server).
+To protect against this, it is better to *open an SSH tunnel to the host your PyBitmessage API/server is running on*. You can forward a local port on your computer to a destination port (typically 8442) on the server (you only need to open up port 8444 in your firewall on the server to transmit to and from the Bitmessage peers, you do not need to open up port 8442 for the API, as the tunnel will connect locally to it on the server).
 
  This command will forward port 9800 on your local computer to port 8442 on the server, using SSH as a tunnel (typically port 22) to your Bitmessage server host:
 
