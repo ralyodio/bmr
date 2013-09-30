@@ -255,7 +255,7 @@ app.create('inbox', {
     },
 
     destroy: function () {
-        c.log('app.login.destroy');
+        c.log('app.inbox.destroy');
 
         app.message.destroy();
         this.lastReceivedTime = null;

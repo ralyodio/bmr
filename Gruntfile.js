@@ -1,6 +1,5 @@
 module.exports = function(grunt) {
     //TODO: move ./app/node-webkit.app out of the directory before building
-    //TODO: create a ./src directory for building from.
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -81,6 +80,12 @@ module.exports = function(grunt) {
 
     // Default task(s).
     //grunt.registerTask('default', ['uglify']);
-    grunt.registerTask('default', ['nodewebkit', 'compress:mac', 'compress:linux32', 'compress:linux64', 'compress:win']);
+    grunt.registerTask('default', [
+        'nodewebkit'
+        , 'compress:mac'
+        , 'compress:linux32'
+        , 'compress:linux64'
+        , 'compress:win'
+    ]);
 
 };
