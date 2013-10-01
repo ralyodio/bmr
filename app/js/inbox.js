@@ -207,7 +207,7 @@ app.create('inbox', {
             , $row = $table.find('tbody tr[data-id=' + id + ']')
             , $openMsg = $row.next('.msg');
 
-        ui.stopSpin(spin);
+        if ( spin ) ui.stopSpin(spin);
         ui.ok(msg);
 
         //remove the open message from table
