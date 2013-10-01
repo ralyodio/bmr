@@ -273,7 +273,13 @@ _.extend(ui, {
 
         _.extend(defaults, opts);
 
+        $target.addClass('loading');
         return new Spinner(defaults).spin($target.get(0));
+    },
+
+    stopSpin: function(spin){
+        $(spin.el).parent().removeClass('loading');
+        spin.stop();
     },
 
     help: function(name){

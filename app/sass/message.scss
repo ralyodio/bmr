@@ -28,6 +28,15 @@
   }
 }
 
+tr.msg header nav.actions a {
+  display: inline-block;
+
+  &.loading {
+    color: #fff;
+    cursor: default;
+  }
+}
+
 #reply, #compose {
   label {
     min-width: 10%;

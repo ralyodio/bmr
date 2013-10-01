@@ -13,7 +13,7 @@
         {{/if}}
         <p data-address="{{msg.fromAddress}}" class="from">From: {{msg.fromAddress}}</p>
         <p data-address="{{msg.toAddress}}" class="to">To: {{msg.toAddress}}</p>
-        <nav>
+        <nav class="actions">
             {{#if isSentMessage}}
                 <!-- <a href="#" class="add-address">Add to address book</a> -->
             {{else}}

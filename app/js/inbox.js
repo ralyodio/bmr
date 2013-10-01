@@ -37,7 +37,13 @@ app.create('inbox', {
             //handle msg actions
             if ( $el.is('a.trash') ) {
                 c.log('trash msg');
-                api.moveToTrash(id, this.moveToTrash.bind(this));
+                (function() {
+                    var spin = ui.spin($el);
+
+                    api.moveToTrash(id, function(id, msg){
+                        this.moveToTrash(id, msg, spin);
+                    }.bind(this));
+                }.bind(this))();
             } else if ( $el.is('a.close') ) {
                 c.log('close msg');
                 app.message.hideMsg(id);
@@ -196,11 +202,12 @@ app.create('inbox', {
         ui.$pg.fadeIn();
     },
 
-    moveToTrash: function (id, msg) {
+    moveToTrash: function (id, msg, spin) {
         var $table = ui.$pg.find('table')
             , $row = $table.find('tbody tr[data-id=' + id + ']')
             , $openMsg = $row.next('.msg');
 
+        ui.stopSpin(spin);
         ui.ok(msg);
 
         //remove the open message from table

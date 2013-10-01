@@ -455,6 +455,12 @@ fieldset#create-address > div, fieldset#create-deterministic > div {
   .message img {
     max-width: 90%; }
 
+tr.msg header nav.actions a {
+  display: inline-block; }
+  tr.msg header nav.actions a.loading {
+    color: #fff;
+    cursor: default; }
+
 #reply label, #compose label {
   min-width: 10%; }
 #reply input[type=text], #compose input[type=text] {
