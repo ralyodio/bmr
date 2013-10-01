@@ -53,7 +53,7 @@ If you want to run PyBitmessage in Daemon mode without the PyQT client starting,
 
 ##### Official release
 
-Download the latest [Bmr release](https://github.com/chovy/bmr/releases) for your platform (Win, Linux, Mac).
+Download the latest [Bmr release](https://github.com/chovy/bmr/releases) for your platform (Windows, Linux, Mac).
 
 ##### Optionally running from source (development only)
 
@@ -100,7 +100,7 @@ On the settings page you can defined a optional proxy service to pass links thro
 It is insecure to use a remote Bitmessage API directly, as all XMLRPC API calls go over the web using http in cleartext.
 That means when your Inbox is downloaded, or when you send a message, the content goes out over the web in plain text (unencrypted).
 
-To protect against this, it is better to *open an SSH tunnel to the host your PyBitmessage API/server is running on*. You can forward a local port on your computer to a destination port (typically 8442) on the server (you only need to open up port 8444 in your firewall on the server to transmit to and from the Bitmessage peers, you do not need to open up port 8442 for the API, as the tunnel will connect locally to it on the server).
+To protect against this, it is better to **open an SSH tunnel to the host your PyBitmessage API/server is running on**. You can forward a local port on your computer to a destination port (typically 8442) on the server (you only need to open up port 8444 in your firewall on the server to transmit to and from the Bitmessage peers, you do not need to open up port 8442 for the API, as the tunnel will connect locally to it on the server).
 
  This command will forward port 9800 on your local computer to port 8442 on the server, using SSH as a tunnel (typically port 22) to your Bitmessage server host:
 
