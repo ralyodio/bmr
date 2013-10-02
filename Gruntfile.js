@@ -3,7 +3,9 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        release_name: 'Bmr-v0.0.1-alpha',
+        release_name: 'Bmr-v0.0.1-alpha2',
+        nw_dev_file: 'node-webkit.app',
+
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -13,9 +15,28 @@ module.exports = function(grunt) {
                 dest: 'build/<%= pkg.name %>.min.js'
             }
         },
+
         jshint: {
             all: ['Gruntfile.js', 'js/**/*.js']
         },
+
+        shell: {
+            move: {
+                command: 'mv ./app/<%= nw_dev_file %> ./tmp',
+                options: {
+                    stdout: true,
+                    stderr: true
+                }
+            },
+            moveback: {
+                command: 'mv ./tmp/<%= nw_dev_file %> ./app/',
+                options: {
+                    stdout: true,
+                    stderr: true
+                }
+            }
+        },
+
         nodewebkit: {
             options: {
                 version: '0.7.5',
@@ -77,11 +98,14 @@ module.exports = function(grunt) {
     //grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-node-webkit-builder');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-shell');
 
     // Default task(s).
     //grunt.registerTask('default', ['uglify']);
     grunt.registerTask('default', [
-        'nodewebkit'
+        'shell:move'
+        , 'nodewebkit'
+        , 'shell:moveback'
         , 'compress:mac'
         , 'compress:linux32'
         , 'compress:linux64'

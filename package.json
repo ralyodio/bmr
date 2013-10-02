@@ -7,6 +7,7 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-node-webkit-builder": "~0.1.6",
-    "grunt-contrib-compress": "~0.5.2"
+    "grunt-contrib-compress": "~0.5.2",
+    "grunt-shell": "~0.4.0"
   }
 }
