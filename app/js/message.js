@@ -70,7 +70,7 @@ app.create('message', {
         }
 
         function clean(html, whitelist) {
-            var tags = {'font': ['color'], 'strong': [], 'b': [], 'i': [], img: ['src'], ol: [], ul: [], li: [], h1: [], h2: [], h3: [], h4: [], h5: [], h6: [], code: [], blockquote: [], pre: [], table: ['border', 'cellpadding', 'cellspacing'], caption: [], tr: [], th: ['colspan', 'rowspan'], td: ['colspan', 'rowspan'], em: [], strong: [], sub: [], sup: [], p: [], br: [], audio: ['src', 'controls'] };
+            var tags = {'font': ['color'], 'b': [], 'i': [], img: ['src'], ol: [], ul: [], li: [], h1: [], h2: [], h3: [], h4: [], h5: [], h6: [], code: [], blockquote: [], pre: [], table: ['border', 'cellpadding', 'cellspacing'], caption: [], tr: [], th: ['colspan', 'rowspan'], td: ['colspan', 'rowspan'], em: [], strong: [], sub: [], sup: [], p: [], br: [], audio: ['src', 'controls'] };
 
             //<audio src="audio.mp3" controls></audio>
 
@@ -233,6 +233,35 @@ app.create('message', {
         $row.find('.message').addClass('minimize');
         $nav.find('.maximize').removeClass('hide');
         $nav.find('.minimize').addClass('hide');
+    },
+
+    nextMsg: function($row, id, isSentMessage){
+        var direction = 'next';
+
+        this.navigateMsg($row, id, isSentMessage, direction);
+    },
+
+    prevMsg: function($row, id, isSentMessage){
+        var direction = 'prev';
+
+        this.navigateMsg($row, id, isSentMessage, direction);
+    },
+
+    //navigate to previous and next messages
+    navigateMsg: function($row, id, isSentMessage, direction){
+        var $toOpen = direction == 'prev' ? $row.prev().prev() : $row.next();
+
+        if ( !$toOpen.length ) {
+            ui.err('No more messages');
+            return;
+        }
+
+        app.message.hideMsg(id, isSentMessage);
+        $toOpen.find('.subject').click();
+
+        $('html, body').animate({
+            scrollTop: $toOpen.offset().top
+        }, 400, 'easeOutQuad');
     },
 
     destroy: function(){

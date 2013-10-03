@@ -24,11 +24,9 @@
                 <a href="#" class="render-html">Show HTML</a>
             {{/unless}}
             <a href="#" class="reverse">Reverse thread</a>
+            <a href="#" class="prev-msg">Previous</a>
+            <a href="#" class="next-msg">Next</a>
         </nav>
     </header>
-    {{#if renderHtml}}
-        <section class="message">{{{msg.message}}}</section>
-    {{else}}
-        <section class="message">{{msg.message}}</section>
-    {{/if}}
+    <section class="message">{{#if renderHtml}}{{{msg.message}}}{{else}}{{msg.message}}{{/if}}</section>
 </div>

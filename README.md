@@ -136,6 +136,10 @@ Filter inbox using the meta filter ":unread":
 
 ![Filter](/screenshots/filter-unread.png)
 
+Search or quote highlighted text:
+
+![Message context menu](/screenshots/message-contextmenu.png)
+
 Optionally render HTML in messages:
 
 ![Render HTML](/screenshots/render-html.png)

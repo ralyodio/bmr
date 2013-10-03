@@ -44,6 +44,10 @@ app.create('sent', {
                 //ui.win($el.attr('href'));
             } else if ( $el.is('a.reverse') ) {
                 app.message.reverseThread(id, isSentMessage);
+            } else if ( $el.is('a.next-msg') ) {
+                app.message.nextMsg($row, id, isSentMessage);
+            } else if ( $el.is('a.prev-msg') ) {
+                app.message.prevMsg($row, id, isSentMessage);
             }
         }.bind(this));
     },

@@ -379,21 +379,16 @@ function program9(depth0,data) {
 
 function program11(depth0,data) {
   
-  var buffer = "", stack1, stack2;
-  buffer += "\n        <section class=\"message\">";
+  var stack1, stack2;
   stack2 = ((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1);
-  if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "</section>\n    ";
-  return buffer;
+  if(stack2 || stack2 === 0) { return stack2; }
+  else { return ''; }
   }
 
 function program13(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n        <section class=\"message\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</section>\n    ";
-  return buffer;
+  var stack1;
+  return escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
   }
 
   buffer += "<div class=\"message-container\">\n    <header>\n        <nav class=\"icons\">\n            <a href=\"#\" class=\"minimize\">Minimize</a>\n            <a href=\"#\" class=\"maximize hide\">Maximize</a>\n            <a href=\"#\" class=\"close\">Close</a>\n        </nav>\n        <h3 class=\"subject\">"
@@ -415,10 +410,10 @@ function program13(depth0,data) {
   buffer += "\n            <a href=\"#\" class=\"trash\">Trash</a>\n            ";
   stack2 = helpers.unless.call(depth0, depth0.renderHtml, {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n            <a href=\"#\" class=\"reverse\">Reverse thread</a>\n        </nav>\n    </header>\n    ";
+  buffer += "\n            <a href=\"#\" class=\"reverse\">Reverse thread</a>\n            <a href=\"#\" class=\"prev-msg\">Previous</a>\n            <a href=\"#\" class=\"next-msg\">Next</a>\n        </nav>\n    </header>\n    <section class=\"message\">";
   stack2 = helpers['if'].call(depth0, depth0.renderHtml, {hash:{},inverse:self.program(13, program13, data),fn:self.program(11, program11, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n</div>";
+  buffer += "</section>\n</div>";
   return buffer;
   });
 templates['modal'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -443,6 +438,15 @@ templates['reply'] = template(function (Handlebars,depth0,helpers,partials,data)
 helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
   var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
+function program1(depth0,data) {
+  
+  var buffer = "", stack1;
+  if (stack1 = helpers.quote) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.quote; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "&#13;&#10;&#13;&#10;";
+  return buffer;
+  }
 
   buffer += "<form id=\"reply\" method=\"post\">\n    <input type=\"hidden\" name=\"id\" value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.msgid)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -453,7 +457,10 @@ helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partial
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.fromAddress)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"></p>\n        <p><label for=\"reply-subject\">Subject</label> <input type=\"text\" name=\"subject\" id=\"reply-subject\" value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.subject)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></p>\n        <textarea name=\"message\" class=\"message\" id=\"reply-body\">&#13;&#10;&#13;&#10;------------------------------------------------------&#13;&#10;"
+    + "\"></p>\n        <textarea name=\"message\" class=\"message\" id=\"reply-body\">";
+  stack2 = helpers['if'].call(depth0, depth0.quote, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "&#13;&#10;&#13;&#10;------------------------------------------------------&#13;&#10;"
     + escapeExpression(((stack1 = ((stack1 = depth0.msg),stack1 == null || stack1 === false ? stack1 : stack1.message)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</textarea>\n    </fieldset>\n</form>";
   return buffer;

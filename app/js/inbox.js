@@ -25,7 +25,7 @@ app.create('inbox', {
         ui.$pg.find("#inbox-action").on('submit.inbox', this.actionItem.bind(this));
         ui.filter();
 
-        //handle click events on currently opened messages
+        //handle click events on currently opened message headers
         ui.$pg.find("table").on('click.inbox', 'tr.msg header', function (e) {
             e.preventDefault();
 
@@ -66,11 +66,81 @@ app.create('inbox', {
                 //ui.win($el.attr('href'));
             } else if ( $el.is('a.reverse') ) {
                 app.message.reverseThread(id, isSentMessage);
+            } else if ( $el.is('a.prev-msg') ) {
+                app.message.prevMsg($row, id);
+            } else if ( $el.is('a.next-msg') ) {
+                app.message.nextMsg($row, id);
             }
+        }.bind(this));
+
+
+        //clicks on message bodies
+        ui.$pg.find("table").on('click.inbox', 'tr.msg .message', function (e) {
+            e.preventDefault();
+
+            var $el = $(e.target) //clicked element
+                , isSentMessage = false
+                , $row = $(e.currentTarget).parents('tr.msg')
+                , id = $row.attr('data-msgid'); //msg.msgid
+
+            if ( $el.is('.address') ) {
+                (function(){
+                    var id = $el.attr('data-address');
+
+                    c.log('address', id);
+                    app.compose.init(id);
+                })();
+            }
+        }.bind(this));
+
+        ui.$pg.find("table").on('contextmenu.inbox', 'tr.msg .message', function (e) {
+            e.preventDefault();
+
+            var isSentMessage = false
+                , $row = $(e.currentTarget).parents('tr.msg')
+                , id = $row.attr('data-msgid'); //msg.msgid
+
+            var gui = require('nw.gui')
+                , menu = new gui.Menu();
+
+            var searchItem = new gui.MenuItem({
+                label: 'Search web...'
+                , click: function(e){
+                    var text = window.getSelection().toString()
+                        , q = encodeURIComponent(text.replace(/&amp;/g, "&"));
+
+                    //var url = 'https://encrypted.google.com/#q='+q;
+                    var url = 'https://ixquick.com/do/search?q='+q;
+
+                    ui.win(url);
+                }
+            });
+
+            var quoteItem = new gui.MenuItem({
+                label: 'Quote text in reply'
+                , click: function(e){
+                    var quote = window.getSelection().toString()
+                        , lines = quote.split('\n');
+
+                    //quote the lines
+                    lines = _.map(lines, function(ln){
+                       return '> ' + ln;
+                    });
+
+                    quote = lines.join('\n');
+
+                    this.showReply(id, quote);
+                }.bind(this)
+            });
+
+            menu.append(searchItem);
+            menu.append(quoteItem);
+            menu.popup(e.clientX, e.clientY);
+
         }.bind(this));
     },
 
-    showReply: function(id){
+    showReply: function(id, quote){
         //create empty base modal
         var modal = ui.modal.show('', {
             header: 'Reply to message',
@@ -78,6 +148,7 @@ app.create('inbox', {
         });
 
         api.getMessage(id, function(msg){
+            //generate addresses for menu
             api.listAddresses(function(identities){
                 //pre-select the first address in menu
                 var selectedId = identities[0].address;
@@ -100,13 +171,20 @@ app.create('inbox', {
 
                 ui.partial('from');
                 var form = ui.tpl('reply', {
-                    msg: msg
+                    quote: quote
+                    , msg: msg
                     , selectedId: selectedId
                     , identities: identities
                 });
 
                 //populate the modal
                 modal.$section.html(form);
+
+                //focus cursor just below the quote
+                if ( quote ) {
+                    modal.$section.find('textarea').get(0).setSelectionRange(quote.length+2, quote.length+2);
+                }
+
                 modal.resize();
                 modal.$section.find('textarea.message').focus();
                 modal.$section.find('textarea.message').on('click.ui.modal', ui.tabKey);
