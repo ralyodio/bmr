@@ -291,12 +291,8 @@ _.extend(ui, {
     win: function(url){
         var gui = require('nw.gui');
 
-        // Create a new window and get it
-        return gui.Window.open(url, {
-            position: 'center',
-            width: 800,
-            height: 600
-        });
+        //open url in default browser
+        return gui.Shell.openExternal(url);
     },
 
     tpl: function(name, data){
