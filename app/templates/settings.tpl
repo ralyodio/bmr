@@ -2,6 +2,35 @@
     <h1>Settings</h1>
     <form class="clearfix">
         <fieldset class="has-legend">
+            <legend>Notifications</legend>
+            <p>
+                <label>
+                    {{#if inbox_notification }}
+                        <input type="radio" name="inbox_notification" value="1" checked>
+                    {{else}}
+                        <input type="radio" name="inbox_notification" value="1">
+                    {{/if}}
+
+                    Play an audio notification when a new message arrives
+                </label>
+            </p>
+            <p>
+                <audio id="inbox-alert" src="/media/thunder.ogg" controls></audio>
+            </p>
+            <p>
+                <label>
+                    {{#if inbox_notification_none }}
+                        <input type="radio" name="inbox_notification" value="none" checked>
+                    {{else}}
+                        <input type="radio" name="inbox_notification" value="none">
+                    {{/if}}
+
+                    None - Don't play any sound when a new message arrives
+                </label>
+            </p>
+        </fieldset>
+
+        <fieldset class="has-legend">
             <legend>Link proxy</legend>
             <p>
                 <label>

@@ -19,6 +19,12 @@ app.create('settings', {
         settings.proxy_urls_webproxynet = settings.proxy_urls === 'webproxynet';
         settings.proxy_urls_none = settings.proxy_urls === 'none';
 
+        if ( settings.inbox_notification !== 'none' ) {
+            settings.inbox_notification = settings.inbox_notification === "1";
+        }
+
+        settings.inbox_notification_none = settings.inbox_notification === 'none';
+
         ui.$header.removeClass('hide');
         ui.$nav.removeClass('hide');
         ui.$header.find('a').removeClass('active');
@@ -33,6 +39,7 @@ app.create('settings', {
             , data = {};
 
         data.proxy_urls = $form.find('input[name=proxy_urls]:checked').val();
+        data.inbox_notification = $form.find('input[name=inbox_notification]:checked').val();
 
         ui.settings(data);
         ui.ok('Settings updated');

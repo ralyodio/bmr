@@ -23,4 +23,5 @@
         </thead>
         <tbody></tbody>
     </table>
+    <audio id="inbox-alert" src="/media/thunder.ogg"></audio>
 </section>

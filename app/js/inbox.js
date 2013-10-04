@@ -239,6 +239,11 @@ app.create('inbox', {
 
         if ( msgs.length ) {
 
+            //play notification
+            if ( ui.settings('inbox_notification') === "1" ) {
+                ui.$pg.find('#inbox-alert').get(0).play();
+            }
+
             $tbody.prepend(ui.tpl('inboxMessages', { messages: this.getMessagesData(msgs) }));
             $total.text($tbody.find('tr').length);
         }
