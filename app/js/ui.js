@@ -202,7 +202,7 @@ _.extend(ui, {
                 } else if ( /^:from ./.test(val) ) {
                     //TODO data-from should be replaced with data-address everywhere
                     toMatch = val.substr(val.indexOf(' ')+1, val.length).toLowerCase();
-                    metaField = $row.find('.from').attr('data-from').toLowerCase();
+                    metaField = $row.find('.from').attr('data-address').toLowerCase();
                     re = new RegExp(toMatch);
 
                     hasMatch = re.test(metaField);
