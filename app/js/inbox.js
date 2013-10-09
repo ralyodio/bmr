@@ -133,8 +133,21 @@ app.create('inbox', {
                 }.bind(this)
             });
 
+            var translateItem = new gui.MenuItem({
+                label: 'Translate...'
+                , click: function(e){
+                    var text = window.getSelection().toString()
+                        , q = encodeURIComponent(text.replace(/&amp;/g, "&"));
+
+                    var url = 'https://translate.google.com/#auto/en/'+q;
+
+                    ui.win(url);
+                }
+            });
+
             menu.append(searchItem);
             menu.append(quoteItem);
+            menu.append(translateItem);
             menu.popup(e.clientX, e.clientY);
 
         }.bind(this));
