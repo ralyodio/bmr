@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        release_name: 'Bmr-v0.0.1-alpha2',
+        release_name: 'Bmr-v0.0.2',
         nw_dev_file: 'node-webkit.app',
 
         uglify: {

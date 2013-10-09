@@ -1,7 +1,7 @@
 {
   "name": "bmr",
   "description": "Bmr - the Bitmessage reader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "app://bmr/index.html#inbox",
   "author": "chovy",
   "dependencies": {
