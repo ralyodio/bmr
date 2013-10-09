@@ -19,10 +19,9 @@ app.create('settings', {
         settings.proxy_urls_webproxynet = settings.proxy_urls === 'webproxynet';
         settings.proxy_urls_none = settings.proxy_urls === 'none';
 
-        if ( settings.inbox_notification !== 'none' ) {
-            settings.inbox_notification = settings.inbox_notification === "1";
-        }
-
+        //inbox notification sound
+        settings.inbox_notification_flyby = settings.inbox_notification === 'flyby';
+        settings.inbox_notification_thunder = settings.inbox_notification === 'thunder';
         settings.inbox_notification_none = settings.inbox_notification === 'none';
 
         ui.$header.removeClass('hide');

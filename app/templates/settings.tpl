@@ -5,17 +5,31 @@
             <legend>Notifications</legend>
             <p>
                 <label>
-                    {{#if inbox_notification }}
-                        <input type="radio" name="inbox_notification" value="1" checked>
+                    {{#if inbox_notification_thunder }}
+                        <input type="radio" name="inbox_notification" value="thunder" checked>
                     {{else}}
-                        <input type="radio" name="inbox_notification" value="1">
+                        <input type="radio" name="inbox_notification" value="thunder">
                     {{/if}}
 
-                    Play an audio notification when a new message arrives
+                    Play an audio notification <strong>Thunder</strong> when a new message arrives
                 </label>
             </p>
             <p>
                 <audio id="inbox-alert" src="/media/thunder.ogg" controls></audio>
+            </p>
+            <p>
+                <label>
+                    {{#if inbox_notification_flyby }}
+                        <input type="radio" name="inbox_notification" value="flyby" checked>
+                    {{else}}
+                        <input type="radio" name="inbox_notification" value="flyby">
+                    {{/if}}
+
+                    Play an audio notification <strong>Fly By</strong> when a new message arrives
+                </label>
+            </p>
+            <p>
+                <audio id="inbox-alert" src="/media/flyby.ogg" controls></audio>
             </p>
             <p>
                 <label>

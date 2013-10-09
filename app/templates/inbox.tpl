@@ -23,5 +23,7 @@
         </thead>
         <tbody></tbody>
     </table>
-    <audio id="inbox-alert" src="/media/thunder.ogg"></audio>
+    {{#if inbox_notification }}
+        <audio id="inbox-alert" src="/media/{{inbox_notification}}.ogg"></audio>
+    {{/if}}
 </section>

@@ -7,8 +7,13 @@ app.create('inbox', {
         ui.init(this.ns);
         c.log('app.inbox.init');
 
+        var inbox_notification = ui.settings('inbox_notification');
+        inbox_notification = !inbox_notification || inbox_notification === 'none' ? false : inbox_notification
+
         ui.partial('filter');
-        ui.$pg = $(ui.tpl('inbox', {}));
+        ui.$pg = $(ui.tpl('inbox', {
+            inbox_notification: inbox_notification
+        }));
         ui.$header.removeClass('hide');
         ui.$nav.removeClass('hide');
         ui.$header.find('a.inbox').addClass('active').siblings().removeClass('active');
@@ -232,7 +237,8 @@ app.create('inbox', {
     showMessages: function(msgs){
         var $table = ui.$pg.find('table')
             , $total = ui.$header.find('a.inbox .total')
-            , $tbody = $table.find("tbody");
+            , $tbody = $table.find("tbody")
+            , inbox_notification = ui.settings('inbox_notification');
 
         msgs = ui.sortByDateAttr(msgs, 'receivedTime');
 
@@ -253,7 +259,7 @@ app.create('inbox', {
         if ( msgs.length ) {
 
             //play notification
-            if ( ui.settings('inbox_notification') === "1" ) {
+            if ( inbox_notification && inbox_notification !== "none" ) {
                 ui.$pg.find('#inbox-alert').get(0).play();
             }
 
