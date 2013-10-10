@@ -108,7 +108,7 @@ To protect against this, it is better to **open an SSH tunnel to the host your P
 
 When you login to Bmr locally, just use `localhost` as the hostname and port `8442`. This will encrypt all communication to the API using SSH before it leaves your computer. You can use whatever port you want locally (the first port defined above).
 
-**For windows**: use [Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) and setup an SSH tunnel for Source port `8442` and Destination `localhost:8442` under `Tunnels`.
+**For windows**: use [Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) and setup an SSH tunnel for Source port `8442` and Destination `localhost:8442` under `Tunnels`. Then connect normally to your host via SSH `Session`
 
 By doing this, you are effectively making the API calls directly on the server over SSH. So they are not going out over the web using http to the API.
 
