@@ -102,11 +102,13 @@ That means when your Inbox is downloaded, or when you send a message, the conten
 
 To protect against this, it is better to **open an SSH tunnel to the host your PyBitmessage API/server is running on**. You can forward a local port on your computer to a destination port (typically 8442) on the server (you only need to open up port 8444 in your firewall on the server to transmit to and from the Bitmessage peers, you do not need to open up port 8442 for the API, as the tunnel will connect locally to it on the server).
 
- This command will forward port 9800 on your local computer to port 8442 on the server, using SSH as a tunnel (typically port 22) to your Bitmessage server host:
+ This command will forward port 8422 on your local computer to port 8442 on the server, using SSH as a tunnel (typically port 22) to your Bitmessage server host:
 
-    ssh -N -L 9800:localhost:8442 <remote-bitmessage-server-hostname>
+    ssh -N -L 8442:localhost:8442 <remote-bitmessage-server-hostname>
 
-When you login to Bmr locally, just use `localhost` as the hostname and port `9800`. This will encrypt all communication to the API using SSH before it leaves your computer. You can use whatever port you want locally. `9800` is just an example.
+When you login to Bmr locally, just use `localhost` as the hostname and port `8442`. This will encrypt all communication to the API using SSH before it leaves your computer. You can use whatever port you want locally (the first port defined above).
+
+**For windows**: use [Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) and setup an SSH tunnel for Source port `8442` and Destination `localhost:8442` under `Tunnels`.
 
 By doing this, you are effectively making the API calls directly on the server over SSH. So they are not going out over the web using http to the API.
 
