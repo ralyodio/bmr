@@ -306,8 +306,18 @@ _.extend(ui, {
     },
 
     textSelect: function(){
-        //TODO copy to clipboard using nw-win
-        //http://jsfiddle.net/qY7gE/
+        return document.getSelection();
+    },
+
+    clipBoard: function(text){
+        var gui = require('nw.gui')
+            , clipboard = gui.Clipboard.get();
+
+        if ( !text ) {
+            return clipboard.get('text');
+        }
+
+        clipboard.set(text, 'text');
     },
 
     tabKey: function(e){

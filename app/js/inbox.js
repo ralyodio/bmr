@@ -285,7 +285,7 @@ app.create('inbox', {
                 , id: item.msgid
                 , class: item.read ? '' : 'unread'
                 , bytes: app.bytes(item.message)
-                , size: app.size(item.message)
+                , size: app.size(app.bytes(item.message))
             });
         });
 

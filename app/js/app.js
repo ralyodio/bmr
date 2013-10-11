@@ -37,10 +37,23 @@ _.extend(app, {
         _.extend(app[namespace], base);
     },
 
-    size: function(string) {
+    //@deprecated
+    sizeOld: function(string) {
         var fs = require('filesize');
 
         return fs(this.bytes(string), true);
+    },
+
+    size: function(bytes){
+        var i = -1
+            , units = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
+
+        do {
+            bytes = bytes / 1024;
+            i++;
+        } while (bytes > 1024);
+
+        return Math.max(bytes, 0.1).toFixed(1) + units[i];
     },
 
     bytes: function(string){
