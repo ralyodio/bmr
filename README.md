@@ -100,7 +100,7 @@ You can also hold the "cmd" (mac), "ctrl" (win/linux) key and click the "select 
 #### Join a "chan" or DML in Bmr:
 
  1. click on `identities` tab
- 2. `create deterministic address` with channel name (ie: password) as the `passphrase`
+ 2. `create deterministic address` with channel name as the `passphrase`
  3. `subscribe` to this address (copy from bottom of `identities` page) giving it a label (usually the passphrase).
 
 The API doesn't support joining a channel yet. Its on my todo list to write a function that will do the above steps for you.
