@@ -58,7 +58,7 @@ If you want to run PyBitmessage in Daemon mode without the PyQT client starting,
 
 Download the latest [Bmr release](https://github.com/chovy/bmr/releases) for your platform (Windows, Linux, Mac).
 
-##### Optionally running from source (development only)
+##### Optionally running from source (developers only)
 
 To run Bmr from source (to track development inbetween releases), you first need to [download node-webkit](https://github.com/rogerwang/node-webkit#downloads) on your system.
 
