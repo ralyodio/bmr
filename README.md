@@ -9,14 +9,14 @@ The goal of Bmr is to provide a better Bitmessage user experience than the defau
 
 ### Official Releases
 
-Bmr is in active development: [Bmr-v0.0.2](https://github.com/chovy/bmr/releases/tag/0.0.2) is the current release version.
+Bmr is in active development: [Bmr-v0.0.3](https://github.com/chovy/bmr/releases/tag/0.0.3) is the current release version.
 
 Download, unzip and double-click on "Bmr" app.
 
-* [Linux-32](https://github.com/chovy/bmr/releases/download/0.0.2/Bmr-v0.0.2-linux32.tgz)
-* [Linux-64](https://github.com/chovy/bmr/releases/download/0.0.2/Bmr-v0.0.2-linux64.tgz)
-* [Mac](https://github.com/chovy/bmr/releases/download/0.0.2/Bmr-v0.0.2-mac.zip)
-* [Windows](https://github.com/chovy/bmr/releases/download/0.0.2/Bmr-v0.0.2-win.zip)
+* [Linux-32](https://github.com/chovy/bmr/releases/download/0.0.3/Bmr-v0.0.3-linux32.tgz)
+* [Linux-64](https://github.com/chovy/bmr/releases/download/0.0.3/Bmr-v0.0.3-linux64.tgz)
+* [Mac](https://github.com/chovy/bmr/releases/download/0.0.3/Bmr-v0.0.3-mac.zip)
+* [Windows](https://github.com/chovy/bmr/releases/download/0.0.3/Bmr-v0.0.3-win.zip)
 
 It is advised you **always use an SSH tunnel to your Bitmessage server when running Bmr remotely** (see security section below).
 
