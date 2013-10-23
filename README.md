@@ -18,7 +18,10 @@ Download, unzip and double-click on "Bmr" app.
 
 It is advised you **always use an SSH tunnel to your Bitmessage server when running Bmr remotely** (see security section below).
 
-Please help improve Bmr by filing bugs, as this is alpha software.
+Please help improve Bmr by filing bugs or sending in feature requests to the Github issue tracker. You can also ask in the 'Bmr' support channel:
+
+    Passphrase: Bmr
+    Address: BM-2cXEHofo7LieKNGNmAPypDUej9BRQvuFYS
 
 ### Installation
 
@@ -112,7 +115,7 @@ Right click on any message body to get more choices:
 
 #### Settings
 
-On the settings page you can defined a optional proxy service to pass links through that appear in the message body next to links `[proxy]`.
+On the settings page you can define an optional proxy service to pass links through that appear in the message body next to links `[proxy]`.
 
 You can also choose an audio file to play when a message arrives in your Inbox.
 
