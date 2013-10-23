@@ -18,7 +18,7 @@ Download, unzip and double-click on "Bmr" app.
 
 It is advised you **always use an SSH tunnel to your Bitmessage server when running Bmr remotely** (see security section below).
 
-Please help improve Bmr by filing bugs or sending in feature requests to the Github issue tracker. You can also ask in the 'Bmr' support channel:
+Please help improve Bmr by filing bugs or sending in feature requests to the Github issue tracker. You can also ask in the Bmr support channel:
 
     Passphrase: Bmr
     Address: BM-2cXEHofo7LieKNGNmAPypDUej9BRQvuFYS
@@ -103,7 +103,7 @@ You can also hold the "cmd" (mac), "ctrl" (win/linux) key and click the "select 
  2. `create deterministic address` with channel name as the `passphrase`
  3. `subscribe` to this address (copy from bottom of `identities` page) giving it a label (usually the passphrase).
 
-The API doesn't support joining a channel yet. Its on my todo list to write a function that will do the above steps for you.
+The API doesn't support joining a channel yet. Its on the todo list to write a function that will do the above steps for you.
 
 #### Context menus in messages
 
@@ -119,15 +119,14 @@ On the settings page you can define an optional proxy service to pass links thro
 
 You can also choose an audio file to play when a message arrives in your Inbox.
 
-### More info and support channel
+### Discussion and support channel
 
-Join the "Bmr" channel:
+Join the Bmr channel:
 
     Passphrase: Bmr
     Address: BM-2cXEHofo7LieKNGNmAPypDUej9BRQvuFYS
 
-
-### Securely using the Bitmessage API remotely
+### A note about security: using the Bitmessage API remotely
 
 It is insecure to use a remote Bitmessage API directly, as all XMLRPC API calls go over the web using http in cleartext.
 That means when your Inbox is downloaded, or when you send a message, the content goes out over the web in plain text (unencrypted).
