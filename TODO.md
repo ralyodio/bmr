@@ -1,6 +1,6 @@
 ## Todo list
 
-These are the features currently being worked on:
+These are the features currently planned for develoment:
 
 * add "join channel" functionality to automate the process of creating a deterministic address and subscribing to it.
 * save all known addresses and their labels in localStorage so they can be autosuggested and referenced in UI
