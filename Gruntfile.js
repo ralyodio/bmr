@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     //TODO: move ./app/node-webkit.app out of the directory before building
     // Project configuration.
     grunt.initConfig({
@@ -19,7 +19,17 @@ module.exports = function(grunt) {
         jshint: {
             all: ['Gruntfile.js', 'js/**/*.js']
         },
-
+        sass: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: './app/sass',
+                    src: ['*.scss'],
+                    dest: './app/css',
+                    ext: '.css'
+                }]
+            }
+        },
         shell: {
             move: {
                 command: 'mv ./app/<%= nw_dev_file %> ./tmp',
@@ -34,6 +44,21 @@ module.exports = function(grunt) {
                     stdout: true,
                     stderr: true
                 }
+            },
+            handlebars: {
+                command: 'handlebars -e tpl ./app/templates -f ./app/js/templates.js'
+            }
+        },
+
+        watch: {
+            css: {
+                files: './app/sass/**/*.scss',
+                tasks: ['sass']
+            },
+
+            templates: {
+                files: './app/templates/**/*.tpl',
+                tasks: ['shell:handlebars']
             }
         },
 
@@ -57,7 +82,12 @@ module.exports = function(grunt) {
                     archive: 'dist/<%= release_name %>-mac.zip'
                 },
                 files: [
-                    { expand: true, cwd: 'build/releases/bmr/mac/', src: ['**/*'], dest: '<%= release_name %>-mac' },
+                    {
+                        expand: true,
+                        cwd: 'build/releases/bmr/mac/',
+                        src: ['**/*'],
+                        dest: '<%= release_name %>-mac'
+                    }
                 ]
             },
 
@@ -67,7 +97,12 @@ module.exports = function(grunt) {
                     archive: 'dist/<%= release_name %>-linux32.tgz'
                 },
                 files: [
-                    { expand: true, cwd: 'build/releases/bmr/linux32/', src: ['**/*'], dest: '<%= release_name %>-linux32' },
+                    {
+                        expand: true,
+                        cwd: 'build/releases/bmr/linux32/',
+                        src: ['**/*'],
+                        dest: '<%= release_name %>-linux32'
+                    }
                 ]
             },
 
@@ -77,7 +112,12 @@ module.exports = function(grunt) {
                     archive: 'dist/<%= release_name %>-linux64.tgz'
                 },
                 files: [
-                    { expand: true, cwd: 'build/releases/bmr/linux64/', src: ['**/*'], dest: '<%= release_name %>-linux64' },
+                    {
+                        expand: true,
+                        cwd: 'build/releases/bmr/linux64/',
+                        src: ['**/*'],
+                        dest: '<%= release_name %>-linux64'
+                    }
                 ]
             },
 
@@ -87,7 +127,12 @@ module.exports = function(grunt) {
                     archive: 'dist/<%= release_name %>-win.zip'
                 },
                 files: [
-                    { expand: true, cwd: 'build/releases/bmr/win/', src: ['**/*'], dest: '<%= release_name %>-win' },
+                    {
+                        expand: true,
+                        cwd: 'build/releases/bmr/win/',
+                        src: ['**/*'],
+                        dest: '<%= release_name %>-win'
+                    }
                 ]
             }
         }
@@ -99,11 +144,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-node-webkit-builder');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
     //grunt.registerTask('default', ['uglify']);
     grunt.registerTask('default', [
         'shell:move'
+        , 'shell:handlebars'
+        , 'sass'
         , 'nodewebkit'
         , 'shell:moveback'
         , 'compress:mac'

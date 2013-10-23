@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+@mixin table-address {
+  margin-top: -4px;
+  display: block;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

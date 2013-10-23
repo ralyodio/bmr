@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partial
   var buffer = "", stack1, self=this, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<form id=\"compose\" method=\"post\">\n    <fieldset>\n        <p>";
+  buffer += "<form id=\"compose\" method=\"post\" class=\"foo\">\n    <fieldset>\n        <p>";
   stack1 = self.invokePartial(partials.from, 'from', depth0, helpers, partials, data);
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</p>\n        <p><label for=\"compose-to\">To</label> <input type=\"text\" name=\"to\" id=\"compose-to\" value=\"";

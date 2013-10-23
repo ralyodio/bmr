@@ -14,15 +14,17 @@ a.proxy {
 nav a {
   padding: 3px 7px; }
 
-nav.tabs a.active {
-  background: #eef;
-  border: 1px solid #ccf;
-  border-radius: 3px; }
+nav.tabs {
+  -webkit-backface-visibility: hidden; }
+  nav.tabs a.active {
+    background: #eef;
+    border: 1px solid #ccf;
+    border-radius: 3px; }
 
 header nav:nth-child(2) a {
   padding: 0; }
 
-nav.secondary {
+nav.global {
   background: #eef;
   border: 1px solid #ccf;
   border-radius: 0 0 0 3px;
@@ -30,7 +32,7 @@ nav.secondary {
   top: 0;
   right: 0;
   padding: 3px 7px; }
-  nav.secondary a {
+  nav.global a {
     margin-right: 0; }
 
 a[class]:before {
@@ -39,12 +41,18 @@ a[class]:before {
 a.refresh:before {
   content: '↻'; }
 
-a.inbox:before {
-  content: '⇧';
-  display: inline-block;
-  position: relative;
-  -webkit-transform: rotate(180deg);
-  margin-left: 5px; }
+a.inbox {
+  -webkit-backface-visibility: hidden; }
+  a.inbox:before {
+    content: '⇧';
+    display: inline-block;
+    position: relative;
+    -webkit-transform: rotate(180deg);
+    margin-left: 5px; }
+  a.inbox.anim:before {
+    -webkit-backface-visibility: hidden;
+    transition: -webkit-transform 1s;
+    -webkit-transform: rotate(540deg); }
 
 a.contacts:before {
   content: '☎';

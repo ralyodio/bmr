@@ -5,3 +5,6 @@ node-webkit.app
 atlassian-ide-plugin.xml
 build
 dist
+.sass-cache
+app/css
+app/js/templates.js

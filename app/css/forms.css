@@ -28,7 +28,8 @@ fieldset {
   position: relative;
   padding: 0 15px; }
   fieldset.has-legend {
-    padding: 15px 30px; }
+    padding: 15px 30px;
+    margin-bottom: 30px; }
 
 legend {
   line-height: 20px;

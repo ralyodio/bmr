@@ -76,6 +76,19 @@ Once you download the `node-webkit` binary, just copy it into the `./bmr/app` di
 
 To update the code just type `git pull`.
 
+##### Building the app
+
+If you are running from source, you will need to build the app. Specifically you will need to compile the CSS and Handlebars templates. First, `cd ./bmr`
+
+    grunt sass
+    grunt shell:handlebars
+
+If you are developing and want to automatically compile the CSS and templates when you modify files, you can use the grunt watch task:
+
+    grunt watch
+
+Whenever you modify .sass files or .tpl files, the grunt task will precompile the CSS and templates.js files automatically.
+
 Bmr has been tested with MacOS 10.8.4, but these steps should work for Linux too.
 
 If anyone can get this to work on Windows, let me know the steps and I'll add them here.
