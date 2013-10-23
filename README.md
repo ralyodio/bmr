@@ -75,7 +75,11 @@ Bmr has been tested with MacOS 10.8.4, but these steps should work for Linux too
 
 If anyone can get this to work on Windows, let me know the steps and I'll add them here.
 
-### Tips
+### Tips and Tricks
+
+Below is a list of some of the hidden features in Bmr.
+
+#### Meta filters
 
 In the search filter fields on Inbox and Sent box you can type the following meta filters to search specific fields:
 
@@ -85,15 +89,40 @@ In the search filter fields on Inbox and Sent box you can type the following met
     :from <bm-address-partial>
     <subject-partial>
 
+#### Selecting messages in Inbox
+
 On tables, you can multi select ranges of items by holding the "shift" key, then checking another box a few rows down.
 You can also hold the "cmd" (mac), "ctrl" (win/linux) key and click the "select all" checkbox to invert the selection.
+
+#### Join a "chan" or DML in Bmr:
+
+ 1. click on `identities` tab
+ 2. `create deterministic address` with channel name (ie: password) as the `passphrase`
+ 3. `subscribe` to this address (copy from bottom of `identities` page) giving it a label (usually the passphrase).
+
+The API doesn't support joining a channel yet. Its on my todo list to write a function that will do the above steps for you.
+
+#### Context menus in messages
+
+Right click on any message body to get more choices:
+
+* quote selected text in reply
+* search Google for selected text
+* translate selected text using Google translate
+
+#### Settings
+
+On the settings page you can defined a optional proxy service to pass links through that appear in the message body next to links `[proxy]`.
+
+You can also choose an audio file to play when a message arrives in your Inbox.
+
+### More info and support channel
 
 Join the "Bmr" channel:
 
     Passphrase: Bmr
     Address: BM-2cXEHofo7LieKNGNmAPypDUej9BRQvuFYS
 
-On the settings page you can defined a optional proxy service to pass links through that appear in the message body.
 
 ### Securely using the Bitmessage API remotely
 
