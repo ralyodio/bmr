@@ -5,6 +5,8 @@ Bmr is a Bitmessage client written in [node.js](http://nodejs.org) using the [no
 
 Bmr is available for Linux, Mac and Windows desktops.
 
+The goal of Bmr is to provide a better Bitmessage user experience than the default client.
+
 ### Official Releases
 
 Bmr is in active development: [Bmr-v0.0.2](https://github.com/chovy/bmr/releases/tag/0.0.2) is the current release version.
