@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        release_name: 'Bmr-v0.0.3',
+        release_name: 'Bmr-v0.0.4',
         nw_dev_file: 'node-webkit.app',
 
         uglify: {
@@ -64,7 +64,7 @@ module.exports = function (grunt) {
 
         nodewebkit: {
             options: {
-                version: '0.7.5',
+                version: '0.8.0',
                 build_dir: './build', // Where the build version of my node-webkit app is saved
                 mac: true,
                 win: true,
