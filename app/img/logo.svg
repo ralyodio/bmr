@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1786px" height="514px" viewBox="0 0 1786 514" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.4 (8053) - http://www.bohemiancoding.com/sketch -->
+    <title>logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="logo" sketch:type="MSLayerGroup" transform="translate(-24.000000, 0.000000)">
+            <path d="M248,0 L406.391919,65.608081 L472,224 L406.391919,382.391919 L248,448 L89.608081,382.391919 L24,224 L89.608081,65.608081 L248,0 Z M248,36 L380.936075,91.0639251 L436,224 L380.936075,356.936075 L248,412 L115.063925,356.936075 L60,224 L115.063925,91.0639251 L248,36 Z" id="Oval-2" fill="#D8D8D8" sketch:type="MSShapeGroup"></path>
+            <polygon id="Polygon-1" fill="#D8D8D8" sketch:type="MSShapeGroup" points="246.5 113 388.27491 171.72509 447 313.5 388.27491 455.27491 246.5 514 104.72509 455.27491 46 313.5 104.72509 171.72509 "></polygon>
+            <path d="M309.07895,171.92105 L246.5,146 L183.92105,171.92105 L246.5,190.25 L309.07895,171.92105 Z M388.07895,250.92105 L414,313.5 L388.07895,376.07895 L369.75,313.5 L388.07895,250.92105 Z M309.07895,455.07895 L246.5,481 L183.92105,455.07895 L246.5,436.75 L309.07895,455.07895 Z M104.92105,376.07895 L79,313.5 L104.92105,250.92105 L123.25,313.5 L104.92105,376.07895 Z" id="Polygon-2" fill="#5D5D5D" sketch:type="MSShapeGroup"></path>
+            <path d="M264.672727,300.227569 C275.613376,294.064055 283,282.354523 283,268.923423 C283,249.083465 266.882251,233 247,233 C227.117749,233 211,249.083465 211,268.923423 C211,282.354523 218.386624,294.064055 229.327273,300.227569 L229.327273,361.018018 L229.339169,361.018018 C229.683494,370.455035 237.458758,378 247,378 C256.541242,378 264.316506,370.455035 264.660831,361.018018 L264.672727,361.018018 L264.672727,300.227569 L264.672727,300.227569 Z" id="key-hole" fill="#5D5D5D" sketch:type="MSShapeGroup"></path>
+            <text id="tagline" fill-opacity="0.48" fill="#5D5D5D" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="117" font-weight="420">
+                <tspan x="558" y="426" fill="#D8D8D8">The Bitmessage reader</tspan>
+            </text>
+            <text id="Bmr" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="227" font-weight="420" fill="#5D5D5D">
+                <tspan x="558" y="287">Bmr</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
