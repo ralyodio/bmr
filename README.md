@@ -192,3 +192,7 @@ Search or quote highlighted text:
 Optionally render HTML in messages:
 
 ![Render HTML](/screenshots/render-html.png)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/chovy/bmr/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
